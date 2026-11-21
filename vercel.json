@@ -9,17 +9,17 @@
   "redirects": [
     {
       "source": "/wissen/online-personal-trainer-vs-studio/:path*/",
-      "destination": "/#artikel-online-personal-trainer-vs-studio",
+      "destination": "/#wissen",
       "permanent": true
     },
     {
       "source": "/wissen/muskelaufbau-fuer-berufstaetige/:path*/",
-      "destination": "/#artikel-muskelaufbau-fuer-berufstaetige",
+      "destination": "/#wissen",
       "permanent": true
     },
     {
       "source": "/wissen/fettverlust-ohne-muskelverlust/:path*/",
-      "destination": "/#artikel-fettverlust-ohne-muskelverlust",
+      "destination": "/#wissen",
       "permanent": true
     },
     {
