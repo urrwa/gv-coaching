@@ -74,7 +74,7 @@
       if (mode === "ok") {
         title = "Danke – deine Nachricht ist angekommen.";
         text = `Du bekommst innerhalb weniger Werktage eine persönliche Antwort an <strong>${esc(d.email)}</strong>. Prüfe bitte auch deinen Spam-Ordner.`;
-        actions = `<a class="btn btn--ghost" href="#wissen"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">In der Zwischenzeit: Knowledge Hub</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>`;
+        actions = `<a class="btn btn--ghost" href="#faq"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Antworten auf häufige Fragen</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>`;
       } else if (mode === "mailto") {
         title = "Fast fertig – dein E-Mail-Programm übernimmt.";
         text = `Es wurde ein E-Mail-Entwurf mit deiner Nachricht geöffnet. Erst wenn du ihn dort abschickst, ist die Nachricht unterwegs. Falls sich nichts geöffnet hat, kopiere den Text unten und sende ihn an <strong>${email}</strong>.`;
@@ -82,9 +82,9 @@
         actions = `<button type="button" class="btn btn--outline btn--sm" data-kt-copy><span class="btn__label">Nachricht kopieren</span></button><button type="button" class="link-underline small muted" data-kt-retry>Zurück zum Formular</button>`;
       } else if (mode === "setup") {
         warn = true;
-        title = "Danke für deine Nachricht.";
-        text = "Die Übermittlung über diese Website ist noch nicht eingerichtet – deine Nachricht wurde deshalb <strong>noch nicht gesendet</strong>. Du kannst den Text unten kopieren und auf anderem Weg schicken.";
-        extra = `<div class="kt-result__setup"><strong>Hinweis für den Website-Betreiber:</strong> Trage in <code>assets/js/config.js</code> entweder <code>formEndpoint</code> (JSON-Webhook / Formular-Dienst / CRM) oder <code>contactEmail</code> ein. Bis dahin kann das Kontaktformular keine Nachrichten übermitteln.</div><textarea class="kt-result__raw" readonly aria-label="Deine Nachricht als Text">${esc(raw)}</textarea>`;
+        title = "Noch nicht gesendet.";
+        text = "Die Online-Übermittlung ist momentan nicht verfügbar. Deine Nachricht bleibt erhalten; du kannst sie unten kopieren oder zum Formular zurückgehen.";
+        extra = `<textarea class="kt-result__raw" readonly aria-label="Deine Nachricht als Text">${esc(raw)}</textarea>`;
         actions = `<button type="button" class="btn btn--outline btn--sm" data-kt-copy><span class="btn__label">Nachricht kopieren</span></button><button type="button" class="link-underline small muted" data-kt-retry>Zurück zum Formular</button>`;
       } else {
         warn = true;
@@ -112,25 +112,32 @@
       result.innerHTML = resultHTML(mode, d);
       swap(form, result, () => {
         result.focus({ preventScroll: true });
+        if (window.PM && PM.scrollTo) PM.scrollTo(result, { offset: -110, duration: .45 });
         const copy = result.querySelector("[data-kt-copy]");
-        if (copy) copy.addEventListener("click", () => {
+        if (copy) copy.addEventListener("click", async () => {
           const ta = result.querySelector(".kt-result__raw"); if (!ta) return;
           ta.select();
-          const ok = () => { copy.querySelector(".btn__label").textContent = "Kopiert"; };
-          try { if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(ok, () => { document.execCommand("copy"); ok(); }); else { document.execCommand("copy"); ok(); } } catch (e) {}
+          try { await navigator.clipboard.writeText(ta.value); }
+          catch (e) { ta.select(); if (!document.execCommand("copy")) return; }
+          copy.querySelector(".btn__label").textContent = "Kopiert";
         });
         const retry = result.querySelector("[data-kt-retry]");
         if (retry) retry.addEventListener("click", () => {
           setBusy(false);
-          swap(result, form, () => { result.innerHTML = ""; $("message").focus({ preventScroll: true }); });
+          swap(result, form, () => {
+            result.innerHTML = ""; $("message").focus({ preventScroll: true });
+            if (window.PM && PM.scrollTo) PM.scrollTo(form, { offset: -110, duration: .45 });
+          });
         });
       });
       if (mode === "ok") form.reset(); // keep the text in all other states so nothing is lost
-      if (mode === "ok" || mode === "mailto") track("Contact Form Submitted");
+      if (mode === "ok") track("Contact Form Submitted");
     }
 
     function setBusy(on) {
       form.classList.toggle("is-busy", on);
+      submitBtn.disabled = on;
+      form.setAttribute("aria-busy", String(on));
       if (on) { submitBtn.setAttribute("aria-disabled", "true"); submitLabel.textContent = "Wird gesendet …"; }
       else { submitBtn.removeAttribute("aria-disabled"); submitLabel.textContent = defaultLabel; }
     }
@@ -157,11 +164,16 @@
       setBusy(true);
 
       if (C.formEndpoint) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 20000);
         try {
-          const res = await fetch(C.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
+          const res = await fetch(C.formEndpoint, { method: "POST", signal: controller.signal, headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
           if (!res.ok) throw new Error("HTTP " + res.status);
+          const response = await res.json().catch(() => null);
+          if (response && (response.success === false || response.success === "false" || response.ok === false)) throw new Error("Submission rejected");
           setBusy(false); show("ok", d);
         } catch (err) { setBusy(false); show("error", d); }
+        finally { clearTimeout(timeout); }
         return;
       }
       if (C.contactEmail) {

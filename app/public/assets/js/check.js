@@ -83,6 +83,7 @@
   function mount(root) {
     const total = QUESTIONS.length + 2; // + contact + review
     const state = { step: 0, answers: {}, contact: { name: "", email: "", phone: "", message: "", consent: false } };
+    let sending = false, terminal = false;
     try { const d = JSON.parse(localStorage.getItem("pm_check_draft") || "null"); if (d && d.answers) { state.answers = d.answers; state.contact = Object.assign(state.contact, d.contact || {}); } } catch (e) {}
     const save = () => { try { localStorage.setItem("pm_check_draft", JSON.stringify({ answers: state.answers, contact: state.contact })); } catch (e) {} };
 
@@ -106,23 +107,23 @@
       const sel = state.answers[q.id];
       const isSel = (v) => multi ? Array.isArray(sel) && sel.includes(v) : sel === v;
       return `<div class="check__step is-active" data-qid="${q.id}">
-        <h3 class="check__q">${esc(q.q)}</h3>
+        <h3 class="check__q" id="pc-question" tabindex="-1">${esc(q.q)}</h3>
         <p class="check__hint">${esc(q.hint || (multi ? "Mehrfachauswahl möglich." : "Wähle eine Antwort – oder drücke die Zahl auf der Tastatur."))}</p>
-        <div class="check__options ${q.options.length > 4 ? "check__options--3" : ""}" role="${multi ? "group" : "radiogroup"}">
+        <div class="check__options ${q.options.length > 4 ? "check__options--3" : ""}" role="${multi ? "group" : "radiogroup"}" aria-labelledby="pc-question" aria-describedby="pc-error">
           ${q.options.map((o, i) => `<button type="button" class="opt ${multi ? "opt--multi" : ""} ${isSel(o.v) ? "is-selected" : ""}" role="${multi ? "checkbox" : "radio"}" aria-checked="${isSel(o.v)}" data-value="${esc(o.v)}">
             <span class="opt__mark" aria-hidden="true"></span>
             <span class="opt__text"><span class="opt__title">${esc(o.v)}</span>${o.s ? `<span class="opt__sub">${esc(o.s)}</span>` : ""}</span>
             <span class="opt__key hide-mobile" aria-hidden="true">${KEYS[i]}</span>
           </button>`).join("")}
         </div>
-        <p class="check__error" data-error></p>
+        <p class="check__error" id="pc-error" role="alert" data-error></p>
       </div>`;
     }
     function renderContact() {
       const c = state.contact;
       return `<div class="check__step is-active" data-qid="contact">
-        <h3 class="check__q">Wohin darf die persönliche Einschätzung gehen?</h3>
-        <p class="check__hint">Deine Antworten werden vom Coach persönlich gelesen. Keine Newsletter, keine automatisierten Verkaufsmails.</p>
+        <h3 class="check__q" tabindex="-1">Wohin darf die persönliche Einschätzung gehen?</h3>
+        <p class="check__hint">Wir verwenden deine Kontaktdaten ausschließlich für deine Anfrage.</p>
         <div class="fields fields--2">
           <div class="field"><label for="pc-name">Vorname *</label><input id="pc-name" name="name" type="text" autocomplete="given-name" value="${esc(c.name)}" placeholder="Dein Vorname" required><span class="field__error">Bitte gib deinen Vornamen an.</span></div>
           <div class="field"><label for="pc-email">E-Mail *</label><input id="pc-email" name="email" type="email" autocomplete="email" inputmode="email" value="${esc(c.email)}" placeholder="name@beispiel.de" required><span class="field__error">Bitte gib eine gültige E-Mail-Adresse an.</span></div>
@@ -139,7 +140,8 @@
     }
     function summaryRows() {
       return QUESTIONS.map((q, i) => { const a = state.answers[q.id]; const val = Array.isArray(a) ? a.join(", ") : (a || "–"); return `<div class="check__summary-row"><dt>${esc(q.label)}</dt><dd>${esc(val)} <button type="button" class="link-underline small muted" data-goto="${i}" style="margin-left:.5rem">Ändern</button></dd></div>`; }).join("")
-        + `<div class="check__summary-row"><dt>Kontakt</dt><dd>${esc(state.contact.name)} · ${esc(state.contact.email)}${state.contact.phone ? " · " + esc(state.contact.phone) : ""} <button type="button" class="link-underline small muted" data-goto="${QUESTIONS.length}" style="margin-left:.5rem">Ändern</button></dd></div>`;
+        + `<div class="check__summary-row"><dt>Kontakt</dt><dd>${esc(state.contact.name)} · ${esc(state.contact.email)}${state.contact.phone ? " · " + esc(state.contact.phone) : ""} <button type="button" class="link-underline small muted" data-goto="${QUESTIONS.length}" style="margin-left:.5rem">Ändern</button></dd></div>`
+        + (state.contact.message ? `<div class="check__summary-row"><dt>Dein Hinweis</dt><dd>${esc(state.contact.message)}</dd></div>` : "");
     }
     function renderReview() {
       return `<div class="check__step is-active" data-qid="review">
@@ -153,8 +155,6 @@
     function plainSummary() {
       const lines = QUESTIONS.map((q) => { const a = state.answers[q.id]; return q.label + ": " + (Array.isArray(a) ? a.join(", ") : (a || "–")); });
       lines.push("", "Vorname: " + state.contact.name, "E-Mail: " + state.contact.email, "Telefon: " + (state.contact.phone || "–"), "Hinweis: " + (state.contact.message || "–"));
-      const r = evaluate(state.answers);
-      lines.push("", "Lead-Score: " + r.score + " (" + FIT_TEXT[r.fit].title + ")");
       return lines.join("\n");
     }
     function renderResult() {
@@ -172,16 +172,17 @@
     }
     function renderDone(mode) {
       const summary = plainSummary();
-      let extra = mode === "error" ? "" : renderResult();
-      if (mode === "mailto") extra += `<p class="check__hint">Dein E-Mail-Programm wurde mit einer vorbereiteten Nachricht geöffnet. Falls nicht, kannst du den Text unten kopieren und an <strong>${esc(C.contactEmail)}</strong> senden.</p><textarea class="check__raw" readonly>${esc(summary)}</textarea>`;
-      if (mode === "setup") extra += `<div class="check__setup"><strong>Hinweis für den Website-Betreiber:</strong> Die Übermittlung ist noch nicht konfiguriert. Trage in <code>assets/js/config.js</code> entweder <code>formEndpoint</code> (JSON-Webhook / CRM) oder <code>contactEmail</code> ein. Bis dahin können Interessenten ihre Antworten unten kopieren.</div><textarea class="check__raw" readonly>${esc(summary)}</textarea><button type="button" class="btn btn--outline btn--sm check__copy" data-copy><span class="btn__label">Antworten kopieren</span></button>`;
+      let extra = mode === "ok" ? renderResult() : "";
+      if (mode === "mailto") extra += `<p class="check__hint">Bitte sende den vorbereiteten Entwurf in deinem E-Mail-Programm ab. Falls er nicht geöffnet wurde, kopiere deine Antworten und sende sie an <strong>${esc(C.contactEmail)}</strong>.</p><textarea class="check__raw" readonly aria-label="Deine Antworten">${esc(summary)}</textarea>`;
+      if (mode === "setup") extra += `<p class="check__hint">Deine Antworten wurden noch nicht gesendet. Die Online-Übermittlung ist momentan nicht verfügbar. Deine Angaben bleiben erhalten; du kannst sie unten kopieren.</p><textarea class="check__raw" readonly aria-label="Deine Antworten">${esc(summary)}</textarea>`;
       if (mode === "error") extra = `<p class="check__hint">Die Übermittlung hat leider nicht funktioniert. Bitte versuche es später erneut${C.contactEmail ? ` oder schreibe direkt an <strong>${esc(C.contactEmail)}</strong>` : ""}.</p><textarea class="check__raw" readonly>${esc(summary)}</textarea>`;
-      const headline = mode === "ok" || mode === "mailto" ? "Danke – dein Performance-Check ist unterwegs." : mode === "error" ? "Das hat leider nicht geklappt." : "Danke für deine Antworten.";
+      if (mode !== "ok") extra += `<button type="button" class="btn btn--outline btn--sm check__copy" data-copy><span class="btn__label">Antworten kopieren</span></button><button type="button" class="link-underline" data-retry>Zurück zur Zusammenfassung</button>`;
+      const headline = mode === "ok" ? "Danke – dein Performance-Check ist unterwegs." : mode === "mailto" ? "Dein E-Mail-Entwurf ist vorbereitet." : "Noch nicht gesendet.";
       const sub = mode === "ok" ? `Du erhältst innerhalb weniger Werktage eine persönliche Einschätzung an <strong>${esc(state.contact.email)}</strong>. Prüfe bitte auch deinen Spam-Ordner.` : "";
       return `<div class="check__step is-active" data-qid="done"><div class="check__done">
         <div class="check__done-icon" aria-hidden="true">${mode === "error" ? "!" : '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'}</div>
-        <h3 class="check__q">${headline}</h3>${sub ? `<p class="check__hint">${sub}</p>` : ""}${extra}
-        <a class="btn btn--ghost" href="#wissen"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">In der Zwischenzeit: Knowledge Hub</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+        <h3 class="check__q" tabindex="-1">${headline}</h3>${sub ? `<p class="check__hint">${sub}</p>` : ""}${extra}
+        <a class="btn btn--ghost" href="#faq"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Antworten auf häufige Fragen</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
       </div></div>`;
     }
 
@@ -198,15 +199,24 @@
     }
 
     function render(dir) {
+      terminal = false;
       const i = state.step;
       const html = i < QUESTIONS.length ? renderQuestion(QUESTIONS[i]) : i === QUESTIONS.length ? renderContact() : renderReview();
-      const swap = () => {
-        body.innerHTML = html; updateChrome(); bind();
-        if (gsapOk()) gsap.fromTo(body.firstElementChild, { opacity: 0, x: dir >= 0 ? 36 : -36 }, { opacity: 1, x: 0, duration: 0.7, ease: "expo.out" });
-        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
-      };
-      if (gsapOk() && body.firstElementChild) gsap.to(body.firstElementChild, { opacity: 0, x: dir >= 0 ? -30 : 30, duration: 0.25, ease: "power2.in", onComplete: swap });
-      else swap();
+      if (window.gsap && body.firstElementChild) gsap.killTweensOf(body.firstElementChild);
+      body.innerHTML = html; updateChrome(); bind();
+      if (gsapOk()) gsap.fromTo(body.firstElementChild, { opacity: 0, x: dir >= 0 ? 18 : -18 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" });
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      if (dir !== undefined) focusStep();
+    }
+    function focusStep() {
+      const heading = body.querySelector(".check__q");
+      if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+      const shell = root.querySelector(".check__shell");
+      const top = shell.getBoundingClientRect().top;
+      if (top < 100 || top > innerHeight / 2) {
+        if (window.PM && PM.scrollTo) PM.scrollTo(shell, { offset: -100, duration: .45 });
+        else shell.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
     function bind() {
@@ -215,10 +225,12 @@
         step.querySelectorAll("input").forEach((inp) => inp.addEventListener("input", () => {
           if (inp.name === "consent") state.contact.consent = inp.checked; else if (inp.name !== "company") state.contact[inp.name] = inp.value.trim();
           inp.closest(".field").classList.remove("field--error"); save();
+          inp.removeAttribute("aria-invalid");
+          step.querySelector("[data-error]").textContent = "";
         }));
         return;
       }
-      if (qid === "review") { step.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => { state.step = parseInt(b.dataset.goto, 10); render(-1); })); return; }
+      if (qid === "review") { step.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => { if (sending) return; state.step = parseInt(b.dataset.goto, 10); render(-1); })); return; }
       const q = QUESTIONS.find((x) => x.id === qid); if (!q) return;
       step.querySelectorAll(".opt").forEach((opt) => opt.addEventListener("click", () => choose(q, opt.dataset.value, step)));
     }
@@ -228,12 +240,12 @@
         const k = arr.indexOf(v); if (k >= 0) arr.splice(k, 1); else arr.push(v);
         state.answers[q.id] = arr;
         step.querySelectorAll(".opt").forEach((o) => { const on = arr.includes(o.dataset.value); o.classList.toggle("is-selected", on); o.setAttribute("aria-checked", String(on)); });
+        step.querySelector("[data-error]").textContent = "";
         save(); return;
       }
       state.answers[q.id] = v;
       step.querySelectorAll(".opt").forEach((o) => { const on = o.dataset.value === v; o.classList.toggle("is-selected", on); o.setAttribute("aria-checked", String(on)); });
       step.querySelector("[data-error]").textContent = ""; save();
-      clearTimeout(choose._t); choose._t = setTimeout(() => { if (state.step < QUESTIONS.length && QUESTIONS[state.step].id === q.id) advance(); }, 420);
     }
     function validate() {
       const i = state.step, step = body.firstElementChild, err = step.querySelector("[data-error]");
@@ -244,33 +256,48 @@
         return true;
       }
       if (i === QUESTIONS.length) {
-        let ok = true;
-        const f = (sel) => step.querySelector(sel).closest(".field");
-        if (!state.contact.name) { f("#pc-name").classList.add("field--error"); ok = false; }
-        if (!EMAIL_RE.test(state.contact.email)) { f("#pc-email").classList.add("field--error"); ok = false; }
-        if (!state.contact.consent) { step.querySelector('input[name="consent"]').closest(".field").classList.add("field--error"); ok = false; }
-        if (!ok) err.textContent = "Bitte prüfe die markierten Felder.";
-        return ok;
+        const bad = [];
+        [["#pc-name", !!state.contact.name], ["#pc-email", EMAIL_RE.test(state.contact.email)], ['input[name="consent"]', state.contact.consent]].forEach(([selector, ok]) => {
+          const input = step.querySelector(selector);
+          input.closest(".field").classList.toggle("field--error", !ok);
+          if (ok) input.removeAttribute("aria-invalid");
+          else { input.setAttribute("aria-invalid", "true"); bad.push(input); }
+        });
+        if (bad.length) { err.textContent = "Bitte prüfe die markierten Felder."; bad[0].focus(); }
+        return !bad.length;
       }
       return true;
     }
-    function advance() { if (!validate()) return; if (state.step === total - 1) return submit(); state.step++; render(1); }
-    function goBack() { if (state.step === 0) return; state.step--; render(-1); }
+    function advance() { if (terminal || sending || !validate()) return; if (state.step === total - 1) return submit(); state.step++; render(1); }
+    function goBack() { if (terminal || sending || state.step === 0) return; state.step--; render(-1); }
 
     function track(name) {
       try { if (window.plausible) window.plausible(name); if (window.gtag) window.gtag("event", name.toLowerCase().replace(/\s+/g, "_")); window.dataLayer && window.dataLayer.push({ event: name }); } catch (e) {}
     }
     function finish(mode) {
+      terminal = true;
+      sending = false;
+      next.disabled = false; next.removeAttribute("aria-disabled"); root.removeAttribute("aria-busy");
       next.hidden = true; back.disabled = true; bar.style.width = "100%";
-      stepLabel.textContent = mode === "error" ? "Fehler" : "Abgeschlossen"; stepName.textContent = "";
+      stepLabel.textContent = mode === "ok" ? "Abgeschlossen" : "Noch nicht gesendet"; stepName.textContent = "";
       body.innerHTML = renderDone(mode);
       const copy = body.querySelector("[data-copy]");
-      if (copy) copy.addEventListener("click", () => { const ta = body.querySelector(".check__raw"); ta.select(); try { navigator.clipboard.writeText(ta.value); copy.querySelector(".btn__label").textContent = "Kopiert"; } catch (e) { document.execCommand("copy"); } });
+      if (copy) copy.addEventListener("click", async () => {
+        const ta = body.querySelector(".check__raw");
+        try { await navigator.clipboard.writeText(ta.value); }
+        catch (e) { ta.select(); if (!document.execCommand("copy")) return; }
+        copy.querySelector(".btn__label").textContent = "Kopiert";
+      });
+      const retry = body.querySelector("[data-retry]");
+      if (retry) retry.addEventListener("click", () => { state.step = total - 1; render(-1); });
       if (gsapOk()) gsap.fromTo(body.firstElementChild, { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" });
-      if (mode !== "error") { try { localStorage.removeItem("pm_check_draft"); } catch (e) {} track("Performance Check Submitted"); }
+      if (mode === "ok") { try { localStorage.removeItem("pm_check_draft"); } catch (e) {} track("Performance Check Submitted"); }
       if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      focusStep();
     }
     async function submit() {
+      if (terminal || sending) return;
+      sending = true;
       if (root.querySelector("#pc-company") && root.querySelector("#pc-company").value) return finish("ok"); // honeypot: silently drop
       let attribution = null; try { attribution = JSON.parse(sessionStorage.getItem("pm_attribution") || "null"); } catch (e) {}
       const payload = {
@@ -280,13 +307,20 @@
         assessment: evaluate(state.answers),
         attribution, summary: plainSummary()
       };
+      next.disabled = true; back.disabled = true;
+      root.setAttribute("aria-busy", "true");
       next.setAttribute("aria-disabled", "true"); nextLabel.textContent = "Wird gesendet …";
       if (C.formEndpoint) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 20000);
         try {
-          const res = await fetch(C.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
+          const res = await fetch(C.formEndpoint, { method: "POST", signal: controller.signal, headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
           if (!res.ok) throw new Error("HTTP " + res.status);
+          const response = await res.json().catch(() => null);
+          if (response && (response.success === false || response.success === "false" || response.ok === false)) throw new Error("Submission rejected");
           finish("ok");
         } catch (e) { next.removeAttribute("aria-disabled"); finish("error"); }
+        finally { clearTimeout(timeout); }
         return;
       }
       if (C.contactEmail) {
@@ -307,12 +341,11 @@
         const q = QUESTIONS[state.step]; const idx = KEYS.indexOf(e.key);
         if (q.options[idx]) { e.preventDefault(); choose(q, q.options[idx].v, body.firstElementChild); }
       }
-      if (e.key === "Enter" && state.step >= QUESTIONS.length) { e.preventDefault(); advance(); }
+      if (e.key === "Enter" && state.step >= QUESTIONS.length && !e.target.closest("button,a,input,select,textarea")) { e.preventDefault(); advance(); }
     });
-    // make the shell focusable for keyboard shortcuts when scrolled into view
+    // Keyboard shortcuts bubble from the controls without taking focus from inputs.
     root.querySelector(".check__shell").setAttribute("tabindex", "-1");
-    root.addEventListener("click", () => root.querySelector(".check__shell").focus({ preventScroll: true }));
-    render(1);
+    render();
   }
 
   function boot() { document.querySelectorAll("[data-check]").forEach(mount); }

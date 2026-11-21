@@ -1019,7 +1019,7 @@
 .pc__form { grid-area: form; min-width: 0; }
 .pc__visual { grid-area: visual; aspect-ratio: 2.2 / 1; border-radius: .65rem; }
 .pc__visual img { object-position: 50% 19%; }
-.pc__form .check__shell { border-color: var(--line-dark); border-radius: .8rem; box-shadow: none; }
+.pc__form .check__shell { border-color: var(--line-dark); border-radius: .8rem; box-shadow: none; scroll-margin-top: 100px; }
 .pc__form .check__shell::before { content: none; }
 .pc__form .check__top,
 .pc__form .check__nav { padding: .9rem clamp(1rem, 2.2vw, 1.75rem); }
