@@ -238,14 +238,14 @@
       if (!target) return;
       e.preventDefault();
       closeMenu();
-      PM.scrollTo(target, { offset: -70 });
+      PM.scrollTo(target, { offset: target.matches("[data-g5].is-horizontal") ? 0 : -70 });
       history.pushState(null, "", id);
     });
 
     // Restore in-page destinations when navigating back or opening an old page URL.
     window.addEventListener("hashchange", () => {
       const target = document.getElementById(location.hash.slice(1));
-      if (target) PM.scrollTo(target, { offset: -90, immediate: true });
+      if (target) PM.scrollTo(target, { offset: target.matches("[data-g5].is-horizontal") ? 0 : -90, immediate: true });
     });
   }
 
@@ -416,7 +416,7 @@
       ScrollTrigger.refresh();
       requestAnimationFrame(() => {
         const target = document.getElementById(location.hash.slice(1));
-        if (target) PM.scrollTo(target, { offset: -90, immediate: true });
+        if (target) PM.scrollTo(target, { offset: target.matches("[data-g5].is-horizontal") ? 0 : -90, immediate: true });
       });
     });
   }

@@ -189,8 +189,8 @@
       };
       setActive(0);
       gsap.matchMedia().add({
-        horizontal: "(min-width: 1024px) and (min-height: 540px) and (prefers-reduced-motion: no-preference)",
-        vertical: "(width < 1024px), (height < 540px), (prefers-reduced-motion: reduce)",
+        horizontal: "(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+        vertical: "(width < 1024px), (height < 700px), (prefers-reduced-motion: reduce)",
       }, ({ conditions }) => {
         if (!conditions.horizontal) {
           stages.forEach((stage, i) => ST.create({
@@ -200,7 +200,7 @@
           return;
         }
         section.classList.add("is-horizontal");
-        const distance = () => track.clientWidth * (stages.length - 1);
+        const distance = () => Math.max(0, track.scrollWidth - track.clientWidth);
         const tween = gsap.to(track, {
           x: () => -distance(), ease: "none",
           onUpdate() {
