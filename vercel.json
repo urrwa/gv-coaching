@@ -8,72 +8,72 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/wissen/online-personal-trainer-vs-studio/:path*",
+      "source": "/wissen/online-personal-trainer-vs-studio/:path*/",
       "destination": "/#artikel-online-personal-trainer-vs-studio",
       "permanent": true
     },
     {
-      "source": "/wissen/muskelaufbau-fuer-berufstaetige/:path*",
+      "source": "/wissen/muskelaufbau-fuer-berufstaetige/:path*/",
       "destination": "/#artikel-muskelaufbau-fuer-berufstaetige",
       "permanent": true
     },
     {
-      "source": "/wissen/fettverlust-ohne-muskelverlust/:path*",
+      "source": "/wissen/fettverlust-ohne-muskelverlust/:path*/",
       "destination": "/#artikel-fettverlust-ohne-muskelverlust",
       "permanent": true
     },
     {
-      "source": "/performance-check/:path*",
+      "source": "/performance-check/:path*/",
       "destination": "/#performance-check",
       "permanent": true
     },
     {
-      "source": "/datenschutz/:path*",
+      "source": "/datenschutz/:path*/",
       "destination": "/#datenschutz",
       "permanent": true
     },
     {
-      "source": "/ergebnisse/:path*",
+      "source": "/ergebnisse/:path*/",
       "destination": "/#ergebnisse",
       "permanent": true
     },
     {
-      "source": "/impressum/:path*",
+      "source": "/impressum/:path*/",
       "destination": "/#impressum",
       "permanent": true
     },
     {
-      "source": "/coaching/:path*",
+      "source": "/coaching/:path*/",
       "destination": "/#coaching",
       "permanent": true
     },
     {
-      "source": "/methode/:path*",
+      "source": "/methode/:path*/",
       "destination": "/#methode",
       "permanent": true
     },
     {
-      "source": "/kontakt/:path*",
+      "source": "/kontakt/:path*/",
       "destination": "/#kontakt",
       "permanent": true
     },
     {
-      "source": "/wissen/:path*",
+      "source": "/wissen/:path*/",
       "destination": "/#wissen",
       "permanent": true
     },
     {
-      "source": "/ueber/:path*",
+      "source": "/ueber/:path*/",
       "destination": "/#ueber",
       "permanent": true
     },
     {
-      "source": "/danke/:path*",
+      "source": "/danke/:path*/",
       "destination": "/#performance-check",
       "permanent": true
     },
     {
-      "source": "/faq/:path*",
+      "source": "/faq/:path*/",
       "destination": "/#faq",
       "permanent": true
     }
