@@ -241,6 +241,12 @@
       PM.scrollTo(target, { offset: -70 });
       history.pushState(null, "", id);
     });
+
+    // Restore in-page destinations when navigating back or opening an old page URL.
+    window.addEventListener("hashchange", () => {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) PM.scrollTo(target, { offset: -90, immediate: true });
+    });
   }
 
   // ---------- Reveal system ----------
@@ -406,7 +412,13 @@
     setupVeil();
     // refresh after fonts/images settle
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
-    window.addEventListener("load", () => ScrollTrigger.refresh());
+    window.addEventListener("load", () => {
+      ScrollTrigger.refresh();
+      requestAnimationFrame(() => {
+        const target = document.getElementById(location.hash.slice(1));
+        if (target) PM.scrollTo(target, { offset: -90, immediate: true });
+      });
+    });
   }
 
   function start() {

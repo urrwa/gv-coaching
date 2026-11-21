@@ -152,12 +152,11 @@
     /* =====================================================================
        ARTIKEL — Inhaltsverzeichnis aus h2, aktiver Abschnitt, Fortschritt, Teilen
        ===================================================================== */
-    (function article() {
-      const content = document.querySelector("[data-wi-content]");
-      if (!content) return;
+    document.querySelectorAll("[data-wi-content]").forEach((content) => {
+      const root = content.closest(".wi-article");
       const h2s = Array.from(content.querySelectorAll("h2"));
-      const toc = document.querySelector("[data-wi-toc]");
-      const tocList = document.querySelector("[data-wi-toc-list]");
+      const toc = root.querySelector("[data-wi-toc]");
+      const tocList = root.querySelector("[data-wi-toc-list]");
       const links = [];
 
       const slug = (s) => s.toLowerCase()
@@ -217,17 +216,18 @@
       // Lese-Fortschritt: dünne Linie unter der Navigation, scaleX = Scrollfortschritt des Artikels
       const article = content.closest("article") || content;
       const bar = document.createElement("div");
-      bar.className = "wi-progress"; bar.setAttribute("aria-hidden", "true");
+      bar.className = "wi-progress"; bar.hidden = true; bar.setAttribute("aria-hidden", "true");
       document.body.appendChild(bar);
       ST.create({
         trigger: article, start: "top top", end: "bottom bottom",
         onUpdate: (self) => gsap.set(bar, { scaleX: self.progress }),
-        onRefresh: (self) => gsap.set(bar, { scaleX: self.progress })
+        onRefresh: (self) => gsap.set(bar, { scaleX: self.progress }),
+        onToggle: (self) => { bar.hidden = !self.isActive; }
       });
 
       // Teilen / Link kopieren
-      const share = document.querySelector("[data-wi-share]");
-      const msg = document.querySelector("[data-wi-share-msg]");
+      const share = root.querySelector("[data-wi-share]");
+      const msg = root.querySelector("[data-wi-share-msg]");
       if (share) {
         let timer = null;
         const say = (t) => {
@@ -245,8 +245,8 @@
           return ok;
         };
         share.addEventListener("click", async () => {
-          const url = location.origin + location.pathname;
-          const title = document.title;
+          const url = location.origin + "/#" + root.closest("[data-single-page-section]").id;
+          const title = root.querySelector("h2").textContent;
           try {
             if (navigator.share && PM.isTouch) { await navigator.share({ title, url }); return; }
             if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(url); say("Link kopiert"); return; }
@@ -259,11 +259,11 @@
       }
 
       // Hero-Bild: sanfte Entzoomung beim Scrollen (zusätzlich zum Clip-Reveal)
-      const heroImg = document.querySelector("[data-wi-hero-img]");
+      const heroImg = root.querySelector("[data-wi-hero-img]");
       if (heroImg && !reduced) {
         gsap.fromTo(heroImg, { scale: 1.08 }, { scale: 1, ease: "none", scrollTrigger: { trigger: heroImg, start: "top 90%", end: "bottom 30%", scrub: 0.6 } });
       }
-    })();
+    });
 
     /* =====================================================================
        GEMEINSAM — Pull-Quotes: Linie wächst, Text fährt ein

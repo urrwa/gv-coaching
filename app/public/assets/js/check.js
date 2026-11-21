@@ -129,7 +129,7 @@
           <div class="field"><label for="pc-phone">Telefon / WhatsApp (optional)</label><input id="pc-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" value="${esc(c.phone)}" placeholder="+49 …"></div>
           <div class="field"><label for="pc-msg">Gibt es etwas, das wir wissen sollten? (optional)</label><input id="pc-msg" name="message" type="text" value="${esc(c.message)}" placeholder="Verletzungen, Besonderheiten, Fragen"></div>
           <div class="field field--full">
-            <label class="consent"><input type="checkbox" name="consent" ${c.consent ? "checked" : ""}> <span>Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>. *</span></label>
+            <label class="consent"><input type="checkbox" name="consent" ${c.consent ? "checked" : ""}> <span>Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="#datenschutz" rel="noopener">Datenschutzerklärung</a>. *</span></label>
             <span class="field__error">Bitte bestätige die Datenschutzerklärung.</span>
           </div>
           <div class="field" style="position:absolute;left:-9999px" aria-hidden="true"><label for="pc-company">Firma</label><input id="pc-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
@@ -181,7 +181,7 @@
       return `<div class="check__step is-active" data-qid="done"><div class="check__done">
         <div class="check__done-icon" aria-hidden="true">${mode === "error" ? "!" : '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'}</div>
         <h3 class="check__q">${headline}</h3>${sub ? `<p class="check__hint">${sub}</p>` : ""}${extra}
-        <a class="btn btn--ghost" href="/wissen/"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">In der Zwischenzeit: Knowledge Hub</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+        <a class="btn btn--ghost" href="#wissen"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">In der Zwischenzeit: Knowledge Hub</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
       </div></div>`;
     }
 
