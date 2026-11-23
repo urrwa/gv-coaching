@@ -1,5 +1,5 @@
 /* =====================================================================
-   PM COACHING — shared motion system & behaviours
+   GV COACHING — shared motion system & behaviours
    Depends on: gsap, ScrollTrigger, Lenis (loaded via CDN, deferred)
    Page scripts listen for `pm:ready` (DOM + libs ready) and `pm:reveal` (veil lifted).
    ===================================================================== */

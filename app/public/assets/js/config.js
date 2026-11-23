@@ -1,12 +1,12 @@
 /*
- * PM Coaching – Laufzeit-Konfiguration
+ * GV Coaching – Laufzeit-Konfiguration
  * ------------------------------------
  * Trage hier deine echten Kontaktdaten und Integrationen ein.
  * Leere Felder blenden die zugehörigen Buttons/Links automatisch aus,
  * damit keine toten Links auf der Website erscheinen.
  */
 window.PM_CONFIG = {
-  brand: "PM Coaching",
+  brand: "GV Coaching",
 
   // Kontakt
   contactEmail: "",          // z. B. "hallo@deine-domain.de"
