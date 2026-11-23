@@ -28,29 +28,13 @@
   inset: 0;
   z-index: 0;
 }
-.hero__media > img,
-.hero__media > video {
+.hero__media > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-}
-.hero__media > video { opacity: 0; }
-.hero.is-video-ready .hero__media > video { opacity: 1; }
-.hero.is-video-ready .hero__media > img { opacity: 0; }
-.hero__playback {
-  position: absolute;
-  right: var(--gutter);
-  bottom: 1rem;
-  z-index: 3;
-  padding: .5rem .75rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--navy-950);
-  color: var(--silver);
-  font-size: .75rem;
 }
 .hero__picture {
   display: contents;
@@ -1460,4 +1444,52 @@
 /* Keep coaching copy readable on narrow phones. */
 @media (max-width: 599px) {
   .bento__tile--text { grid-column: span 2; }
+}
+
+/* A quieter page: selected supplied photos, with type-led method and process cards. */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(7,17,31,.92), rgba(7,17,31,.45)), linear-gradient(0deg, rgba(7,17,31,.7), transparent 65%);
+}
+.hero__media > img { object-position: 60% 50%; }
+.menu__brand-visual { display: grid; place-items: center; height: 100%; min-height: 20rem; background: radial-gradient(circle, rgba(39,100,232,.2), transparent 65%); }
+.menu__brand-visual img { width: clamp(6rem, 14vw, 12rem); height: auto; opacity: .65; }
+.founder__media img { filter: none; }
+.audience__layout { grid-template-columns: minmax(0, 1fr); max-width: 68rem; }
+.g5__stage-number,
+.pcard__step {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(79,130,240,.2);
+  background: radial-gradient(ellipse at 80% 20%, rgba(39,100,232,.18), transparent 70%), var(--navy-900);
+}
+.g5__stage-number::after,
+.pcard__step::after { content: none; }
+.g5__stage-number span,
+.pcard__step span {
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 22vw, 21rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.07em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(108,157,255,.65);
+  user-select: none;
+}
+.g5__stage-number { aspect-ratio: 4 / 3; }
+.bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bento > .bento__tile { grid-area: auto; grid-column: auto; grid-row: auto; min-width: 0; min-height: 16rem; aspect-ratio: auto; }
+.bento > .bento__tile--img { min-height: 20rem; }
+.pc__layout { grid-template-areas: "intro" "form"; grid-template-rows: auto; }
+.final { min-height: 75svh; background: radial-gradient(ellipse at 80% 30%, rgba(39,100,232,.2), transparent 60%), var(--navy-950); }
+@media (min-width: 960px) {
+  .pc__layout { grid-template-areas: "intro form"; grid-template-rows: auto; }
+}
+@media (max-width: 599px) {
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .bento > .bento__tile { grid-column: auto; min-height: 0; }
+  .bento > .bento__tile--img { min-height: 16rem; }
 }
