@@ -8,8 +8,9 @@
 window.PM_CONFIG = {
   brand: "GV Coaching",
 
-  // Kontakt
-  contactEmail: "",          // z. B. "hallo@deine-domain.de"
+  // Kontakt: vom Kunden am 23.11.2026 bestätigt.
+  // Ohne formEndpoint wird nur ein lokaler E-Mail-Entwurf geöffnet; kein Versand wird behauptet.
+  contactEmail: "support@gvcoaching.com",          // z. B. "hallo@deine-domain.de"
   whatsapp: "",              // internationale Nummer ohne "+", z. B. "4915112345678"
 
   // Social
