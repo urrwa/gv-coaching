@@ -1480,7 +1480,7 @@
   user-select: none;
 }
 .g5__stage-number { aspect-ratio: 4 / 3; }
-.bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-template-areas: none; grid-auto-rows: auto; }
 .bento > .bento__tile { grid-area: auto; grid-column: auto; grid-row: auto; min-width: 0; min-height: 16rem; aspect-ratio: auto; }
 .bento > .bento__tile--img { min-height: 20rem; }
 .pc__layout { grid-template-areas: "intro" "form"; grid-template-rows: auto; }
