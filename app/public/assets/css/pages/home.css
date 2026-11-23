@@ -1464,3 +1464,113 @@
 
 /* Preserve the client-approved portrait colours. */
 .founder__media img { filter: none; }
+
+/* Footer: spacious typography, clear columns and the approved GV signature. */
+.footer.footer--gv {
+  padding-block: clamp(3.5rem, 7vw, 6rem) 1.5rem;
+  border-top: 1px solid rgba(99, 142, 230, .3);
+  background: #07111f;
+}
+.footer--gv .gv-footer__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, .7fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4.5vw, 5rem);
+}
+.footer--gv .gv-footer__main > * { min-width: 0; }
+.footer--gv .gv-footer__eyebrow,
+.footer--gv .gv-footer__heading {
+  color: #b9c8df;
+  font-family: var(--font-display);
+  font-size: .875rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.footer--gv .gv-footer__eyebrow { margin-bottom: 1.4rem; }
+.footer--gv .gv-footer__title {
+  margin: 0;
+  color: #f5f7fb;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.8vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -.055em;
+}
+.footer--gv .gv-footer__title em { color: #6d9bff; font-style: normal; }
+.footer--gv .gv-footer__description {
+  max-width: 35ch;
+  margin-top: 1.4rem;
+  color: #b8c4d5;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.footer--gv .gv-footer__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.4rem;
+  max-width: 100%;
+  margin-top: 1.8rem;
+  padding: .9rem 1.4rem;
+  border: 1px solid #3977f4;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background .2s, border-color .2s;
+}
+.footer--gv .gv-footer__cta:hover { background: #3674f4; border-color: #78a2ff; }
+.footer--gv .gv-footer__note { margin-top: .85rem; color: #97a9c3; font-size: .8125rem; line-height: 1.6; }
+.footer--gv .gv-footer__column { display: flex; flex-direction: column; align-items: flex-start; gap: .1rem; padding-top: .1rem; }
+.footer--gv .gv-footer__heading { margin-bottom: 1.1rem; }
+.footer--gv .gv-footer__column > a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  max-width: 100%;
+  color: #e1e7f0;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-decoration: none;
+  text-underline-offset: .3em;
+  overflow-wrap: anywhere;
+}
+.footer--gv .gv-footer__column > a:hover,
+.footer--gv .gv-footer__legal a:hover,
+.footer--gv .gv-footer__back:hover { color: #8eb1ff; text-decoration: underline; }
+.footer--gv .gv-footer__email { text-decoration: underline !important; text-decoration-color: #45618b !important; }
+.footer--gv .gv-footer__address { margin-top: 1.65rem; color: #aebdd1; font-size: 1rem; font-style: normal; line-height: 1.8; }
+.footer--gv .gv-footer__address strong { color: #e1e7f0; font-weight: 500; }
+.footer--gv .gv-footer__signature { display: block; width: 100%; margin-top: clamp(3rem, 7vw, 6rem); padding-block: 1rem; }
+.footer--gv .gv-footer__signature img { display: block; width: 100%; height: auto; }
+.footer--gv .gv-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 2rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(177, 200, 234, .2);
+  color: #9bacc3;
+  font-size: .875rem;
+  line-height: 1.6;
+}
+.footer--gv .gv-footer__legal { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.footer--gv :is(.gv-footer__legal a, .gv-footer__back) { display: inline-flex; align-items: center; min-height: 2.75rem; color: #c0ccdc; }
+.footer--gv a:focus-visible { outline: 2px solid #93b5ff; outline-offset: 5px; border-radius: 3px; }
+@media (max-width: 1023px) {
+  .footer--gv .gv-footer__main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.75rem 2rem; }
+  .footer--gv .gv-footer__intro { grid-column: 1 / -1; }
+  .footer--gv .gv-footer__title { font-size: clamp(2.5rem, 7vw, 4rem); }
+  .footer--gv .gv-footer__description { max-width: 44ch; }
+}
+@media (max-width: 479px) {
+  .footer--gv .gv-footer__main { column-gap: 1.25rem; }
+  .footer--gv .gv-footer__heading { font-size: .8125rem; letter-spacing: .06em; }
+  .footer--gv .gv-footer__contact > .gv-footer__email { font-size: .9375rem; }
+  .footer--gv .gv-footer__signature { margin-top: 2.5rem; }
+  .footer--gv .gv-footer__bottom { flex-direction: column; align-items: flex-start; gap: .3rem; margin-top: 1.25rem; }
+}

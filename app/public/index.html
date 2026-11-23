@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
   <link rel="stylesheet" href="/assets/css/pages/legal.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=restored-layout-20261124">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=footer-20261124">
   <style>[data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }</style>
   <script>
     // Prevent reveal flash: mark JS availability before paint
@@ -1048,39 +1048,42 @@
 
 </div>
   </main>
-    <footer class="footer" data-theme="dark">
+    <footer class="footer footer--gv" data-theme="dark" id="seitenende">
     <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a class="footer__contact" href="#kontakt">Kontakt aufnehmen</a>
-          <a class="footer__wordmark" href="#start" aria-label="GV Coaching – Startseite">GV Coaching</a>
+      <div class="gv-footer__main">
+        <div class="gv-footer__intro">
+          <p class="gv-footer__eyebrow">Online-Coaching · DE / AT / CH</p>
+          <h2 class="gv-footer__title">Dein Alltag.<br>Deine <em>Bestform.</em></h2>
+          <p class="gv-footer__description">Individuelles Training und Ernährung, die zu deinem Leben passen. Persönlich begleitet von Gabriel Vogt.</p>
+          <a class="gv-footer__cta" href="#performance-check">Performance-Check starten</a>
+          <p class="gv-footer__note">Kostenlos · ca. 3 Minuten · unverbindlich</p>
         </div>
-        <nav class="footer__col" aria-label="Footer Navigation">
-          <p class="footer__heading">Navigation</p>
-          <a href="#coaching">Coaching</a>
+        <nav class="gv-footer__column" aria-label="Footer Navigation">
+          <p class="gv-footer__heading">Entdecken</p>
+          <a href="#coaching">Das Coaching</a>
           <a href="#methode">G5 Methode</a>
           <a href="#ergebnisse">Ergebnisse</a>
-          <a href="#ueber">Über GV Coaching</a>
-          <a href="#faq">FAQ</a>
-          <a href="#performance-check">Performance-Check</a>
-          <a href="#kontakt">Kontakt</a>
+          <a href="#ablauf">Der Ablauf</a>
+          <a href="#ueber">Über Gabriel</a>
+          <a href="#faq">Häufige Fragen</a>
         </nav>
-        <div class="footer__col">
-          <p class="footer__heading">Kontakt</p>
-          <address class="footer__address">Gabriel Vogt<br>Lukasstraße 17<br>75172 Pforzheim · Deutschland</address>
-          <a data-requires="email" data-href-email hidden>E-Mail schreiben</a>
-          <a data-requires="whatsapp" data-href-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
-          <a data-requires="instagram" data-href-instagram hidden target="_blank" rel="noopener">Instagram</a>
-          <a data-requires="youtube" data-href-youtube hidden target="_blank" rel="noopener">YouTube</a>
-          <a href="#kontakt">Kontaktformular</a>
-          <p class="footer__heading footer__heading--spaced">Rechtliches</p>
-          <a href="#impressum">Impressum</a>
-          <a href="#datenschutz">Datenschutz</a>
+        <div class="gv-footer__column gv-footer__contact">
+          <p class="gv-footer__heading">Direkter Kontakt</p>
+          <a class="gv-footer__email" href="mailto:support@gvcoaching.com" data-href-email data-email-text>support@gvcoaching.com</a>
+          <a href="#kontakt">Nachricht schreiben</a>
+          <address class="gv-footer__address"><strong>Gabriel Vogt</strong><br>Lukasstraße 17<br>75172 Pforzheim<br>Deutschland</address>
         </div>
       </div>
-      <div class="footer__bottom">
+      <a class="gv-footer__signature" href="#start" aria-label="GV Coaching – Startseite">
+        <img src="/assets/brand/gv-logo-white.svg" alt="GV Coaching" width="930" height="140" loading="lazy" decoding="async">
+      </a>
+      <div class="gv-footer__bottom">
         <p>© <span data-year>2026</span> GV Coaching. Alle Rechte vorbehalten.</p>
-        <p class="footer__local">Online Coaching · DE / AT / CH</p>
+        <nav class="gv-footer__legal" aria-label="Rechtliche Informationen">
+          <a href="#impressum">Impressum</a>
+          <a href="#datenschutz">Datenschutz</a>
+        </nav>
+        <a class="gv-footer__back" href="#start">Zurück nach oben</a>
       </div>
     </div>
   </footer>
