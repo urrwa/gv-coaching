@@ -1,6 +1,76 @@
 /* HOMEPAGE — section choreography */
 (function () {
   "use strict";
+  /* ---------- Hero: play while the video is on screen ---------- */
+  (function hero() {
+    const section = document.querySelector("[data-hero]");
+    const video = section?.querySelector("[data-hero-video]");
+    if (!video) return;
+
+    const button = section.querySelector("[data-hero-playback]");
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = matchMedia("(max-width: 767px)");
+    let paused = motion.matches || navigator.connection?.saveData === true;
+    let visible = false;
+    let showResume = paused;
+    let pending = false;
+
+    function updateButton() {
+      button.textContent = video.paused ? "Video abspielen" : "Video pausieren";
+      button.hidden = video.paused && !showResume;
+    }
+
+    function sync() {
+      if (paused || !visible || document.hidden) {
+        video.pause();
+        updateButton();
+        return;
+      }
+      if (!video.paused || pending) return;
+      if (!video.hasAttribute("src")) {
+        video.src = mobile.matches ? video.dataset.heroVideoMobile : video.dataset.heroVideo;
+      }
+      pending = true;
+      video.play().catch((error) => {
+        if (error.name === "NotAllowedError") {
+          paused = true;
+          showResume = true;
+        }
+      }).finally(() => {
+        pending = false;
+        updateButton();
+      });
+    }
+
+    video.addEventListener("playing", () => {
+      section.classList.add("is-video-ready");
+      updateButton();
+    });
+    video.addEventListener("pause", updateButton);
+    video.addEventListener("error", () => {
+      section.classList.remove("is-video-ready");
+      showResume = false;
+      updateButton();
+    });
+    button.addEventListener("click", () => {
+      paused = !video.paused;
+      showResume = paused;
+      sync();
+    });
+    motion.addEventListener("change", () => {
+      if (!motion.matches) return;
+      paused = true;
+      showResume = true;
+      sync();
+    });
+    document.addEventListener("visibilitychange", sync);
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      sync();
+    }, { threshold: .15 }).observe(video);
+    updateButton();
+  })();
+
   function run() {
     const PM = window.PM, gsap = window.gsap, ST = window.ScrollTrigger;
     if (!gsap || !ST) return;
