@@ -9,12 +9,12 @@
   const ARROW = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
 
   const QUESTIONS = [
-    { id: "goal", label: "Ziel", q: "Was ist dein wichtigstes Ziel in den nächsten sechs Monaten?", hint: "Wähle das, was dir aktuell am meisten bedeutet.", type: "single", options: [
+    { id: "goal", label: "Ziel", q: "Was ist dein wichtigstes Ziel in den nächsten sechs Monaten?", type: "single", options: [
       { v: "Muskeln aufbauen", s: "Sichtbar athletischer und kräftiger werden" },
       { v: "Körperfett reduzieren", s: "Definierter werden, ohne Muskeln zu verlieren" },
       { v: "Beides: Fett runter, Muskeln rauf", s: "Körperkomposition nachhaltig verändern" },
       { v: "Leistungsfähigkeit & Energie", s: "Mehr Kraft im Training, mehr Energie im Alltag" } ] },
-    { id: "training", label: "Training", q: "Wie trainierst du aktuell?", hint: "Ehrlich ist hilfreicher als ambitioniert.", type: "single", options: [
+    { id: "training", label: "Training", q: "Wie trainierst du aktuell?", type: "single", options: [
       { v: "Aktuell gar nicht", s: "Oder nur sehr sporadisch" },
       { v: "Unregelmäßig", s: "1–2× pro Woche, mit längeren Pausen" },
       { v: "Regelmäßig", s: "2–3× pro Woche, aber ohne klaren Plan" },
@@ -24,7 +24,7 @@
       { v: "Fortgeschritten", s: "Ein bis drei Jahre Erfahrung" },
       { v: "Erfahren", s: "Mehr als drei Jahre, kenne die Grundlagen" },
       { v: "Früher aktiv, lange Pause", s: "Habe mal gut trainiert, bin raus" } ] },
-    { id: "work", label: "Alltag", q: "Wie sieht dein beruflicher Alltag aus?", hint: "Damit das System zu deinem Kalender passt.", type: "single", options: [
+    { id: "work", label: "Alltag", q: "Wie sieht dein beruflicher Alltag aus?", type: "single", options: [
       { v: "Unternehmer / Selbstständig", s: "Volle Verantwortung, unvorhersehbare Tage" },
       { v: "Führungskraft / Manager", s: "Viele Termine, Team, Reisen" },
       { v: "Angestellt, Vollzeit", s: "Feste Struktur, lange Tage" },
@@ -34,12 +34,12 @@
       { v: "Wissen, was wirklich wirkt" }, { v: "Verbindlichkeit & Feedback" }, { v: "Stress & Regeneration" } ] },
     { id: "timeline", label: "Zeitrahmen", q: "In welchem Zeitrahmen willst du sichtbare Veränderung?", type: "single", options: [
       { v: "So schnell wie möglich" }, { v: "In 3–6 Monaten" }, { v: "In 6–12 Monaten" }, { v: "Langfristig, ohne Druck" } ] },
-    { id: "commitment", label: "Verbindlichkeit", q: "Wie lange bist du bereit, verbindlich dranzubleiben?", hint: "Das Coaching läuft 16 Wochen – nachhaltige Veränderung braucht diesen Rahmen.", type: "single", options: [
+    { id: "commitment", label: "Verbindlichkeit", q: "Wie lange bist du bereit, verbindlich dranzubleiben?", type: "single", options: [
       { v: "4–8 Wochen", s: "Ich will vor allem schnell erste Ergebnisse" },
       { v: "12–16 Wochen", s: "Ein kompletter Programmzyklus" },
       { v: "6 Monate und länger", s: "Ich denke langfristig" },
       { v: "Weiß ich noch nicht", s: "Hängt vom Konzept ab" } ] },
-    { id: "readiness", label: "Bereitschaft", q: "Wie bereit bist du, jetzt in ein Coaching zu investieren?", hint: "Es gibt keine falsche Antwort – nur eine ehrliche.", type: "single", options: [
+    { id: "readiness", label: "Bereitschaft", q: "Wie bereit bist du, jetzt in ein Coaching zu investieren?", type: "single", options: [
       { v: "Ich bin bereit, sofort zu starten" }, { v: "In den nächsten 4–8 Wochen" }, { v: "Ich informiere mich zunächst" }, { v: "Ich will erst verstehen, ob es passt" } ] }
   ];
 
@@ -108,7 +108,7 @@
       const isSel = (v) => multi ? Array.isArray(sel) && sel.includes(v) : sel === v;
       return `<div class="check__step is-active" data-qid="${q.id}">
         <h3 class="check__q" id="pc-question" tabindex="-1">${esc(q.q)}</h3>
-        <p class="check__hint">${esc(q.hint || (multi ? "Mehrfachauswahl möglich." : "Wähle eine Antwort – oder drücke die Zahl auf der Tastatur."))}</p>
+        ${multi ? '<p class="check__hint">Mehrfachauswahl möglich.</p>' : ''}
         <div class="check__options ${q.options.length > 4 ? "check__options--3" : ""}" role="${multi ? "group" : "radiogroup"}" aria-labelledby="pc-question" aria-describedby="pc-error">
           ${q.options.map((o, i) => `<button type="button" class="opt ${multi ? "opt--multi" : ""} ${isSel(o.v) ? "is-selected" : ""}" role="${multi ? "checkbox" : "radio"}" aria-checked="${isSel(o.v)}" data-value="${esc(o.v)}">
             <span class="opt__mark" aria-hidden="true"></span>
@@ -146,9 +146,8 @@
     function renderReview() {
       return `<div class="check__step is-active" data-qid="review">
         <h3 class="check__q">Kurz prüfen, dann abschicken.</h3>
-        <p class="check__hint">So sieht deine Anfrage aus. Nach dem Absenden meldet sich der Coach persönlich bei dir.</p>
+        <p class="check__hint">Bitte prüfe deine Angaben vor dem Absenden.</p>
         <dl class="check__summary">${summaryRows()}</dl>
-        <div class="check__meta"><span>Kostenlos & unverbindlich</span><span>Persönliche Auswertung</span><span>Vertraulich</span></div>
         <p class="check__error" data-error></p>
       </div>`;
     }
@@ -178,7 +177,7 @@
       if (mode === "error") extra = `<p class="check__hint">Die Übermittlung hat leider nicht funktioniert. Bitte versuche es später erneut${C.contactEmail ? ` oder schreibe direkt an <strong>${esc(C.contactEmail)}</strong>` : ""}.</p><textarea class="check__raw" readonly>${esc(summary)}</textarea>`;
       if (mode !== "ok") extra += `<button type="button" class="btn btn--outline btn--sm check__copy" data-copy><span class="btn__label">Antworten kopieren</span></button><button type="button" class="link-underline" data-retry>Zurück zur Zusammenfassung</button>`;
       const headline = mode === "ok" ? "Danke – dein Performance-Check ist unterwegs." : mode === "mailto" ? "Dein E-Mail-Entwurf ist vorbereitet." : "Noch nicht gesendet.";
-      const sub = mode === "ok" ? `Du erhältst innerhalb weniger Werktage eine persönliche Einschätzung an <strong>${esc(state.contact.email)}</strong>. Prüfe bitte auch deinen Spam-Ordner.` : "";
+      const sub = mode === "ok" ? `Kontaktadresse: <strong>${esc(state.contact.email)}</strong>.` : "";
       return `<div class="check__step is-active" data-qid="done"><div class="check__done">
         <div class="check__done-icon" aria-hidden="true">${mode === "error" ? "!" : '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'}</div>
         <h3 class="check__q" tabindex="-1">${headline}</h3>${sub ? `<p class="check__hint">${sub}</p>` : ""}${extra}
