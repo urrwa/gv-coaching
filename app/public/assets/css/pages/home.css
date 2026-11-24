@@ -1494,7 +1494,7 @@
 .bento__tile--img img { filter: none; }
 .g5__stage-media::after { background: linear-gradient(0deg, rgba(7,17,31,.2), transparent 40%); }
 .g5__stage:nth-child(2) .g5__stage-media img { object-position: 53% 50% !important; }
-.g5__stage:nth-child(4) .g5__stage-media img { object-position: 50% 40% !important; }
+.g5__stage:nth-child(4) .g5__stage-media img { object-position: 45% 50% !important; }
 .g5__stage:nth-child(5) .g5__stage-media img { object-position: 75% 40% !important; }
 .problem__img, .audience__img, .g5__stage-media img, .pc__visual img { filter: none; }
 .pc__visual { aspect-ratio: 3 / 2; }
