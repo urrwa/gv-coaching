@@ -1607,8 +1607,11 @@
 .faq__sticky .h2 { max-width: 14ch; }
 @media (max-width: 767px) {
   .hero__copy { max-width: 34rem; gap: 1.1rem; }
-  .hero__media > :is(img,video) { object-position: 60% center; }
-  .hero__media::after { background: linear-gradient(0deg, rgba(7,17,31,.94), rgba(7,17,31,.62) 48%, rgba(7,17,31,.08) 85%); }
+  .hero__media { top: var(--nav-h); bottom: auto; aspect-ratio: 16 / 9; }
+  .hero__media > :is(img,video) { object-fit: contain; object-position: center; }
+  .hero__media::after { background: linear-gradient(0deg, var(--navy-950), transparent 25%); }
+  .hero__inner { justify-content: flex-start; padding-block: calc(var(--nav-h) + 56.25vw + 1.5rem) 5rem; }
+  .hero__playback { top: calc(var(--nav-h) + 56.25vw - 2.6rem); bottom: auto; background: rgba(7,17,31,.82); }
   .hero__sub { max-width: 36ch; line-height: 1.6; }
   .hero__actions { gap: .5rem; }
   .hero__secondary { padding-left: 0; }
