@@ -73,7 +73,7 @@
       let title, text, extra = "", actions = "", warn = false;
       if (mode === "ok") {
         title = "Danke – deine Nachricht ist angekommen.";
-        text = `Du bekommst innerhalb weniger Werktage eine persönliche Antwort an <strong>${esc(d.email)}</strong>. Prüfe bitte auch deinen Spam-Ordner.`;
+        text = `Kontaktadresse: <strong>${esc(d.email)}</strong>.`;
         actions = `<a class="btn btn--ghost" href="#faq"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Antworten auf häufige Fragen</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>`;
       } else if (mode === "mailto") {
         title = "Fast fertig – dein E-Mail-Programm übernimmt.";
