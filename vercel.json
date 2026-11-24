@@ -28,18 +28,8 @@
       "permanent": true
     },
     {
-      "source": "/datenschutz/:path*/",
-      "destination": "/#datenschutz",
-      "permanent": true
-    },
-    {
       "source": "/ergebnisse/:path*/",
       "destination": "/#ergebnisse",
-      "permanent": true
-    },
-    {
-      "source": "/impressum/:path*/",
-      "destination": "/#impressum",
       "permanent": true
     },
     {
