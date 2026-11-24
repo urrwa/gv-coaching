@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
   <link rel="stylesheet" href="/assets/css/pages/legal.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=footer-20261124">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=content2-20261124">
   <style>[data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }</style>
   <script>
     // Prevent reveal flash: mark JS availability before paint
@@ -56,11 +56,24 @@
       "name": "GV Coaching",
       "url": "https://www.gvcoaching.net/",
       "logo": "https://www.gvcoaching.net/assets/brand/gv-logo-navy.svg",
-      "founder": { "@type": "Person", "name": "Gabriel Vogt" },
+      "founder": {
+        "@type": "Person",
+        "name": "Gabriel Vogt"
+      },
       "email": "support@gvcoaching.net",
-      "address": { "@type": "PostalAddress", "streetAddress": "Lukasstraße 17", "postalCode": "75172", "addressLocality": "Pforzheim", "addressCountry": "DE" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Lukasstraße 17",
+        "postalCode": "75172",
+        "addressLocality": "Pforzheim",
+        "addressCountry": "DE"
+      },
       "description": "Premium Online Performance Coaching für ambitionierte Männer in Deutschland, Österreich und der Schweiz.",
-      "areaServed": ["DE", "AT", "CH"],
+      "areaServed": [
+        "DE",
+        "AT",
+        "CH"
+      ],
       "knowsLanguage": "de"
     },
     {
@@ -69,16 +82,29 @@
       "url": "https://www.gvcoaching.net/",
       "name": "GV Coaching",
       "inLanguage": "de",
-      "publisher": { "@id": "https://www.gvcoaching.net/#organization" }
+      "publisher": {
+        "@id": "https://www.gvcoaching.net/#organization"
+      }
     },
     {
       "@type": "Service",
       "@id": "https://www.gvcoaching.net/#service",
       "name": "G5 Performance Coaching",
       "serviceType": "Online Personal Training und Fitness Coaching für Männer",
-      "provider": { "@id": "https://www.gvcoaching.net/#organization" },
-      "areaServed": ["DE", "AT", "CH"],
-      "audience": { "@type": "PeopleAudience", "suggestedGender": "male", "suggestedMinAge": 28, "suggestedMaxAge": 45 },
+      "provider": {
+        "@id": "https://www.gvcoaching.net/#organization"
+      },
+      "areaServed": [
+        "DE",
+        "AT",
+        "CH"
+      ],
+      "audience": {
+        "@type": "PeopleAudience",
+        "suggestedGender": "male",
+        "suggestedMinAge": 28,
+        "suggestedMaxAge": 45
+      },
       "description": "Individuelles Online-Coaching für Muskelaufbau, Fettverlust und Leistungsfähigkeit nach der G5 Performance Method: Assess, Architect, Execute, Optimise, Sustain.",
       "url": "https://www.gvcoaching.net/#coaching"
     },
@@ -86,11 +112,54 @@
       "@type": "FAQPage",
       "@id": "https://www.gvcoaching.net/#faq",
       "mainEntity": [
-        { "@type": "Question", "name": "Funktioniert Online-Coaching wirklich ohne Trainer vor Ort?", "acceptedAnswer": { "@type": "Answer", "text": "Ja – wenn es richtig aufgebaut ist. Du bekommst ein individuelles Programm, Technikfeedback über Videos, wöchentliche Check-ins und direkten Kontakt zum Coach. Die Betreuung endet nicht nach der Stunde, sondern begleitet deine ganze Woche." } },
-        { "@type": "Question", "name": "Wie viel Zeit muss ich pro Woche investieren?", "acceptedAnswer": { "@type": "Answer", "text": "Realistisch zwei bis vier Trainingseinheiten pro Woche mit je 45 bis 60 Minuten plus wenige Minuten für den wöchentlichen Check-in. Dein System wird um deine tatsächliche Verfügbarkeit gebaut." } },
-        { "@type": "Question", "name": "Was passiert, wenn ich viel reise oder eine stressige Phase habe?", "acceptedAnswer": { "@type": "Answer", "text": "Dafür gibt es in deinem System einen Plan B: Mindeststandards für Training und Ernährung, Hotel-Workouts und klare Prioritäten." } },
-        { "@type": "Question", "name": "Muss ich eine Diät einhalten oder Mahlzeiten vorkochen?", "acceptedAnswer": { "@type": "Answer", "text": "Nein. Du arbeitest mit einem flexiblen Ernährungs-Framework ohne Verbote und ohne Pflicht zum Meal Prep." } },
-        { "@type": "Question", "name": "Was kostet das Coaching?", "acceptedAnswer": { "@type": "Answer", "text": "Die Investition hängt von Umfang und Dauer der Zusammenarbeit ab und wird im Strategiegespräch transparent besprochen. Der Performance-Check ist kostenlos und unverbindlich." } }
+        {
+          "@type": "Question",
+          "name": "Wie läuft das Online-Coaching ab?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Du erhältst einen individuellen Trainings- und Ernährungsplan. Wöchentliche Check-ins, Technikfeedback und persönlicher Kontakt begleiten deine Umsetzung."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie viel Zeit und Equipment brauche ich?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Meist 2 bis 4 Einheiten à 45 bis 60 Minuten pro Woche. Dein Plan passt zu deiner verfügbaren Zeit und deinem Equipment im Studio oder zu Hause."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Muss ich eine strenge Diät halten?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Wir planen deine Ernährung flexibel mit passenden Portionen und klaren Prioritäten. Restaurantbesuche und Familienessen lassen sich einbauen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was ist bei Reisen oder stressigen Wochen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wir passen Umfang und Übungen an. Mit einer vereinfachten Variante bleibst du im Rhythmus und knüpfst danach wieder an deinen Plan an."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist das Coaching für Einsteiger geeignet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja, wir starten auf deinem Niveau und bauen Technik und Belastung schrittweise auf. Gesundheitliche Einschränkungen klären wir vor dem Start; bei Bedarf zuerst ärztlich."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie lange läuft das Coaching und was kostet es?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Das Programm dauert 16 Wochen. Preis, Leistungen und Vertragsbedingungen besprechen wir vor deiner Entscheidung. Der Performance-Check ist kostenlos und unverbindlich."
+          }
+        }
       ]
     }
   ]
@@ -101,14 +170,6 @@
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
   <div class="page-veil" aria-hidden="true"><div class="page-veil__mark"><span class="logo-mark" aria-hidden="true"><img class="logo-mark__img logo-mark__img--light" src="/assets/brand/gv-logo-white.svg" alt="" width="741" height="350" decoding="async"><img class="logo-mark__img logo-mark__img--dark" src="/assets/brand/gv-logo-navy.svg" alt="" width="741" height="350" decoding="async"></span></div></div>
   <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div></div>
-    <div class="topbar" id="topbar">
-    <div class="topbar__inner">
-      <span class="topbar__item"><span class="topbar__dot"></span>Online-Coaching aktiv</span>
-      <span class="topbar__item"><svg class="topbar__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Mo – Fr · 06:00 – 22:00</span>
-      <span class="topbar__item"><svg class="topbar__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2C5.79 2 4 3.79 4 6c0 3 4 8 4 8s4-5 4-8c0-2.21-1.79-4-4-4z" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.3"/></svg>Deutschland · Österreich · Schweiz</span>
-      <span class="topbar__item topbar__item--right"><svg class="topbar__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h2l1 3-1.5 1.5a9 9 0 004 4L10 10l3 1v2a2 2 0 01-2 2A12 12 0 012 5a2 2 0 012-2h-.001z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="#performance-check" class="topbar__link">Kostenloser Performance-Check</a></span>
-    </div>
-  </div>
 
   <header class="nav" id="nav" data-nav-root>
     <div class="nav__inner">
@@ -117,10 +178,8 @@
       </a>
       <nav class="nav__links" aria-label="Hauptnavigation">
         <a href="#coaching" data-nav="#coaching">Coaching</a>
-        <a href="#methode" data-nav="#methode">G5 Methode</a>
         <a href="#ergebnisse" data-nav="#ergebnisse">Ergebnisse</a>
-        <a href="#ueber" data-nav="#ueber">Über</a>
-        <a href="#faq" data-nav="#faq">FAQ</a>
+        <a href="#ueber" data-nav="#ueber">Über Gabriel</a>
       </nav>
       <div class="nav__actions">
         <a class="btn btn--primary btn--sm nav__cta" href="#performance-check"><span class="btn__fill" aria-hidden="true"></span>
@@ -178,14 +237,14 @@
 
     <div class="hero__inner container">
       <div class="hero__copy">
-        <p class="eyebrow eyebrow--plain hero__eyebrow">16 Wochen Online-Coaching<span class="hide-mobile">&nbsp;· DE / AT / CH</span></p>
-        <h1 class="hero__title">Athletisch. <em>Ohne Kompromisse.</em></h1>
-        <p class="hero__sub lead">Online-Coaching für Männer, die mit einem vollen Alltag Muskeln aufbauen oder Körperfett reduzieren wollen — systematisch, datenbasiert, dauerhaft.</p>
+        <p class="eyebrow eyebrow--plain hero__eyebrow">Online Fitness Coaching</p>
+        <h1 class="hero__title">Stärker werden.<br><em>In deinem Alltag.</em></h1>
+        <p class="hero__sub lead">Dein Trainings- und Ernährungsplan. Persönlich begleitet von Gabriel Vogt – für Muskelaufbau, weniger Körperfett und eine Routine, die zu dir passt.</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="#performance-check"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Performance-Check starten</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
           <a class="btn btn--ghost hero__secondary" href="#coaching"><span class="btn__label">Das Coaching entdecken</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
         </div>
-        <p class="hero__check-note small">Kostenlos · ca. 3 Minuten · Keine automatische Verkaufsmail</p>
+        <p class="hero__check-note small">Kostenlos · ca. 3 Minuten · unverbindlich</p>
       </div>
     </div>
   </div>
@@ -243,61 +302,61 @@
   <div class="container problem__layout">
     <div class="problem__sticky">
       <p class="eyebrow" data-reveal="up">Das eigentliche Problem</p>
-      <h2 class="display-l problem__title" data-reveal="words">Du brauchst nicht mehr Motivation. Du brauchst ein System.</h2>
-      <p class="lead muted problem__lead" data-reveal="up" data-delay="0.15">Die meisten ambitionierten Männer scheitern nicht an Disziplin. Sie scheitern an Plänen, die für ein anderes Leben geschrieben wurden.</p>
+      <h2 class="display-l problem__title" data-reveal="words">Dein Training braucht einen festen Platz.</h2>
+      <p class="lead muted problem__lead" data-reveal="up" data-delay="0.15">Volle Wochen, wechselnde Pläne, wenig Fortschritt? Wir machen Training und Ernährung im Alltag umsetzbar.</p>
       <div class="problem__visual" aria-hidden="true">
-        <div class="frame frame--4-5 frame--grade problem__frame" data-reveal="clip">
-          <img class="problem__img is-active" src="/assets/img/exp-desk-1600.webp" alt="" width="1600" height="893" loading="lazy" decoding="async" data-problem-img="1" style="object-position: 22% 50%">
-          <img class="problem__img" src="/assets/img/problem-gym-1-1600.webp" alt="" width="1600" height="1195" loading="lazy" decoding="async" data-problem-img="2">
-          <img class="problem__img" src="/assets/img/trust-equipment-1600.webp" alt="" width="1600" height="893" loading="lazy" decoding="async" data-problem-img="3" style="object-position: 38% 50%">
-          <img class="problem__img" src="/assets/img/cta-treadmills-1600.webp" alt="" width="1600" height="1195" loading="lazy" decoding="async" data-problem-img="4">
-          <img class="problem__img" src="/assets/img/problem-gym-2-1600.webp" alt="" width="1600" height="1195" loading="lazy" decoding="async" data-problem-img="5">
-          <span class="frame__caption" data-problem-caption>Volle Agenda</span>
+        <div class="frame frame--16-10 frame--grade problem__frame" data-reveal="clip">
+          <img class="problem__img is-active" data-problem-img="1" src="/assets/img/exp-office-1600.webp" srcset="/assets/img/exp-office-900.webp 672w, /assets/img/exp-office-1600.webp 1195w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 62%">
+          <img class="problem__img" data-problem-img="2" src="/assets/img/train-bench-press-1600.webp" srcset="/assets/img/train-bench-press-900.webp 672w, /assets/img/train-bench-press-1600.webp 1195w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 20%">
+          <img class="problem__img" data-problem-img="3" src="/assets/img/g5-architect-1600.webp" srcset="/assets/img/g5-architect-900.webp 900w, /assets/img/g5-architect-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1195" loading="lazy" decoding="async" style="object-position: 50% 70%">
+          <img class="problem__img" data-problem-img="4" src="/assets/img/cta-treadmills-1600.webp" srcset="/assets/img/cta-treadmills-900.webp 900w, /assets/img/cta-treadmills-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1195" loading="lazy" decoding="async" style="object-position: 50% 50%">
+          <img class="problem__img" data-problem-img="5" src="/assets/img/g5-assess-1600.webp" srcset="/assets/img/g5-assess-900.webp 672w, /assets/img/g5-assess-1600.webp 1195w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 5%">
+          <span class="frame__caption" data-problem-caption>Zeit für Training</span>
         </div>
       </div>
     </div>
 
     <ol class="problem__list" data-problem-list>
-      <li class="problem__row" data-problem="1" data-caption="Volle Agenda" data-reveal="up">
+      <li class="problem__row" data-problem="1" data-caption="Zeit für Training" data-reveal="up">
         <span class="problem__num">01</span>
         <div class="problem__row-body">
-          <h3 class="h3">Dein Kalender gewinnt. Jedes Mal.</h3>
-          <p class="muted">Meetings, Reisen, Deadlines. Der Trainingsplan geht davon aus, dass du fünfmal pro Woche 90 Minuten Zeit hast. Hast du nicht. Also fällt er – und du gleich mit.</p>
+          <h3 class="h3">Zu wenig Zeit fürs Training.</h3>
+          <p class="muted">Wir planen realistische Einheiten für deine Woche – auch wenn Beruf und Familie viel Raum brauchen.</p>
         </div>
       </li>
-      <li class="problem__row" data-problem="2" data-caption="Inkonsistenz" data-reveal="up">
+      <li class="problem__row" data-problem="2" data-caption="Regelmäßig trainieren" data-reveal="up">
         <span class="problem__num">02</span>
         <div class="problem__row-body">
-          <h3 class="h3">Training in Wellen statt in Wochen.</h3>
-          <p class="muted">Drei starke Wochen, dann zwei Wochen nichts. Der Körper reagiert auf Kontinuität, nicht auf Intensitätsschübe. Fortschritt braucht einen Rhythmus, der deine Realität aushält.</p>
+          <h3 class="h3">Mal Vollgas, mal gar nicht.</h3>
+          <p class="muted">Ein klarer Wochenrhythmus hilft dir, regelmäßig zu trainieren und Belastung schrittweise aufzubauen.</p>
         </div>
       </li>
-      <li class="problem__row" data-problem="3" data-caption="Ernährung ohne Konzept" data-reveal="up">
+      <li class="problem__row" data-problem="3" data-caption="Individuelle Planung" data-reveal="up">
         <span class="problem__num">03</span>
         <div class="problem__row-body">
-          <h3 class="h3">Zufällige Ernährungspläne aus dem Internet.</h3>
-          <p class="muted">Low Carb, Fasten, Meal Prep am Sonntag. Alles schon probiert, nichts hat zu Geschäftsessen und 14-Stunden-Tagen gepasst. Ernährung muss ein Rahmen sein, kein Käfig.</p>
+          <h3 class="h3">Ein Plan, der nicht zu dir passt.</h3>
+          <p class="muted">Training, Ernährung und Equipment werden auf dich abgestimmt. So weißt du, was du konkret umsetzen kannst.</p>
         </div>
       </li>
-      <li class="problem__row" data-problem="4" data-caption="Der ewige Neustart" data-reveal="up">
+      <li class="problem__row" data-problem="4" data-caption="Dranbleiben" data-reveal="up">
         <span class="problem__num">04</span>
         <div class="problem__row-body">
-          <h3 class="h3">Immer wieder bei null anfangen.</h3>
-          <p class="muted">Jeder Neustart kostet Energie, die du eigentlich für dein Unternehmen oder deine Familie brauchst. Du bist nicht undiszipliniert – du hast nur nie ein System bekommen, das Pausen einplant.</p>
+          <h3 class="h3">Nach jeder Pause von vorn.</h3>
+          <p class="muted">Für Reisen und volle Wochen gibt es eine angepasste Variante. Danach knüpfst du wieder an deinen Plan an.</p>
         </div>
       </li>
-      <li class="problem__row" data-problem="5" data-caption="Niemand schaut hin" data-reveal="up">
+      <li class="problem__row" data-problem="5" data-caption="Persönliches Feedback" data-reveal="up">
         <span class="problem__num">05</span>
         <div class="problem__row-body">
-          <h3 class="h3">Keine Verbindlichkeit, kein Feedback.</h3>
-          <p class="muted">Beruflich hast du Zahlen, Reviews und Verantwortung. Beim Training hast du nichts davon. Was niemand misst und niemand nachfragt, wird in stressigen Wochen als Erstes gestrichen.</p>
+          <h3 class="h3">Du trainierst ohne Feedback.</h3>
+          <p class="muted">Im Check-in besprechen wir deine Umsetzung und Technik. Dein Plan wird an deinen Fortschritt angepasst.</p>
         </div>
       </li>
     </ol>
   </div>
 
   <div class="problem__statement container" data-statement>
-    <p class="problem__statement-text">Nicht dein Wille ist das Problem. Dir fehlt eine Struktur, die mit deinem Leben rechnet – nicht gegen es.</p>
+    <p class="problem__statement-text">Ein klarer Plan. Regelmäßiges Training. Persönliches Feedback.</p>
   </div>
 </section>
 
@@ -309,14 +368,14 @@
         <p class="eyebrow" data-reveal="up">Für wen</p>
         <h2 class="h2" data-reveal="words">Erkennst du dich wieder?</h2>
       </div>
-      <p class="lead muted" data-reveal="up" data-delay="0.1">GV Coaching ist für Männer gebaut, die beruflich Verantwortung tragen und körperlich nicht länger Kompromisse machen wollen. Es ist bewusst nicht für jeden.</p>
+      <p class="lead muted" data-reveal="up" data-delay="0.1">Für Männer, die Muskeln aufbauen, Körperfett reduzieren und regelmäßig trainieren möchten – auch mit einem vollen Kalender.</p>
     </div>
 
     <div class="audience__layout">
       <div class="audience__visual" data-reveal="clip">
-        <div class="frame frame--4-5 frame--grade audience__frame" data-parallax="0.12">
-          <img class="audience__img is-active" src="/assets/img/audience-bright-1600.webp" alt="Athletischer Mann in professioneller Umgebung eines Trainingsstudios" width="1600" height="1195" loading="lazy" decoding="async" data-audience-img="yes" style="object-position: 24% 15%">
-          <img class="audience__img" src="/assets/img/audience-dark-1600.webp" alt="" width="1600" height="893" loading="lazy" decoding="async" data-audience-img="no" style="object-position: 84% 15%">
+        <div class="frame frame--4-5 frame--grade audience__frame">
+          <img class="audience__img is-active" src="/assets/img/audience-bright-1600.webp" alt="Athletischer Mann in professioneller Umgebung eines Trainingsstudios" width="1600" height="1195" loading="lazy" decoding="async" data-audience-img="yes" style="object-position: 23% 12%">
+          <img class="audience__img" src="/assets/img/audience-dark-1600.webp" alt="" width="1600" height="893" loading="lazy" decoding="async" data-audience-img="no" style="object-position: 72% 12%">
         </div>
       </div>
 
@@ -327,10 +386,10 @@
         </div>
 
         <ul class="audience__list is-active" role="tabpanel" id="panel-yes" aria-labelledby="tab-yes" data-audience-panel="yes">
-          <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Du führst ein Unternehmen oder ein Team</strong><span>und willst körperlich so auftreten, wie du beruflich arbeitest: klar, stark, präsent.</span></div></li>
+          <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Du willst stärker und fitter werden</strong><span>mit einem Trainingsplan, der zu deinem aktuellen Stand passt.</span></div></li>
           <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Deine Wochen sind voll und unvorhersehbar</strong><span>und du brauchst ein System, das auch in Reisewochen funktioniert.</span></div></li>
           <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Du willst Muskeln aufbauen und Körperfett reduzieren</strong><span>ohne Extremdiäten und ohne dein soziales Leben zu opfern.</span></div></li>
-          <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Du bist Vater und willst Vorbild sein</strong><span>mit Energie am Abend, nicht nur im Meeting.</span></div></li>
+          <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Du möchtest mehr Energie im Alltag</strong><span>und eine Routine, die auch neben Beruf und Familie funktioniert.</span></div></li>
           <li><span class="audience__icon audience__icon--yes" aria-hidden="true"></span><div><strong>Du hast schon vieles probiert</strong><span>und bist bereit, Verantwortung zu übernehmen – mit jemandem, der hinschaut.</span></div></li>
         </ul>
 
@@ -354,7 +413,7 @@
     <div class="g5__head container">
       <div class="g5__head-left">
         <p class="eyebrow" data-reveal="up">G5 Performance Method</p>
-        <h2 class="h2" data-reveal="words">Fünf Phasen. Ein System, das dein Leben aushält.</h2>
+        <h2 class="h2" data-reveal="words">Dein Weg zu planbarem Fortschritt.</h2>
       </div>
       <nav class="g5__nav" aria-label="Phasen der G5 Methode" data-reveal="up" data-delay="0.15">
         <button class="g5__nav-btn is-active" data-g5-go="0"><span>01</span>Assess</button>
@@ -372,12 +431,12 @@
 
     <div class="g5__track" data-g5-track>
       <article class="g5__stage" data-g5-stage>
-        <div class="g5__stage-media frame frame--grade"><img src="/assets/img/g5-assess-1600.webp" alt="Coach mit Tablet im Trainingsstudio während der Standortbestimmung" width="1600" height="2143" loading="lazy" decoding="async" style="object-position: 50% 14%"></div>
+        <div class="g5__stage-media frame frame--grade"><img src="/assets/img/g5-assess-1600.webp" alt="Coach mit Tablet im Trainingsstudio während der Standortbestimmung" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 14%"></div>
         <div class="g5__stage-body">
           <span class="g5__big">01</span>
           <p class="g5__name">Assess<span class="g5__name-de">Standortbestimmung</span></p>
-          <p class="g5__text">Bevor irgendetwas geplant wird, verstehen wir, wo du stehst: Ausgangslage, Ziele, Trainingshistorie, Verletzungen, Schlaf, Stresslevel und die ehrliche Struktur deiner Woche.</p>
-          <ul class="g5__points"><li>Ausführlicher Performance-Check & Anamnese</li><li>Analyse von Kalender, Reisen und Energiekurve</li><li>Klare, messbare Zieldefinition</li></ul>
+          <p class="g5__text">Wir klären dein Ziel, deine Trainingserfahrung und die Zeit, die du im Alltag wirklich hast.</p>
+          <ul class="g5__points"><li>Ausführlicher Performance-Check & Anamnese</li><li>Trainingserfahrung und Wochenplanung</li><li>Klare, messbare Zieldefinition</li></ul>
         </div>
       </article>
       <article class="g5__stage" data-g5-stage>
@@ -385,16 +444,16 @@
         <div class="g5__stage-body">
           <span class="g5__big">02</span>
           <p class="g5__name">Architect<span class="g5__name-de">Systemaufbau</span></p>
-          <p class="g5__text">Auf Basis der Analyse entsteht dein individuelles Trainings- und Ernährungssystem – mit Prioritäten, Mindeststandards für stressige Wochen und klaren Regeln statt starrer Vorschriften.</p>
-          <ul class="g5__points"><li>Trainingsarchitektur für 2 bis 4 Einheiten pro Woche</li><li>Flexibles Ernährungs-Framework statt Diätplan</li><li>Plan B für Reise- und Krisenwochen</li></ul>
+          <p class="g5__text">Du erhältst deinen Trainings- und Ernährungsplan, passend zu deinem Equipment und deiner Woche.</p>
+          <ul class="g5__points"><li>2 bis 4 passende Trainingseinheiten pro Woche</li><li>Flexible Ernährung im Alltag</li><li>Angepasster Plan für Reisen und volle Wochen</li></ul>
         </div>
       </article>
       <article class="g5__stage" data-g5-stage>
-        <div class="g5__stage-media frame frame--grade"><img src="/assets/img/train-squat-1600.webp" alt="Mann führt eine Kniebeuge mit der Langhantel aus" width="1600" height="2143" loading="lazy" decoding="async" style="object-position: 50% 22%"></div>
+        <div class="g5__stage-media frame frame--grade"><img src="/assets/img/train-squat-1600.webp" alt="Mann führt eine Kniebeuge mit der Langhantel aus" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 22%"></div>
         <div class="g5__stage-body">
           <span class="g5__big">03</span>
           <p class="g5__name">Execute<span class="g5__name-de">Umsetzung</span></p>
-          <p class="g5__text">Jetzt entsteht Konsistenz: Wochenstruktur, Check-ins und direkter Draht zum Coach. Nicht Perfektion zählt, sondern dass die Woche gezählt hat.</p>
+          <p class="g5__text">Du setzt deinen Plan um. Check-ins und Technikfeedback unterstützen dich beim Dranbleiben.</p>
           <ul class="g5__points"><li>Wöchentliche Check-ins & Feedback</li><li>Coaching-Support zwischen den Einheiten</li><li>Verbindlichkeit durch klare Rückmeldung</li></ul>
         </div>
       </article>
@@ -403,7 +462,7 @@
         <div class="g5__stage-body">
           <span class="g5__big">04</span>
           <p class="g5__name">Optimise<span class="g5__name-de">Anpassung</span></p>
-          <p class="g5__text">Dein System wird mit echten Daten weiterentwickelt: Leistung im Training, Adhärenz, Körpermaße, Energie. Was wirkt, bleibt. Was nicht passt, fliegt – ohne Schuldgefühle.</p>
+          <p class="g5__text">Wir prüfen Training, Körpermaße und Energie und passen den Plan an deine Entwicklung an.</p>
           <ul class="g5__points"><li>Datenbasierte Anpassung von Training & Ernährung</li><li>Monatliche Strategie-Calls</li><li>Plateaus erkennen, bevor sie frustrieren</li></ul>
         </div>
       </article>
@@ -412,7 +471,7 @@
         <div class="g5__stage-body">
           <span class="g5__big">05</span>
           <p class="g5__name">Sustain<span class="g5__name-de">Verankerung</span></p>
-          <p class="g5__text">Das Ziel ist nicht, dass du Coaching ewig brauchst. Das Ziel ist Unabhängigkeit: Du verstehst dein System so gut, dass du es selbst steuern, anpassen und halten kannst.</p>
+          <p class="g5__text">Du festigst deine Routinen und lernst, Training und Ernährung langfristig selbst zu steuern.</p>
           <ul class="g5__points"><li>Wissenstransfer statt Abhängigkeit</li><li>Routinen, die ohne Coach funktionieren</li><li>Langfristiger Erhalt von Form und Leistung</li></ul>
         </div>
       </article>
@@ -428,59 +487,59 @@
     <div class="section-head section-head--split">
       <div>
         <p class="eyebrow" data-reveal="up">Das Coaching</p>
-        <h2 class="h2" data-reveal="words">Kein Plan. Ein Coaching, das dich 16 Wochen lang jede Woche begleitet.</h2>
+        <h2 class="h2" data-reveal="words">Dein Coaching. Alles, was dich weiterbringt.</h2>
       </div>
-      <p class="lead muted" data-reveal="up" data-delay="0.1">G5 Performance Coaching ist ein 16-Wochen-Programm: alles, was du für konsistenten Fortschritt brauchst, in einem System – persönlich, datenbasiert und auf deinen Alltag zugeschnitten.</p>
+      <p class="lead muted" data-reveal="up" data-delay="0.1">16 Wochen persönliche Begleitung: individuelles Training, alltagstaugliche Ernährung und regelmäßige Anpassungen.</p>
     </div>
 
     <div class="bento" data-bento>
       <article class="bento__tile bento__tile--text bento__tile--a" data-speed="1.02">
         <span class="index">01</span><h3 class="h3">Individuelles Training</h3>
-        <p class="muted">Programmiert für dein Equipment, deine Zeit und deinen Körper – in deiner Trainings-App, mit Technikvideos und klaren Progressionen. Studio, Home-Gym oder Hotel: Der Plan reist mit.</p>
+        <p class="muted">Dein Plan passt zu deinem Ziel, Trainingsstand und Equipment. Mit klaren Übungen, Technikvideos und passenden Steigerungen.</p>
       </article>
       <article class="bento__tile bento__tile--img bento__tile--b">
-        <img src="/assets/img/train-portrait-db-1600.webp" srcset="/assets/img/train-portrait-db-900.webp 672w, /assets/img/train-portrait-db-1600.webp 1195w" sizes="(min-width: 900px) 20vw, 100vw" alt="Mann steht mit zwei Kurzhanteln im Studio und blickt in die Kamera" width="1600" height="2143" loading="lazy" decoding="async" style="object-position: 50% 20%">
+        <img src="/assets/img/train-row-1600.webp" srcset="/assets/img/train-row-900.webp 672w, /assets/img/train-row-1600.webp 1195w" sizes="(min-width: 900px) 25vw, 92vw" alt="Ruderübung mit Gewichten im Fitnessstudio" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 15%">
         <span class="frame__caption">Training</span>
       </article>
       <article class="bento__tile bento__tile--text bento__tile--c" data-speed="0.96">
-        <span class="index">02</span><h3 class="h3">Flexibles Ernährungs-Framework</h3>
-        <p class="muted">Keine Verbote, keine Meal-Prep-Pflicht. Ein Rahmen aus Prioritäten, der Geschäftsessen und Familienabende aushält.</p>
+        <span class="index">02</span><h3 class="h3">Alltagstaugliche Ernährung</h3>
+        <p class="muted">Ein Ernährungsrahmen für dein Ziel – mit flexiblen Portionen und Platz für Restaurantbesuche und Familienessen.</p>
       </article>
       <article class="bento__tile bento__tile--img bento__tile--d">
-        <img src="/assets/img/exp-office-1600.webp" alt="Büro mit Körperanalysewaage und Schreibtisch für Fortschrittsgespräche" width="1600" height="2143" loading="lazy" decoding="async" style="object-position: 45% 62%">
-        <span class="frame__caption">Monitoring</span>
+        <img src="/assets/img/g5-assess-1600.webp" srcset="/assets/img/g5-assess-900.webp 672w, /assets/img/g5-assess-1600.webp 1195w" sizes="(min-width: 900px) 25vw, 92vw" alt="Coach mit Tablet zur Besprechung des Trainingsplans" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 50% 8%">
+        <span class="frame__caption">Plan &amp; Feedback</span>
       </article>
       <article class="bento__tile bento__tile--text bento__tile--e bento__tile--accent" data-speed="1.04">
         <span class="index">03</span><h3 class="h3">Wöchentliche Check-ins</h3>
-        <p>Jede Woche: Zahlen, Fotos, Energie, Schlaf, Stress. Du bekommst Rückmeldung und eine Anpassung – nicht irgendwann, sondern bevor die nächste Woche startet.</p>
+        <p>Wir besprechen deine Trainingswoche, Fortschritte und Fragen. Daraus ergeben sich die nächsten Anpassungen.</p>
       </article>
       <article class="bento__tile bento__tile--video bento__tile--f">
         <video data-autoplay="/assets/video/loop-2.mp4?v=hd" muted playsinline loop preload="none" poster="/assets/img/hero-press-poster-hd.webp" aria-label="Trainingsvideo: Schulterdrücken mit Kurzhanteln"></video>
-        <span class="frame__caption">Execute</span>
+        <span class="frame__caption">Krafttraining</span>
       </article>
       <article class="bento__tile bento__tile--text bento__tile--g">
         <span class="index">04</span><h3 class="h4">Coaching-Support</h3>
-        <p class="small muted">Direkter Kontakt für Fragen, Umplanungen und Entscheidungen zwischen den Check-ins.</p>
+        <p class="small muted">Persönlicher Kontakt für Fragen zu Training, Ernährung und deinem Plan.</p>
       </article>
       <article class="bento__tile bento__tile--text bento__tile--h">
-        <span class="index">05</span><h3 class="h4">Fortschritts-Monitoring</h3>
-        <p class="small muted">Leistung, Maße, Fotos, Adhärenz – in der App dokumentiert, damit jede Anpassung auf Daten beruht.</p>
+        <span class="index">05</span><h3 class="h4">Fortschritt im Blick</h3>
+        <p class="small muted">Trainingsleistung, Körpermaße und Verlauf werden festgehalten und gemeinsam ausgewertet.</p>
       </article>
       <article class="bento__tile bento__tile--video bento__tile--i">
         <video data-autoplay="/assets/video/loop-3.mp4?v=hd" muted playsinline loop preload="none" poster="/assets/img/about-reel-cable-hd.webp" aria-label="Trainingsvideo: Kabelzug"></video>
-        <span class="frame__caption">Progress</span>
+        <span class="frame__caption">Technik</span>
       </article>
       <article class="bento__tile bento__tile--text bento__tile--j" data-speed="0.98">
-        <span class="index">06</span><h3 class="h4">Monatliche Strategie-Calls</h3>
-        <p class="small muted">Einmal im Monat Zoom-out: Was hat funktioniert, was ändern wir, wohin geht es im nächsten Block.</p>
+        <span class="index">06</span><h3 class="h4">Monatliche Gespräche</h3>
+        <p class="small muted">Einmal im Monat besprechen wir deine Entwicklung und planen den nächsten Trainingsblock.</p>
       </article>
       <article class="bento__tile bento__tile--text bento__tile--k">
         <span class="index">07</span><h3 class="h4">Wissen & Verbindlichkeit</h3>
-        <p class="small muted">Du verstehst das Warum hinter jeder Entscheidung – und hast jemanden, der nachfragt.</p>
+        <p class="small muted">Du lernst, warum dein Plan funktioniert und wie du deine Routine langfristig beibehältst.</p>
       </article>
       <article class="bento__tile bento__tile--video bento__tile--l">
         <video data-autoplay="/assets/video/loop-4.mp4?v=hd" muted playsinline loop preload="none" poster="/assets/img/about-reel-pushup-hd.webp" aria-label="Trainingsvideo: Liegestütze"></video>
-        <span class="frame__caption">Sustain</span>
+        <span class="frame__caption">Routine</span>
       </article>
     </div>
 
@@ -551,18 +610,18 @@
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <h2 class="h2" data-reveal="words">Sechs Dimensionen statt einer Zahl auf der Waage.</h2>
+        <h2 class="h2" data-reveal="words">Dein Fortschritt hat mehr als eine Zahl.</h2>
       </div>
-      <p class="lead muted" data-reveal="up" data-delay="0.1">Gewicht allein sagt wenig darüber aus, ob du Fett verlierst oder Muskeln aufbaust. Deshalb wird im Coaching ein Profil aus mehreren Datenpunkten geführt – und Entscheidungen werden auf dieser Basis getroffen, nicht aus dem Bauch.</p>
+      <p class="lead muted" data-reveal="up" data-delay="0.1">Wir betrachten Training, Körpermaße und Wohlbefinden zusammen. So lässt sich dein Plan gezielt anpassen.</p>
     </div>
 
     <ol class="er-dims" data-reveal-children="up" data-stagger="0.08">
-      <li class="er-dim"><span class="index">01</span><div><h3 class="h4">Kraftwerte im Training</h3><p class="small muted">Arbeitsgewichte und Wiederholungen der Hauptübungen. Steigt die Leistung bei sinkendem Umfang, bleibt Muskulatur erhalten.</p></div></li>
+      <li class="er-dim"><span class="index">01</span><div><h3 class="h4">Kraftwerte im Training</h3><p class="small muted">Arbeitsgewichte und Wiederholungen zeigen, wie sich deine Leistung im Training entwickelt.</p></div></li>
       <li class="er-dim"><span class="index">02</span><div><h3 class="h4">Körpermaße &amp; Gewichtstrend</h3><p class="small muted">Wochenmittel statt Tageswert, dazu Umfänge an Taille, Brust und Armen. Der Trend zählt, nicht der Ausreißer.</p></div></li>
       <li class="er-dim"><span class="index">03</span><div><h3 class="h4">Fotos</h3><p class="small muted">Gleiche Pose, gleiches Licht, gleiche Tageszeit. Nur so werden Veränderungen sichtbar, die Zahlen nicht zeigen.</p></div></li>
-      <li class="er-dim"><span class="index">04</span><div><h3 class="h4">Adhärenz &amp; Trainingsquote</h3><p class="small muted">Geplante gegen absolvierte Einheiten und eingehaltene Ernährungsprioritäten. Die ehrlichste Kennzahl im System.</p></div></li>
+      <li class="er-dim"><span class="index">04</span><div><h3 class="h4">Trainingsroutine</h3><p class="small muted">Welche Einheiten hast du geschafft? Was ließ sich im Alltag umsetzen? Wir passen die nächste Woche daran an.</p></div></li>
       <li class="er-dim"><span class="index">05</span><div><h3 class="h4">Energie &amp; Schlaf</h3><p class="small muted">Subjektive Bewertung im wöchentlichen Check-in. Fällt die Energie, wird angepasst – bevor die Motivation fällt.</p></div></li>
-      <li class="er-dim"><span class="index">06</span><div><h3 class="h4">Alltagsmarker</h3><p class="small muted">Wie sitzt die Kleidung, wie fühlt sich der Abend nach einem 12-Stunden-Tag an, wie sicher trittst du auf? Das, worum es eigentlich geht.</p></div></li>
+      <li class="er-dim"><span class="index">06</span><div><h3 class="h4">Alltagsmarker</h3><p class="small muted">Wie sitzt deine Kleidung? Wie fühlst du dich im Alltag? Auch diese Veränderungen gehören zum Fortschritt.</p></div></li>
     </ol>
   </div>
 </section>
@@ -575,7 +634,7 @@
   <div class="container">
     <div class="section-head">
       <p class="eyebrow" data-reveal="up">So läuft es ab</p>
-      <h2 class="h2" data-reveal="words">Vom ersten Klick zur ersten starken Woche.</h2>
+      <h2 class="h2" data-reveal="words">So starten wir zusammen.</h2>
       <p class="lead muted" data-reveal="up" data-delay="0.1">Fünf Schritte, keine Überraschungen. Du weißt zu jedem Zeitpunkt, was als Nächstes kommt.</p>
     </div>
   </div>
@@ -592,7 +651,7 @@
             <div class="pcard__text">
               <span class="pcard__num">01</span>
               <h3 class="h3">Performance-Check starten</h3>
-              <p class="muted">Drei Minuten, acht Fragen zu Ziel, Training, Alltag, Hürden und Bereitschaft. Du bekommst sofort eine erste Einschätzung – kostenlos, unverbindlich, ohne Verkaufsgespräch.</p>
+              <p class="muted">Beantworte acht kurze Fragen zu deinem Ziel und deinem Alltag. Der Check dauert etwa drei Minuten und ist kostenlos.</p>
             </div>
             <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/check-lounge-1600.webp" alt="Ruhiger Besprechungsbereich mit Sesseln im Studio" width="1600" height="893" loading="lazy" decoding="async"></div>
           </div>
@@ -602,7 +661,7 @@
             <div class="pcard__text">
               <span class="pcard__num">02</span>
               <h3 class="h3">Strategiegespräch</h3>
-              <p class="muted">Deine Antworten werden persönlich gelesen – nicht von einem Algorithmus. Passt es, sprechen wir über Ziele, Rahmenbedingungen und Erwartungen. Passt es nicht, sagen wir das genauso klar.</p>
+              <p class="muted">Wir besprechen deine Ziele, Möglichkeiten und Fragen. Du erfährst vor dem Start, was das Coaching umfasst und kostet.</p>
             </div>
             <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/exp-desk-1600.webp" alt="Coach steht am Schreibtisch im Studio – Vorbereitung auf das Strategiegespräch" width="1600" height="893" loading="lazy" decoding="async" style="object-position: 40% 50%"></div>
           </div>
@@ -612,9 +671,9 @@
             <div class="pcard__text">
               <span class="pcard__num">03</span>
               <h3 class="h3">Standortbestimmung</h3>
-              <p class="muted">Nach dem Start folgt die ausführliche Analyse: Trainingshistorie, Ernährung, Schlaf, Stress und die ehrliche Struktur deiner Woche. Daraus entsteht dein individuelles System.</p>
+              <p class="muted">Wir schauen auf Trainingserfahrung, Ernährung und Wochenplanung. Das bildet die Grundlage für deinen persönlichen Plan.</p>
             </div>
-            <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/process-bench-1600.webp" alt="Mann stellt den Fuß auf eine Hantelbank – Standortbestimmung zum Start" width="1600" height="1195" loading="lazy" decoding="async" style="object-position: 55% 30%"></div>
+            <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/exp-office-1600.webp" srcset="/assets/img/exp-office-900.webp 672w, /assets/img/exp-office-1600.webp 1195w" sizes="(min-width: 900px) 45vw, 92vw" alt="Körperanalysewaage und Unterlagen zur Standortbestimmung" width="1195" height="1600" loading="lazy" decoding="async" style="object-position: 40% 75%"></div>
           </div>
         </article>
         <article class="pcard">
@@ -622,7 +681,7 @@
             <div class="pcard__text">
               <span class="pcard__num">04</span>
               <h3 class="h3">Dein erster Plan in Woche 1</h3>
-              <p class="muted">Trainings- und Ernährungssystem in deiner App, Technikvideos, Mindeststandards für volle Wochen. Die Umsetzung beginnt sofort – mit dem ersten Check-in am Ende von Woche eins.</p>
+              <p class="muted">Du erhältst deinen Trainings- und Ernährungsplan mit klaren Schritten. Am Ende der ersten Woche folgt dein Check-in.</p>
             </div>
             <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/g5-architect-1600.webp" alt="Hantelständer mit aufgeschlagenem Trainingsplan – das erste System steht" width="1600" height="1195" loading="lazy" decoding="async" style="object-position: 58% 50%"></div>
           </div>
@@ -632,9 +691,9 @@
             <div class="pcard__text">
               <span class="pcard__num">05</span>
               <h3 class="h3">Wöchentlich optimieren</h3>
-              <p class="muted">Wöchentliche Check-ins, monatliche Strategie-Calls, 16 Wochen lang. Das System wächst mit dir – bis du es selbst steuern kannst.</p>
+              <p class="muted">Wir prüfen deine Fortschritte und passen Training und Ernährung an. Über 16 Wochen bleibst du persönlich begleitet.</p>
             </div>
-            <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/process-seated-1600.webp" alt="Mann sitzt zufrieden auf einer Hantelbank im Studio" width="1600" height="893" loading="lazy" decoding="async"></div>
+            <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/g5-optimise-1600.webp" srcset="/assets/img/g5-optimise-900.webp 900w, /assets/img/g5-optimise-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="Coach mit Notizbuch zur Auswertung des Trainings" width="1600" height="893" loading="lazy" decoding="async" style="object-position: 62% 45%"></div>
           </div>
         </article>
       </div>
@@ -659,7 +718,7 @@
       <div class="check" data-check data-check-source="homepage"></div>
     </div>
     <div class="pc__visual frame frame--grade">
-      <img src="/assets/img/check-lounge-portrait-900.webp" srcset="/assets/img/check-lounge-portrait-900.webp 672w, /assets/img/check-lounge-portrait-1600.webp 1195w" sizes="(min-width: 1024px) 40vw, 90vw" alt="Entspannter Mann sitzt lächelnd im Besprechungsbereich des Studios" width="1600" height="2143" loading="lazy" decoding="async">
+      <img src="/assets/img/check-lounge-portrait-900.webp" srcset="/assets/img/check-lounge-portrait-900.webp 672w, /assets/img/check-lounge-portrait-1600.webp 1195w" sizes="(min-width: 1024px) 40vw, 90vw" alt="Entspannter Mann sitzt lächelnd im Besprechungsbereich des Studios" width="672" height="900" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -671,49 +730,33 @@
   <div class="container faq__layout">
     <div class="faq__sticky">
       <p class="eyebrow" data-reveal="up">FAQ</p>
-      <h2 class="h2" data-reveal="words">Fragen, die vor dem Start kommen.</h2>
+      <h2 class="h2" data-reveal="words">Kurz beantwortet.</h2>
       <p class="muted" data-reveal="up" data-delay="0.1">Nicht dabei? <a class="link-underline" href="#kontakt">Schreib uns direkt.</a></p>
     </div>
     <div class="accordion faq__accordion" data-reveal="up">
       <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">01</span><span class="accordion__q">Wie funktioniert Online-Coaching bei GV Coaching?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Du erhältst deinen individuellen Trainings- und Ernährungsrahmen in einer App. Technikvideos, wöchentliche Check-ins und direkter Kontakt mit dem Coach halten die Umsetzung auf Kurs. Ein monatlicher Strategie-Call ist für größere Anpassungen da. Die konkreten Reaktionszeiten klären wir beim Start.</p></div></div>
+        <button class="accordion__trigger" type="button"><span class="index">01</span><span class="accordion__q">Wie läuft das Online-Coaching ab?</span><span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__content"><p>Du erhältst einen individuellen Trainings- und Ernährungsplan. Wöchentliche Check-ins, Technikfeedback und persönlicher Kontakt begleiten deine Umsetzung.</p></div></div>
       </div>
       <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">02</span><span class="accordion__q">Wie viel Zeit muss ich pro Woche investieren?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Plane zwei bis vier Trainingseinheiten mit je 45 bis 60 Minuten und wenige Minuten für deinen Check-in ein. Wir richten den Umfang nach deiner tatsächlichen Verfügbarkeit aus.</p></div></div>
+        <button class="accordion__trigger" type="button"><span class="index">02</span><span class="accordion__q">Wie viel Zeit und Equipment brauche ich?</span><span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__content"><p>Meist 2 bis 4 Einheiten à 45 bis 60 Minuten pro Woche. Dein Plan passt zu deiner verfügbaren Zeit und deinem Equipment im Studio oder zu Hause.</p></div></div>
       </div>
       <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">03</span><span class="accordion__q">Was passiert bei Reisen, Stress oder einer ausgefallenen Woche?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Du bekommst Mindeststandards und einen Plan B für volle Wochen oder Reisen. Wenn eine Woche ausfällt, meldest du dich und wir passen die nächste an – ohne Neustart bei null.</p></div></div>
+        <button class="accordion__trigger" type="button"><span class="index">03</span><span class="accordion__q">Muss ich eine strenge Diät halten?</span><span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__content"><p>Nein. Wir planen deine Ernährung flexibel mit passenden Portionen und klaren Prioritäten. Restaurantbesuche und Familienessen lassen sich einbauen.</p></div></div>
       </div>
       <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">04</span><span class="accordion__q">Muss ich eine feste Diät einhalten oder Kalorien zählen?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Nein. Wir arbeiten mit flexiblen Prioritäten für Protein, Portionsgrößen und Energiemenge. Kalorienzählen ist bei Bedarf ein Werkzeug, keine Pflicht. Restaurantbesuche und Familienabende werden eingeplant.</p></div></div>
+        <button class="accordion__trigger" type="button"><span class="index">04</span><span class="accordion__q">Was ist bei Reisen oder stressigen Wochen?</span><span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__content"><p>Wir passen Umfang und Übungen an. Mit einer vereinfachten Variante bleibst du im Rhythmus und knüpfst danach wieder an deinen Plan an.</p></div></div>
       </div>
       <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">05</span><span class="accordion__q">Was kostet das Coaching?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Die Investition wird im Strategiegespräch transparent besprochen, bevor du dich entscheidest. Der Performance-Check ist kostenlos und unverbindlich.</p></div></div>
+        <button class="accordion__trigger" type="button"><span class="index">05</span><span class="accordion__q">Ist das Coaching für Einsteiger geeignet?</span><span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__content"><p>Ja, wir starten auf deinem Niveau und bauen Technik und Belastung schrittweise auf. Gesundheitliche Einschränkungen klären wir vor dem Start; bei Bedarf zuerst ärztlich.</p></div></div>
       </div>
       <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">06</span><span class="accordion__q">Brauche ich ein Fitnessstudio?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Dein Programm passt zu deinem vorhandenen Equipment – im Studio, im Home-Gym oder unterwegs. Beim Start klären wir, was für dein Ziel sinnvoll ist.</p></div></div>
-      </div>
-      <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">07</span><span class="accordion__q">Wie schnell sehe ich Veränderungen – gibt es eine Garantie?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Das hängt von Ausgangslage und Umsetzung ab. Kraft, Energie oder Schlaf können sich früher verändern als das Spiegelbild. Ein bestimmtes Ergebnis in einer festen Zeit garantieren wir nicht; wir verfolgen deinen Fortschritt und passen den Plan daran an.</p></div></div>
-      </div>
-      <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">08</span><span class="accordion__q">Ist das Coaching auch für Einsteiger geeignet?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Ja. Wir beginnen bei deinem aktuellen Stand und bauen Technik und Belastung schrittweise auf. Videofeedback unterstützt dich bei der Übungsausführung.</p></div></div>
-      </div>
-      <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">09</span><span class="accordion__q">Was ist bei Verletzungen oder gesundheitlichen Einschränkungen?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Sprich Beschwerden und Vorerkrankungen vor dem Start an. Das Training wird entsprechend abgestimmt; wenn nötig, ist zuerst eine ärztliche Freigabe erforderlich. Coaching ersetzt keine medizinische Behandlung.</p></div></div>
-      </div>
-      <div class="accordion__item">
-        <button class="accordion__trigger" type="button"><span class="index">10</span><span class="accordion__q">Wie lange dauert die Zusammenarbeit?</span><span class="accordion__icon" aria-hidden="true"></span></button>
-        <div class="accordion__panel"><div class="accordion__content"><p>Das Programm läuft 16 Wochen. Die genauen Vertragsbedingungen besprechen wir vor dem Start im Strategiegespräch.</p></div></div>
+        <button class="accordion__trigger" type="button"><span class="index">06</span><span class="accordion__q">Wie lange läuft das Coaching und was kostet es?</span><span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__content"><p>Das Programm dauert 16 Wochen. Preis, Leistungen und Vertragsbedingungen besprechen wir vor deiner Entscheidung. Der Performance-Check ist kostenlos und unverbindlich.</p></div></div>
       </div>
     </div>
   </div>
@@ -833,8 +876,8 @@
   <div class="final__light" aria-hidden="true"></div>
   <div class="container final__inner">
     <p class="eyebrow" data-reveal="up">Der nächste Schritt</p>
-    <h2 class="final__title" data-reveal="words">Kein Ausreden.<br><em style="font-style:normal;color:var(--blue-400)">Nur</em> Ergebnisse.</h2>
-    <p class="lead final__text" data-reveal="up" data-delay="0.15">Du hast gelernt, in deinem Beruf Systeme zu bauen. Jetzt ist dein Körper dran. Starte mit dem kostenlosen Performance-Check – drei Minuten, die den Rest des Jahres verändern können.</p>
+    <h2 class="final__title" data-reveal="words">Dein nächster Schritt.<br><em>Dein Trainingsplan.</em></h2>
+    <p class="lead final__text" data-reveal="up" data-delay="0.15">Finde heraus, wie Training und Ernährung in deinen Alltag passen. Starte mit dem kostenlosen Performance-Check.</p>
     <div class="final__actions" data-reveal="up" data-delay="0.25">
       <a class="btn btn--primary btn--lg" href="#performance-check"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Kostenlosen Performance-Check starten</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
       <a class="btn btn--ghost" href="#kontakt"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Oder direkt Kontakt aufnehmen</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
