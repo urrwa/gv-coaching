@@ -27,5 +27,6 @@
 .gv-footer__email:hover { background:#2563eb1f; border-color:#8eb1ff; }
 .gv-footer__back:hover { background:#ffffff14; }
 .footer--gv a:focus-visible { outline:2px solid #93b5ff; outline-offset:5px; }
+@media(min-width:1024px) { :is(.page-impressum,.page-datenschutz) .nav__burger { display:none; } }
 @media(max-width:1023px) { .gv-footer__main { grid-template-columns:1fr 1fr; gap:3rem; } .gv-footer__intro { grid-column:1/-1; } .gv-footer__description { max-width:42ch; } .gv-footer__title { font-size:2.8rem; } .gv-footer__watermark { width:85vw; bottom:-15%; right:-25%; } }
 @media(max-width:599px) { .gv-footer__main { grid-template-columns:1fr; gap:2.5rem; } .gv-footer__title { font-size:2.7rem; } .gv-footer__heading { font-size:2rem; margin-bottom:1.25rem; } .gv-footer__brand-row { margin-top:3.5rem; gap:1.5rem; } .gv-footer__signature { width:240px; max-width:72%; } .gv-footer__back { width:3.5rem; height:3.5rem; } .gv-footer__bottom { align-items:flex-start; flex-direction:column; gap:.35rem; margin-top:2rem; } .gv-footer__watermark { width:120vw; right:-50%; bottom:-6%; } .gv-footer__email { font-size:.95rem; } }
