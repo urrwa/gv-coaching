@@ -42,10 +42,10 @@
   <script src="/assets/vendor/lenis.min.js" defer></script>
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
-  <script defer src="/assets/js/check.js?v=20261121-forms"></script>
+  <script defer src="/assets/js/check.js?v=copy-clean-20261124"></script>
   <script defer src="/assets/js/pages/home.js?v=restored-layout-20261124"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
-  <script defer src="/assets/js/pages/kontakt.js?v=20261121-forms"></script>
+  <script defer src="/assets/js/pages/kontakt.js?v=copy-clean-20261124"></script>
 
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -244,35 +244,18 @@
           <a class="btn btn--primary" href="#performance-check"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Performance-Check starten</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
           <a class="btn btn--ghost hero__secondary" href="#coaching"><span class="btn__label">Das Coaching entdecken</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
         </div>
-        <p class="hero__check-note small">Kostenlos · ca. 3 Minuten · unverbindlich</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ STATS BAR ============ -->
-<section class="stats-bar" data-theme="dark">
+<section class="stats-bar" data-theme="dark" aria-label="Das bietet GV Coaching">
   <div class="stats-bar__grid container">
-    <div class="stat-item">
-      <span class="stat-item__num"><span>1</span>:1</span>
-      <span class="stat-item__label">Persönliches Coaching</span>
-      <p class="stat-item__desc">Kein Kurs, keine App-Massenware. Ein Coach, der deine Woche kennt.</p>
-    </div>
-    <div class="stat-item">
-      <span class="stat-item__num"><span>16</span>+</span>
-      <span class="stat-item__label">Wochen Begleitung</span>
-      <p class="stat-item__desc">Langfristiger Aufbau statt kurzfristiger Challenge.</p>
-    </div>
-    <div class="stat-item">
-      <span class="stat-item__num">G5</span>
-      <span class="stat-item__label">Phasen-Methode</span>
-      <p class="stat-item__desc">Assess · Architect · Execute · Optimise · Sustain.</p>
-    </div>
-    <div class="stat-item stat-item--location">
-      <span class="stat-item__num">DE<span>/AT</span></span>
-      <span class="stat-item__label">Online Coaching</span>
-      <p class="stat-item__desc">Für ambitionierte Männer in Deutschland, Österreich und der Schweiz.</p>
-    </div>
+    <div class="stat-item"><h3 class="h3">Training</h3><p class="stat-item__desc">Übungen und Belastung passend zu deinem Trainingsstand.</p></div>
+    <div class="stat-item"><h3 class="h3">Ernährung</h3><p class="stat-item__desc">Ein Plan, der zu deinem Ziel und Alltag passt.</p></div>
+    <div class="stat-item"><h3 class="h3">Betreuung</h3><p class="stat-item__desc">Direkter Austausch mit Gabriel zu deinen Fragen.</p></div>
+    <div class="stat-item"><h3 class="h3">Fortschritt</h3><p class="stat-item__desc">Regelmäßige Check-ins und Anpassungen an deine Entwicklung.</p></div>
   </div>
 </section>
 
@@ -280,9 +263,9 @@
 <section class="founder section section--tight" data-theme="dark" id="ueber">
   <div class="container founder__layout">
     <div class="founder__content">
-      <p class="eyebrow">Dein Coach · Gabriel Vogt</p>
-      <h2 class="h2 founder__title">16 Wochen persönliches Coaching.</h2>
-      <p class="lead founder__text">Ich bin Gabriel, Gründer von GV Coaching. Wir planen dein Training und deine Ernährung so, dass beides in deine Woche passt. Im wöchentlichen Check-in schauen wir gemeinsam, was funktioniert und was wir anpassen.</p>
+      <p class="eyebrow">Dein Coach</p>
+      <h2 class="h2 founder__title">Gabriel Vogt.</h2>
+      <p class="lead founder__text">Als Gründer von GV Coaching plane ich mit dir Training und Ernährung passend zu deiner Woche. Im wöchentlichen Check-in schauen wir gemeinsam, was funktioniert und was wir anpassen.</p>
 
     </div>
     <div class="founder__media">
@@ -635,7 +618,7 @@
     <div class="section-head">
       <p class="eyebrow" data-reveal="up">So läuft es ab</p>
       <h2 class="h2" data-reveal="words">So starten wir zusammen.</h2>
-      <p class="lead muted" data-reveal="up" data-delay="0.1">Fünf Schritte, keine Überraschungen. Du weißt zu jedem Zeitpunkt, was als Nächstes kommt.</p>
+      <p class="lead muted" data-reveal="up" data-delay="0.1">Von deiner Anfrage bis zur laufenden Betreuung.</p>
     </div>
   </div>
 
@@ -651,7 +634,7 @@
             <div class="pcard__text">
               <span class="pcard__num">01</span>
               <h3 class="h3">Performance-Check starten</h3>
-              <p class="muted">Beantworte acht kurze Fragen zu deinem Ziel und deinem Alltag. Der Check dauert etwa drei Minuten und ist kostenlos.</p>
+              <p class="muted">Beantworte die Fragen zu deinem Trainingsziel und deiner aktuellen Situation.</p>
             </div>
             <div class="pcard__media frame frame--grade frame--16-10"><img src="/assets/img/check-lounge-1600.webp" alt="Ruhiger Besprechungsbereich mit Sesseln im Studio" width="1600" height="893" loading="lazy" decoding="async"></div>
           </div>
@@ -708,11 +691,6 @@
       <p class="eyebrow eyebrow--plain">Kostenloser Performance-Check</p>
       <h2 class="h2" id="pc-title">Passt GV Coaching zu dir?</h2>
       <p class="lead">Acht kurze Fragen zu deinem Ziel, deinem Alltag und deinen Hürden. Dein Coach liest deine Antworten und gibt dir eine ehrliche Einschätzung.</p>
-      <ul class="pc__points" role="list">
-        <li>Ca. 3 Minuten</li>
-        <li>Unverbindlich</li>
-        <li>Vertraulich</li>
-      </ul>
     </div>
     <div class="pc__form">
       <div class="check" data-check data-check-source="homepage"></div>
@@ -774,7 +752,7 @@
   <div class="container kt-hero__inner">
     <p class="eyebrow" data-reveal="up">Kontakt</p>
     <h2 class="display-l kt-hero__title" data-reveal="words">Direkt, persönlich, ohne Umwege.</h2>
-    <p class="lead muted kt-hero__lead" data-reveal="up" data-delay="0.15">Ob konkrete Coaching-Anfrage oder offene Frage: Schreib, was dich beschäftigt. Du bekommst eine persönliche Antwort – nicht von einem Vertriebsteam, sondern vom Coach.</p>
+    <p class="lead muted kt-hero__lead" data-reveal="up" data-delay="0.15">Hier kannst du Gabriel Fragen zum Coaching stellen oder eine Zusammenarbeit anfragen.</p>
   </div>
 </section>
 
@@ -791,7 +769,7 @@
         </a>
         <a class="kt-tile" data-requires="whatsapp" data-href-whatsapp hidden target="_blank" rel="noopener">
           <span class="kt-tile__icon" aria-hidden="true"><svg viewbox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.3A8.5 8.5 0 1 1 21 12Z"></path><path d="M9.5 9.5c0 3 2 5 5 5l1-1.5-2-1-1 1a4 4 0 0 1-1.5-1.5l1-1-1-2-1.5 1Z"></path></svg></span>
-          <span class="kt-tile__text"><span class="kt-tile__label">WhatsApp</span><span class="kt-tile__value">Kurze Nachricht schreiben</span><span class="kt-tile__hint">Für schnelle Fragen – keine Gruppen, kein Spam.</span></span>
+          <span class="kt-tile__text"><span class="kt-tile__label">WhatsApp</span><span class="kt-tile__value">Kurze Nachricht schreiben</span><span class="kt-tile__hint">Fragen zum Coaching per WhatsApp.</span></span>
           <span class="kt-tile__arrow" aria-hidden="true"><svg viewbox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
         </a>
         <a class="kt-tile" data-requires="instagram" data-href-instagram hidden target="_blank" rel="noopener">
@@ -801,7 +779,7 @@
         </a>
         <a class="kt-tile kt-tile--accent" href="#performance-check">
           <span class="kt-tile__icon" aria-hidden="true"><svg viewbox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h4l2-6 4 10 2-4h4"></path></svg></span>
-          <span class="kt-tile__text"><span class="kt-tile__label">Der schnellste Weg</span><span class="kt-tile__value">Performance-Check</span><span class="kt-tile__hint">Drei Minuten, acht Fragen, persönliche Einschätzung. Kostenlos und unverbindlich.</span></span>
+          <span class="kt-tile__text"><span class="kt-tile__label">Coaching-Anfrage</span><span class="kt-tile__value">Performance-Check</span><span class="kt-tile__hint">Teile dein Trainingsziel und deine aktuelle Situation mit.</span></span>
           <span class="kt-tile__arrow" aria-hidden="true"><svg viewbox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
         </a>
       </div>
@@ -811,7 +789,7 @@
       <form class="kt-form" data-kt-form novalidate>
         <div class="kt-panel__head">
           <p class="kt-panel__title">Nachricht schreiben</p>
-          <p class="kt-panel__sub">Kurz oder ausführlich – wie es für dich passt. Pflichtfelder sind mit * markiert.</p>
+          <p class="kt-panel__sub">Pflichtfelder sind mit * markiert.</p>
         </div>
         <div class="fields fields--2">
           <div class="field">
@@ -852,7 +830,6 @@
         <p class="kt-form__error" data-kt-error role="alert" aria-live="polite"></p>
         <div class="kt-form__actions">
           <button type="submit" class="btn btn--primary" data-kt-submit><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Nachricht senden</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewbox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"></path></svg><svg class="arrow-enter" viewbox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></button>
-          <p class="small kt-form__note">Antwort persönlich, innerhalb weniger Werktage.</p>
         </div>
       </form>
       <div class="kt-result" data-kt-result tabindex="-1" hidden></div>
@@ -875,7 +852,6 @@
   <div class="final__shade" aria-hidden="true"></div>
   <div class="final__light" aria-hidden="true"></div>
   <div class="container final__inner">
-    <p class="eyebrow" data-reveal="up">Der nächste Schritt</p>
     <h2 class="final__title" data-reveal="words">Dein nächster Schritt.<br><em>Dein Trainingsplan.</em></h2>
     <p class="lead final__text" data-reveal="up" data-delay="0.15">Finde heraus, wie Training und Ernährung in deinen Alltag passen. Starte mit dem kostenlosen Performance-Check.</p>
     <div class="final__actions" data-reveal="up" data-delay="0.25">
@@ -1095,11 +1071,9 @@
     <div class="container">
       <div class="gv-footer__main">
         <div class="gv-footer__intro">
-          <p class="gv-footer__eyebrow">Online-Coaching · DE / AT / CH</p>
           <h2 class="gv-footer__title">Dein Alltag.<br>Deine <em>Bestform.</em></h2>
           <p class="gv-footer__description">Individuelles Training und Ernährung, die zu deinem Leben passen. Persönlich begleitet von Gabriel Vogt.</p>
           <a class="gv-footer__cta" href="#performance-check">Performance-Check starten</a>
-          <p class="gv-footer__note">Kostenlos · ca. 3 Minuten · unverbindlich</p>
         </div>
         <nav class="gv-footer__column" aria-label="Footer Navigation">
           <p class="gv-footer__heading">Entdecken</p>
