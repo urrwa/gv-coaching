@@ -130,7 +130,7 @@
           <div class="field"><label for="pc-phone">Telefon / WhatsApp (optional)</label><input id="pc-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" value="${esc(c.phone)}" placeholder="+49 …"></div>
           <div class="field"><label for="pc-msg">Gibt es etwas, das wir wissen sollten? (optional)</label><input id="pc-msg" name="message" type="text" value="${esc(c.message)}" placeholder="Verletzungen, Besonderheiten, Fragen"></div>
           <div class="field field--full">
-            <label class="consent"><input type="checkbox" name="consent" ${c.consent ? "checked" : ""}> <span>Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="#datenschutz" rel="noopener">Datenschutzerklärung</a>. *</span></label>
+            <label class="consent"><input type="checkbox" name="consent" ${c.consent ? "checked" : ""}> <span>Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="/datenschutz/" rel="noopener">Datenschutzerklärung</a>. *</span></label>
             <span class="field__error">Bitte bestätige die Datenschutzerklärung.</span>
           </div>
           <div class="field" style="position:absolute;left:-9999px" aria-hidden="true"><label for="pc-company">Firma</label><input id="pc-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
