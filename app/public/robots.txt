@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://gv-coaching-rho.vercel.app/sitemap.xml
+Sitemap: https://www.gvcoaching.net/sitemap.xml
