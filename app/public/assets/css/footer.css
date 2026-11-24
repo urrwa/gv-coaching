@@ -1,0 +1,31 @@
+/* GV footer: spacious columns, a quiet brand mark and direct navigation. */
+.footer.footer--gv { position:relative; isolation:isolate; overflow:hidden; padding:clamp(3.5rem,7vw,6rem) 0 1.5rem; background:#080b10; border-top:1px solid #ffffff14; color:#f4f4f2; }
+.gv-footer__inner { position:relative; z-index:1; }
+.gv-footer__watermark { position:absolute; width:min(62vw,850px); height:auto; right:-12%; bottom:-38%; color:#b2bed0; opacity:.045; transform:rotate(24deg); pointer-events:none; z-index:0; }
+.gv-footer__main { display:grid; grid-template-columns:1.1fr .8fr 1.25fr; gap:clamp(2rem,5vw,6rem); }
+.gv-footer__main>* { min-width:0; }
+.gv-footer__title,.gv-footer__heading { margin:0 0 1.7rem; color:#f4f4f2; font-family:var(--font-display); font-size:clamp(1.8rem,3.1vw,3.1rem); font-weight:700; line-height:.98; letter-spacing:-.06em; text-transform:uppercase; }
+.gv-footer__description { max-width:30ch; color:#b5bac3; font-size:1rem; line-height:1.7; }
+.gv-footer__cta { display:inline-flex; align-items:center; gap:1.5rem; padding:.8rem 0; margin-top:1.2rem; color:#f4f4f2; border-bottom:1px solid #6a91df; font-size:1rem; }
+.gv-footer__cta span { font-size:1.4rem; color:#7da7ff; }
+.gv-footer__column { display:flex; flex-direction:column; align-items:flex-start; }
+.gv-footer__column>a:not(.gv-footer__email) { display:flex; align-items:center; min-height:2.8rem; color:#d6d9de; font-size:1rem; line-height:1.5; text-underline-offset:.3em; }
+.gv-footer__address { color:#a4aab4; font-style:normal; font-size:1rem; line-height:1.85; }
+.gv-footer__address strong { color:#d6d9de; font-weight:400; }
+.gv-footer__email { display:inline-flex; align-items:center; justify-content:space-between; gap:1.1rem; max-width:100%; min-height:3.8rem; margin:1.8rem 0 .5rem; padding:.8rem 1.25rem; color:#f4f4f2; border:1px solid #568bfa; border-radius:999px; font-size:1rem; overflow-wrap:anywhere; transition:background .2s,border-color .2s; }
+.gv-footer__email svg { flex:none; }
+.gv-footer__brand-row { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin-top:clamp(4rem,9vw,8rem); }
+.gv-footer__signature { display:block; width:clamp(230px,28vw,365px); max-width:70%; }
+.gv-footer__signature img { display:block; width:100%; height:auto; }
+.gv-footer__back { display:grid; place-items:center; width:4.5rem; height:4.5rem; flex:none; border:1px solid #ffffff6b; border-radius:50%; background:#ffffff08; color:#f4f4f2; transition:background .2s; }
+.gv-footer__bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.6rem 2rem; margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid #ffffff1f; color:#8f97a4; font-size:.875rem; }
+.gv-footer__bottom p { margin:0; }
+.gv-footer__legal { display:flex; flex-wrap:wrap; gap:1.5rem; }
+.gv-footer__legal a { display:inline-flex; align-items:center; min-height:2.75rem; color:#c0c6cf; text-underline-offset:.3em; }
+.footer--gv a:hover { color:#8eb1ff; }
+.gv-footer__column>a:not(.gv-footer__email):hover,.gv-footer__legal a:hover { text-decoration:underline; }
+.gv-footer__email:hover { background:#2563eb1f; border-color:#8eb1ff; }
+.gv-footer__back:hover { background:#ffffff14; }
+.footer--gv a:focus-visible { outline:2px solid #93b5ff; outline-offset:5px; }
+@media(max-width:1023px) { .gv-footer__main { grid-template-columns:1fr 1fr; gap:3rem; } .gv-footer__intro { grid-column:1/-1; } .gv-footer__description { max-width:42ch; } .gv-footer__title { font-size:2.8rem; } .gv-footer__watermark { width:85vw; bottom:-15%; right:-25%; } }
+@media(max-width:599px) { .gv-footer__main { grid-template-columns:1fr; gap:2.5rem; } .gv-footer__title { font-size:2.7rem; } .gv-footer__heading { font-size:2rem; margin-bottom:1.25rem; } .gv-footer__brand-row { margin-top:3.5rem; gap:1.5rem; } .gv-footer__signature { width:240px; max-width:72%; } .gv-footer__back { width:3.5rem; height:3.5rem; } .gv-footer__bottom { align-items:flex-start; flex-direction:column; gap:.35rem; margin-top:2rem; } .gv-footer__watermark { width:120vw; right:-50%; bottom:-6%; } .gv-footer__email { font-size:.95rem; } }
