@@ -77,6 +77,29 @@
     const reduced = PM.reduced;
 
 
+    /* ---------- Coach intro: text follows scrolling in both directions ---------- */
+    (function coachCopy() {
+      const head = document.querySelector('.coach-story__head');
+      if (!head) return;
+      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        const title = head.querySelector('.coach-story__title');
+        const intro = head.querySelector('.coach-story__intro');
+        const titleWords = PM.splitWords(title);
+        const introWords = PM.splitWords(intro);
+        gsap.fromTo(head.querySelector('.coach-story__eyebrow'), { opacity: .2, y: 14 }, {
+          opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: head, start: 'top 92%', end: 'top 58%', scrub: .5 },
+        });
+        gsap.fromTo(titleWords, { yPercent: 105, opacity: .18 }, {
+          yPercent: 0, opacity: 1, stagger: .12, ease: 'none',
+          scrollTrigger: { trigger: title, start: 'top 90%', end: 'bottom 55%', scrub: .5 },
+        });
+        gsap.fromTo(introWords, { opacity: .22, y: 8 }, {
+          opacity: 1, y: 0, stagger: .035, ease: 'none',
+          scrollTrigger: { trigger: intro, start: 'top 88%', end: 'bottom 58%', scrub: .5 },
+        });
+      });
+    })();
+
     /* ---------- Opening video: expand from a small rounded window ---------- */
     (function opening() {
       const hero = document.querySelector('.hero--reveal');
