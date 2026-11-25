@@ -36,8 +36,8 @@
       { v: "So schnell wie möglich" }, { v: "In 3–6 Monaten" }, { v: "In 6–12 Monaten" }, { v: "Langfristig, ohne Druck" } ] },
     { id: "commitment", label: "Verbindlichkeit", q: "Über welchen Zeitraum möchtest du an deinem Ziel arbeiten?", type: "single", options: [
       { v: "4–8 Wochen", s: "Ich möchte zunächst einen kurzen Zeitraum planen" },
-      { v: "12–16 Wochen", s: "Das passt zum 16-wöchigen Coaching" },
-      { v: "6 Monate und länger", s: "Ich denke langfristig" },
+      { v: "12–16 Wochen", s: "Ich möchte zunächst drei bis vier Monate planen" },
+      { v: "6 Monate und länger", s: "Das passt zur sechsmonatigen Begleitung" },
       { v: "Weiß ich noch nicht", s: "Das möchte ich im Gespräch klären" } ] },
     { id: "readiness", label: "Bereitschaft", q: "Wann könntest du dir einen Coaching-Start vorstellen?", type: "single", options: [
       { v: "Ich bin bereit, sofort zu starten" }, { v: "In den nächsten 4–8 Wochen" }, { v: "Ich informiere mich zunächst" }, { v: "Ich will erst verstehen, ob es passt" } ] }
@@ -75,7 +75,7 @@
   const FIT_TEXT = {
     strong: { title: "Starke Passung", text: "Ziel, Alltag und Bereitschaft sprechen klar für ein strukturiertes Coaching. Deine Antworten werden jetzt persönlich geprüft – das Strategiegespräch ist der logische nächste Schritt." },
     good: { title: "Gute Passung – Details klären wir im Gespräch", text: "Die Grundlage passt. Offen sind vor allem Zeitrahmen oder Verbindlichkeit – genau das klären wir ehrlich, bevor du dich entscheidest." },
-    later: { title: "Vermutlich nicht der richtige Zeitpunkt", text: "Nach deinen Antworten fehlt aktuell der Rahmen, den ein 16-Wochen-Coaching braucht. Wir melden uns trotzdem persönlich – mit einer ehrlichen Empfehlung, wie du jetzt sinnvoll startest." }
+    later: { title: "Vermutlich nicht der richtige Zeitpunkt", text: "Nach deinen Antworten fehlt aktuell der Rahmen, den ein sechsmonatiges Coaching braucht. Wir melden uns trotzdem persönlich – mit einer ehrlichen Empfehlung, wie du jetzt sinnvoll startest." }
   };
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -313,7 +313,7 @@
         return;
       }
       if (C.contactEmail) {
-        const subject = encodeURIComponent("Performance-Check: " + state.contact.name);
+        const subject = encodeURIComponent("Fitness-Check: " + state.contact.name);
         const bodyTxt = encodeURIComponent(plainSummary() + "\n\nQuelle: " + location.href);
         window.location.href = `mailto:${C.contactEmail}?subject=${subject}&body=${bodyTxt}`;
         finish("mailto"); return;
