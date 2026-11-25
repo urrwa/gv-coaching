@@ -1,5 +1,5 @@
 /* GV footer: spacious columns, a quiet brand mark and direct navigation. */
-.footer.footer--gv { position:relative; isolation:isolate; overflow:hidden; padding:clamp(3.5rem,7vw,6rem) 0 1.5rem; background:#080b10; border-top:1px solid #ffffff14; color:#f4f4f2; }
+.footer.footer--gv { position:relative; isolation:isolate; overflow:hidden; padding:clamp(3.5rem,7vw,6rem) 0 1.5rem; background:var(--site-bg,#07111f); border-top:1px solid #ffffff14; color:#f4f4f2; }
 .gv-footer__inner { position:relative; z-index:1; }
 .gv-footer__watermark { position:absolute; width:min(62vw,850px); height:auto; right:-12%; bottom:-38%; color:#b2bed0; opacity:.045; transform:rotate(24deg); pointer-events:none; z-index:0; }
 .gv-footer__main { display:grid; grid-template-columns:1.1fr .8fr 1.25fr; gap:clamp(2rem,5vw,6rem); }
