@@ -26,10 +26,11 @@
   <link rel="preload" href="/assets/fonts/SpaceGrotesk-600-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/fonts.css">
+  <link rel="stylesheet" href="/assets/css/display-font.css?v=anton-20261126">
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=unified-canvas-20261126">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=cinematic-20261126">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261124">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
@@ -37,8 +38,8 @@
     .coach-story__lines { display: grid; }
     .coach-story__lines > b { grid-area: 1 / 1; font: inherit; }
     .coach-story__lines > b:not(:last-child) { opacity: 0; visibility: hidden; }
-    .coach-story.is-scroll-story .coach-story__journey { height: 310svh; }
-    @media (max-width: 767px) { .coach-story.is-scroll-story .coach-story__journey { height: 260svh; } }
+    .coach-story.is-scroll-story .coach-story__journey { height: 360svh; }
+    @media (max-width: 767px) { .coach-story.is-scroll-story .coach-story__journey { height: 280svh; } }
   </style>
   <script>
     // Old bookmarked legal anchors now open the dedicated pages.
@@ -53,7 +54,7 @@
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
   <script defer src="/assets/js/check.js?v=fitness-check-20261126"></script>
-  <script defer src="/assets/js/pages/home.js?v=intro-scroll-copy-20261126"></script>
+  <script defer src="/assets/js/pages/home.js?v=cinematic-20261126"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
   <script defer src="/assets/js/pages/kontakt.js?v=copy-20261126"></script>
 
@@ -234,7 +235,7 @@
 
   <main id="main">
 <!-- ============ 01 HERO ============ -->
-<section class="hero hero--reveal" data-theme="dark" data-hero id="start">
+<section class="hero hero--reveal hero--cinema" data-theme="dark" data-hero id="start">
   <div class="hero__stage">
     <div class="hero__media" aria-hidden="true">
       <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_31EM6HTtcTFCyF2oVq3YoFVFsWr/58ced51e-2017-47db-a5d4-75adf2973416.webp" srcset="https://d2ol7oe51mr4n9.cloudfront.net/user_31EM6HTtcTFCyF2oVq3YoFVFsWr/93062140-8870-41fc-9d16-954aeb5a8d2b.webp 768w, https://d2ol7oe51mr4n9.cloudfront.net/user_31EM6HTtcTFCyF2oVq3YoFVFsWr/58ced51e-2017-47db-a5d4-75adf2973416.webp 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
@@ -259,7 +260,7 @@
 </section>
 
 <!-- ============ 02 GABRIEL ============ -->
-<section class="coach-story" data-theme="dark" id="ueber" data-coach-story aria-labelledby="coach-story-title">
+<section class="coach-story coach-story--cinema" data-theme="dark" id="ueber" data-coach-story aria-labelledby="coach-story-title">
   <div class="coach-story__head">
     <p class="coach-story__eyebrow">Lerne deinen Coach kennen</p>
     <h2 class="coach-story__title" id="coach-story-title">Dein Ziel.<br>Meine Begleitung.</h2>
