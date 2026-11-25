@@ -31,7 +31,12 @@
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
   <link rel="stylesheet" href="/assets/css/pages/home.css?v=opening-mosaic-20261126-02">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261124">
-  <style>[data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }</style>
+  <style>
+    [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
+    /* The homepage header keeps its dark backdrop across the light coach story. */
+    .page-home .nav[data-theme="light"] .logo-mark__img--light { opacity: 1; }
+    .page-home .nav[data-theme="light"] .logo-mark__img--dark { opacity: 0; }
+  </style>
   <script>
     // Old bookmarked legal anchors now open the dedicated pages.
     if (location.hash === '#impressum' || location.hash === '#datenschutz') location.replace('/' + location.hash.slice(1) + '/');
