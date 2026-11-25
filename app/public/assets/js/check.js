@@ -9,37 +9,37 @@
   const ARROW = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
 
   const QUESTIONS = [
-    { id: "goal", label: "Ziel", q: "Was ist dein wichtigstes Ziel in den nächsten sechs Monaten?", type: "single", options: [
-      { v: "Muskeln aufbauen", s: "Sichtbar athletischer und kräftiger werden" },
-      { v: "Körperfett reduzieren", s: "Definierter werden, ohne Muskeln zu verlieren" },
-      { v: "Beides: Fett runter, Muskeln rauf", s: "Körperkomposition nachhaltig verändern" },
-      { v: "Leistungsfähigkeit & Energie", s: "Mehr Kraft im Training, mehr Energie im Alltag" } ] },
-    { id: "training", label: "Training", q: "Wie trainierst du aktuell?", type: "single", options: [
-      { v: "Aktuell gar nicht", s: "Oder nur sehr sporadisch" },
-      { v: "Unregelmäßig", s: "1–2× pro Woche, mit längeren Pausen" },
-      { v: "Regelmäßig", s: "2–3× pro Woche, aber ohne klaren Plan" },
-      { v: "Strukturiert", s: "3× oder öfter nach einem festen Programm" } ] },
-    { id: "experience", label: "Erfahrung", q: "Wie viel Trainingserfahrung bringst du mit?", type: "single", options: [
+    { id: "goal", label: "Ziel", q: "Was möchtest du in den nächsten Monaten vor allem erreichen?", type: "single", options: [
+      { v: "Muskeln aufbauen", s: "An Kraft und Muskelmasse arbeiten" },
+      { v: "Körperfett reduzieren", s: "Körperfett senken und deine Kraft erhalten" },
+      { v: "Beides: Fett runter, Muskeln rauf", s: "An Muskelaufbau und Körperfett arbeiten" },
+      { v: "Leistungsfähigkeit & Energie", s: "Deine Fitness im Training und Alltag verbessern" } ] },
+    { id: "training", label: "Training", q: "Wie regelmäßig trainierst du zurzeit?", type: "single", options: [
+      { v: "Aktuell gar nicht", s: "Zurzeit ohne feste Trainingsroutine" },
+      { v: "Unregelmäßig", s: "Einzelne Einheiten, dazwischen längere Pausen" },
+      { v: "Regelmäßig", s: "Mehrmals pro Woche, noch ohne festen Aufbau" },
+      { v: "Strukturiert", s: "Nach einem festen Trainingsprogramm" } ] },
+    { id: "experience", label: "Erfahrung", q: "Wie lange beschäftigst du dich schon mit Krafttraining?", type: "single", options: [
       { v: "Einsteiger", s: "Weniger als ein Jahr Krafttraining" },
       { v: "Fortgeschritten", s: "Ein bis drei Jahre Erfahrung" },
-      { v: "Erfahren", s: "Mehr als drei Jahre, kenne die Grundlagen" },
-      { v: "Früher aktiv, lange Pause", s: "Habe mal gut trainiert, bin raus" } ] },
-    { id: "work", label: "Alltag", q: "Wie sieht dein beruflicher Alltag aus?", type: "single", options: [
-      { v: "Unternehmer / Selbstständig", s: "Volle Verantwortung, unvorhersehbare Tage" },
-      { v: "Führungskraft / Manager", s: "Viele Termine, Team, Reisen" },
-      { v: "Angestellt, Vollzeit", s: "Feste Struktur, lange Tage" },
-      { v: "Viel unterwegs / Schicht", s: "Wechselnde Orte und Zeiten" } ] },
-    { id: "obstacles", label: "Hürden", q: "Was hat dich bisher am meisten ausgebremst?", hint: "Mehrfachauswahl möglich.", type: "multi", options: [
+      { v: "Erfahren", s: "Mehr als drei Jahre Trainingserfahrung" },
+      { v: "Früher aktiv, lange Pause", s: "Früher regelmäßig trainiert, länger pausiert" } ] },
+    { id: "work", label: "Alltag", q: "Welche Beschreibung passt am besten zu deinem Berufsalltag?", type: "single", options: [
+      { v: "Unternehmer / Selbstständig", s: "Oft wechselnde Aufgaben und Arbeitszeiten" },
+      { v: "Führungskraft / Manager", s: "Viele Termine und Verantwortung für ein Team" },
+      { v: "Angestellt, Vollzeit", s: "Überwiegend feste Arbeitszeiten" },
+      { v: "Viel unterwegs / Schicht", s: "Wechselnde Arbeitsorte oder Schichten" } ] },
+    { id: "obstacles", label: "Hürden", q: "Was macht es dir bisher schwer, dranzubleiben?", hint: "Mehrfachauswahl möglich.", type: "multi", options: [
       { v: "Zeit & Termine" }, { v: "Konsistenz" }, { v: "Ernährung" },
       { v: "Wissen, was wirklich wirkt" }, { v: "Verbindlichkeit & Feedback" }, { v: "Stress & Regeneration" } ] },
-    { id: "timeline", label: "Zeitrahmen", q: "In welchem Zeitrahmen willst du sichtbare Veränderung?", type: "single", options: [
+    { id: "timeline", label: "Zeitrahmen", q: "Welchen Zeitrahmen hast du für dein Ziel im Kopf?", type: "single", options: [
       { v: "So schnell wie möglich" }, { v: "In 3–6 Monaten" }, { v: "In 6–12 Monaten" }, { v: "Langfristig, ohne Druck" } ] },
-    { id: "commitment", label: "Verbindlichkeit", q: "Wie lange bist du bereit, verbindlich dranzubleiben?", type: "single", options: [
-      { v: "4–8 Wochen", s: "Ich will vor allem schnell erste Ergebnisse" },
-      { v: "12–16 Wochen", s: "Ein kompletter Programmzyklus" },
+    { id: "commitment", label: "Verbindlichkeit", q: "Über welchen Zeitraum möchtest du an deinem Ziel arbeiten?", type: "single", options: [
+      { v: "4–8 Wochen", s: "Ich möchte zunächst einen kurzen Zeitraum planen" },
+      { v: "12–16 Wochen", s: "Das passt zum 16-wöchigen Coaching" },
       { v: "6 Monate und länger", s: "Ich denke langfristig" },
-      { v: "Weiß ich noch nicht", s: "Hängt vom Konzept ab" } ] },
-    { id: "readiness", label: "Bereitschaft", q: "Wie bereit bist du, jetzt in ein Coaching zu investieren?", type: "single", options: [
+      { v: "Weiß ich noch nicht", s: "Das möchte ich im Gespräch klären" } ] },
+    { id: "readiness", label: "Bereitschaft", q: "Wann könntest du dir einen Coaching-Start vorstellen?", type: "single", options: [
       { v: "Ich bin bereit, sofort zu starten" }, { v: "In den nächsten 4–8 Wochen" }, { v: "Ich informiere mich zunächst" }, { v: "Ich will erst verstehen, ob es passt" } ] }
   ];
 
@@ -122,13 +122,13 @@
     function renderContact() {
       const c = state.contact;
       return `<div class="check__step is-active" data-qid="contact">
-        <h3 class="check__q" tabindex="-1">Wohin darf die persönliche Einschätzung gehen?</h3>
-        <p class="check__hint">Wir verwenden deine Kontaktdaten ausschließlich für deine Anfrage.</p>
+        <h3 class="check__q" tabindex="-1">Wie kann ich dich erreichen?</h3>
+        <p class="check__hint">Ich nutze deine Kontaktdaten, um deine Anfrage persönlich zu beantworten.</p>
         <div class="fields fields--2">
           <div class="field"><label for="pc-name">Vorname *</label><input id="pc-name" name="name" type="text" autocomplete="given-name" value="${esc(c.name)}" placeholder="Dein Vorname" required><span class="field__error">Bitte gib deinen Vornamen an.</span></div>
           <div class="field"><label for="pc-email">E-Mail *</label><input id="pc-email" name="email" type="email" autocomplete="email" inputmode="email" value="${esc(c.email)}" placeholder="name@beispiel.de" required><span class="field__error">Bitte gib eine gültige E-Mail-Adresse an.</span></div>
-          <div class="field"><label for="pc-phone">Telefon / WhatsApp (optional)</label><input id="pc-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" value="${esc(c.phone)}" placeholder="+49 …"></div>
-          <div class="field"><label for="pc-msg">Gibt es etwas, das wir wissen sollten? (optional)</label><input id="pc-msg" name="message" type="text" value="${esc(c.message)}" placeholder="Verletzungen, Besonderheiten, Fragen"></div>
+          <div class="field"><label for="pc-phone">Telefon (optional)</label><input id="pc-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" value="${esc(c.phone)}" placeholder="+49 …"></div>
+          <div class="field"><label for="pc-msg">Hast du noch eine Frage? (optional)</label><input id="pc-msg" name="message" type="text" value="${esc(c.message)}" placeholder="Deine Frage zum Coaching"></div>
           <div class="field field--full">
             <label class="consent"><input type="checkbox" name="consent" ${c.consent ? "checked" : ""}> <span>Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="/datenschutz/" rel="noopener">Datenschutzerklärung</a>. *</span></label>
             <span class="field__error">Bitte bestätige die Datenschutzerklärung.</span>
@@ -145,8 +145,8 @@
     }
     function renderReview() {
       return `<div class="check__step is-active" data-qid="review">
-        <h3 class="check__q">Kurz prüfen, dann abschicken.</h3>
-        <p class="check__hint">Bitte prüfe deine Angaben vor dem Absenden.</p>
+        <h3 class="check__q">Deine Angaben im Überblick.</h3>
+        <p class="check__hint">${C.formEndpoint ? "Prüfe deine Angaben. Mit dem nächsten Schritt sendest du deine Anfrage ab." : C.contactEmail ? "Prüfe deine Angaben. Im nächsten Schritt öffnest du einen E-Mail-Entwurf, den du in deinem E-Mail-Programm selbst absendest." : "Prüfe deine Angaben. Du kannst deine Antworten anschließend kopieren; eine Übermittlung ist aktuell nicht eingerichtet."}</p>
         <dl class="check__summary">${summaryRows()}</dl>
         <p class="check__error" data-error></p>
       </div>`;
@@ -157,26 +157,16 @@
       return lines.join("\n");
     }
     function renderResult() {
-      const r = evaluate(state.answers);
-      const t = FIT_TEXT[r.fit];
-      const booking = C.bookingUrl ? `<a class="btn btn--primary" href="${esc(C.bookingUrl)}" target="_blank" rel="noopener"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Strategiegespräch buchen</span><span class="btn__icon" aria-hidden="true"><svg class="arrow-exit" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg><svg class="arrow-enter" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>` : "";
-      return `<div class="check__result">
-        <p class="check__result-label">Deine erste Einschätzung</p>
-        <p class="check__result-title">${esc(t.title)}</p>
-        <p class="check__hint">${esc(t.text)}</p>
-        ${r.focus.length ? `<p class="check__result-label">Wahrscheinlicher Fokus im Coaching</p><ul class="check__result-focus">${r.focus.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
-        <p class="check__result-note">Diese Einschätzung basiert auf festen Regeln aus deinen Antworten und ersetzt nicht die persönliche Auswertung durch den Coach.</p>
-        ${booking}
-      </div>`;
+      return `<div class="check__result"><p class="check__result-label">So geht es weiter</p><p class="check__hint">Ich lese deine Antworten persönlich und melde mich über die angegebene Kontaktadresse. Gemeinsam klären wir, ob das Coaching zu deinem Ziel und deinem Alltag passt.</p></div>`;
     }
     function renderDone(mode) {
       const summary = plainSummary();
       let extra = mode === "ok" ? renderResult() : "";
-      if (mode === "mailto") extra += `<p class="check__hint">Bitte sende den vorbereiteten Entwurf in deinem E-Mail-Programm ab. Falls er nicht geöffnet wurde, kopiere deine Antworten und sende sie an <strong>${esc(C.contactEmail)}</strong>.</p><textarea class="check__raw" readonly aria-label="Deine Antworten">${esc(summary)}</textarea>`;
+      if (mode === "mailto") extra += `<p class="check__hint">Bitte sende den vorbereiteten Entwurf in deinem E-Mail-Programm ab, damit ich deine Anfrage erhalte. Falls sich kein Entwurf öffnet, kopiere deine Antworten und schreibe an <strong>${esc(C.contactEmail)}</strong>.</p><textarea class="check__raw" readonly aria-label="Deine Antworten">${esc(summary)}</textarea>`;
       if (mode === "setup") extra += `<p class="check__hint">Deine Antworten wurden noch nicht gesendet. Die Online-Übermittlung ist momentan nicht verfügbar. Deine Angaben bleiben erhalten; du kannst sie unten kopieren.</p><textarea class="check__raw" readonly aria-label="Deine Antworten">${esc(summary)}</textarea>`;
-      if (mode === "error") extra = `<p class="check__hint">Die Übermittlung hat leider nicht funktioniert. Bitte versuche es später erneut${C.contactEmail ? ` oder schreibe direkt an <strong>${esc(C.contactEmail)}</strong>` : ""}.</p><textarea class="check__raw" readonly>${esc(summary)}</textarea>`;
+      if (mode === "error") extra = `<p class="check__hint">Deine Anfrage konnte nicht übermittelt werden. Deine Antworten stehen unten zum Kopieren bereit. Versuche es erneut${C.contactEmail ? ` oder schreibe direkt an <strong>${esc(C.contactEmail)}</strong>` : ""}.</p><textarea class="check__raw" readonly>${esc(summary)}</textarea>`;
       if (mode !== "ok") extra += `<button type="button" class="btn btn--outline btn--sm check__copy" data-copy><span class="btn__label">Antworten kopieren</span></button><button type="button" class="link-underline" data-retry>Zurück zur Zusammenfassung</button>`;
-      const headline = mode === "ok" ? "Danke – dein Performance-Check ist unterwegs." : mode === "mailto" ? "Dein E-Mail-Entwurf ist vorbereitet." : "Noch nicht gesendet.";
+      const headline = mode === "ok" ? "Danke, deine Anfrage wurde übermittelt." : mode === "mailto" ? "Dein Entwurf ist vorbereitet." : "Noch nicht gesendet.";
       const sub = mode === "ok" ? `Kontaktadresse: <strong>${esc(state.contact.email)}</strong>.` : "";
       return `<div class="check__step is-active" data-qid="done"><div class="check__done">
         <div class="check__done-icon" aria-hidden="true">${mode === "error" ? "!" : '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'}</div>
@@ -191,9 +181,9 @@
       bar.style.width = (i === 0 ? 4 : pct) + "%";
       if (i < QUESTIONS.length) { stepLabel.textContent = `Frage ${i + 1} von ${QUESTIONS.length}`; stepName.textContent = QUESTIONS[i].label; }
       else if (i === QUESTIONS.length) { stepLabel.textContent = "Fast geschafft"; stepName.textContent = "Kontakt"; }
-      else { stepLabel.textContent = "Zusammenfassung"; stepName.textContent = "Prüfen & absenden"; }
+      else { stepLabel.textContent = "Zusammenfassung"; stepName.textContent = "Prüfen & weiter"; }
       back.disabled = i === 0;
-      nextLabel.textContent = i === QUESTIONS.length + 1 ? "Performance-Check absenden" : "Weiter";
+      nextLabel.textContent = i === QUESTIONS.length + 1 ? (C.formEndpoint ? "Anfrage senden" : C.contactEmail ? "E-Mail-Entwurf öffnen" : "Antworten anzeigen") : "Weiter";
       next.hidden = false;
     }
 
@@ -278,7 +268,7 @@
       sending = false;
       next.disabled = false; next.removeAttribute("aria-disabled"); root.removeAttribute("aria-busy");
       next.hidden = true; back.disabled = true; bar.style.width = "100%";
-      stepLabel.textContent = mode === "ok" ? "Abgeschlossen" : "Noch nicht gesendet"; stepName.textContent = "";
+      stepLabel.textContent = mode === "ok" ? "Übermittelt" : mode === "mailto" ? "E-Mail-Entwurf" : "Noch nicht gesendet"; stepName.textContent = "";
       body.innerHTML = renderDone(mode);
       const copy = body.querySelector("[data-copy]");
       if (copy) copy.addEventListener("click", async () => {
@@ -308,7 +298,7 @@
       };
       next.disabled = true; back.disabled = true;
       root.setAttribute("aria-busy", "true");
-      next.setAttribute("aria-disabled", "true"); nextLabel.textContent = "Wird gesendet …";
+      next.setAttribute("aria-disabled", "true"); nextLabel.textContent = C.formEndpoint ? "Wird gesendet …" : "Entwurf wird vorbereitet …";
       if (C.formEndpoint) {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 20000);
