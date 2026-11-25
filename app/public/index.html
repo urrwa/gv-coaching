@@ -36,6 +36,12 @@
     /* The homepage header keeps its dark backdrop across the light coach story. */
     .page-home .nav[data-theme="light"] .logo-mark__img--light { opacity: 1; }
     .page-home .nav[data-theme="light"] .logo-mark__img--dark { opacity: 0; }
+    /* Scroll through two headlines before the coach portrait opens into the mosaic. */
+    .coach-story__lines { display: grid; }
+    .coach-story__lines > b { grid-area: 1 / 1; font: inherit; }
+    .coach-story__lines > b:not(:last-child) { opacity: 0; visibility: hidden; }
+    .coach-story.is-scroll-story .coach-story__journey { height: 310svh; }
+    @media (max-width: 767px) { .coach-story.is-scroll-story .coach-story__journey { height: 260svh; } }
   </style>
   <script>
     // Old bookmarked legal anchors now open the dedicated pages.
@@ -50,7 +56,7 @@
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
   <script defer src="/assets/js/check.js?v=fitness-check-20261126"></script>
-  <script defer src="/assets/js/pages/home.js?v=opening-mosaic-20261126"></script>
+  <script defer src="/assets/js/pages/home.js?v=portrait-lines-20261126"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
   <script defer src="/assets/js/pages/kontakt.js?v=copy-20261126"></script>
 
@@ -271,7 +277,7 @@
         <figure class="coach-story__tile" data-coach-tile data-col="2" data-row="-1" style="--col:2;--row:-1;--focus:50% 35%" aria-hidden="true"><img src="/assets/img/gv-client-assessment-wide-900.webp" alt="" loading="lazy" decoding="async"></figure>
         <figure class="coach-story__tile" data-coach-tile data-col="-2" data-row="0" style="--col:-2;--row:0;--focus:75% 40%" aria-hidden="true"><img src="/assets/img/gv-client-lifestyle-900.webp" alt="" loading="lazy" decoding="async"></figure>
         <figure class="coach-story__tile" data-coach-tile data-col="-1" data-row="0" style="--col:-1;--row:0;--focus:50% 25%" aria-hidden="true"><img src="/assets/img/gv-client-training-900.webp" alt="" loading="lazy" decoding="async"></figure>
-        <figure class="coach-story__tile coach-story__tile--main" data-coach-main style="--focus:50% 20%"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_31EM6HTtcTFCyF2oVq3YoFVFsWr/930588eb-4744-42dc-8fa4-b8823b069f5b.webp" alt="Gabriel Vogt, dein Coach bei GV Coaching" width="900" height="1600" loading="lazy" decoding="async"><figcaption class="coach-story__name"><span>Dein Coach</span>Gabriel<br>Vogt.</figcaption></figure>
+        <figure class="coach-story__tile coach-story__tile--main" data-coach-main style="--focus:50% 20%"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_31EM6HTtcTFCyF2oVq3YoFVFsWr/930588eb-4744-42dc-8fa4-b8823b069f5b.webp" alt="Gabriel Vogt, dein Coach bei GV Coaching" width="900" height="1600" loading="lazy" decoding="async"><figcaption class="coach-story__name" aria-label="Gabriel Vogt, dein Coach"><span aria-hidden="true">Dein Coach</span><div class="coach-story__lines" aria-hidden="true"><b data-coach-line>Dein<br>Ziel.</b><b data-coach-line>Meine<br>Begleitung.</b><b data-coach-line>Gabriel<br>Vogt.</b></div></figcaption></figure>
         <figure class="coach-story__tile" data-coach-tile data-col="1" data-row="0" style="--col:1;--row:0;--focus:50% 15%" aria-hidden="true"><img src="/assets/img/gv-client-training-wide-900.webp" alt="" loading="lazy" decoding="async"></figure>
         <figure class="coach-story__tile" data-coach-tile data-col="2" data-row="0" style="--col:2;--row:0;--focus:50% 40%" aria-hidden="true"><img src="/assets/img/gv-client-consultation-900.webp" alt="" loading="lazy" decoding="async"></figure>
         <figure class="coach-story__tile" data-coach-tile data-col="-2" data-row="1" style="--col:-2;--row:1;--focus:50% 30%" aria-hidden="true"><img src="/assets/img/gv-client-training-900.webp" alt="" loading="lazy" decoding="async"></figure>
