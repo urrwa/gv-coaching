@@ -29,13 +29,10 @@
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=opening-mosaic-20261126-02">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=unified-canvas-20261126">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261124">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
-    /* The homepage header keeps its dark backdrop across the light coach story. */
-    .page-home .nav[data-theme="light"] .logo-mark__img--light { opacity: 1; }
-    .page-home .nav[data-theme="light"] .logo-mark__img--dark { opacity: 0; }
     /* Scroll through two headlines before the coach portrait opens into the mosaic. */
     .coach-story__lines { display: grid; }
     .coach-story__lines > b { grid-area: 1 / 1; font: inherit; }
@@ -56,7 +53,7 @@
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
   <script defer src="/assets/js/check.js?v=fitness-check-20261126"></script>
-  <script defer src="/assets/js/pages/home.js?v=portrait-lines-20261126"></script>
+  <script defer src="/assets/js/pages/home.js?v=intro-scroll-copy-20261126"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
   <script defer src="/assets/js/pages/kontakt.js?v=copy-20261126"></script>
 
@@ -262,7 +259,7 @@
 </section>
 
 <!-- ============ 02 GABRIEL ============ -->
-<section class="coach-story" data-theme="light" id="ueber" data-coach-story aria-labelledby="coach-story-title">
+<section class="coach-story" data-theme="dark" id="ueber" data-coach-story aria-labelledby="coach-story-title">
   <div class="coach-story__head">
     <p class="coach-story__eyebrow">Lerne deinen Coach kennen</p>
     <h2 class="coach-story__title" id="coach-story-title">Dein Ziel.<br>Meine Begleitung.</h2>
