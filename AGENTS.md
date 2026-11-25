@@ -11,3 +11,9 @@
 
 - Keep text reveals linked to scroll progress and reversible when scrolling back.
 - Preserve readable static content when reduced motion is requested or animation libraries are unavailable.
+- The owner wants cinematic staging inspired by thegrind.nl: oversized changing display text, slow image movement, and a portrait that pulls back into a staggered image collage. Keep Gabriel and the GV Coaching identity central.
+
+## Claude review preference
+
+- For project design and copy work, consult the owner's Claude session when available. The owner explicitly welcomes its use in ongoing conversations.
+- Only claim Claude reviewed work when that review actually happened. Continue implementation and live verification here.
