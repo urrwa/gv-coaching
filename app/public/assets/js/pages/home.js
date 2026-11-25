@@ -114,48 +114,84 @@
       if (PM.revealed) open(); else document.addEventListener('pm:reveal', open, { once: true });
     })();
 
-    /* ---------- Gabriel: one portrait opens into a surrounding photo mosaic ---------- */
+    /* ---------- Cinematic coach portrait: type leads, the image pulls back ---------- */
     (function coachStory() {
       const section = document.querySelector('[data-coach-story]');
       if (!section) return;
       const journey = section.querySelector('.coach-story__journey');
       const main = section.querySelector('[data-coach-main]');
+      const image = main.querySelector('img');
       const tiles = [...section.querySelectorAll('[data-coach-tile]')];
       const name = section.querySelector('.coach-story__name');
       const lines = [...section.querySelectorAll('[data-coach-line]')];
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference) and (min-height: 570px)', () => {
         const small = () => window.innerWidth < 768;
         const width = () => Math.min(window.innerWidth * (small() ? .29 : .18), small() ? Infinity : 245);
-        const gap = () => small() ? 12 : 26;
+        const largeWidth = () => Math.min(window.innerWidth * (small() ? .86 : .56), 760);
+        const gap = () => small() ? 14 : 30;
         section.classList.add('is-scroll-story');
-        gsap.set(tiles, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: .6, autoAlpha: 0 });
         gsap.set(main, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
-        const textDuration = lines.length === 3 ? 1.2 : 0;
+        gsap.set(tiles, {
+          xPercent: -50, yPercent: -50,
+          x: (_,el) => Number(el.dataset.col) * (width() + gap()) * .72,
+          y: (_,el) => Number(el.dataset.row) * (width() * 1.2 + gap()) * .72,
+          scale: .72, autoAlpha: 0,
+        });
         if (lines.length === 3) {
-          gsap.set(lines, { autoAlpha: 0, y: 12 });
-          gsap.set(lines[0], { autoAlpha: 1, y: 0 });
+          gsap.set(lines, { autoAlpha: 0, yPercent: 110 });
+          gsap.set(lines[0], { autoAlpha: 1, yPercent: 0 });
         }
         const timeline = gsap.timeline({ scrollTrigger: {
-          trigger: journey, start: 'top top', end: 'bottom bottom', scrub: .65, invalidateOnRefresh: true,
+          trigger: journey, start: 'top top', end: 'bottom bottom', scrub: .8, invalidateOnRefresh: true,
         }});
         timeline.fromTo(main, {
-          width: () => Math.min(window.innerWidth * (small() ? .82 : .49), 640),
-          height: () => Math.min(window.innerHeight * .76, 700), borderRadius: 28,
-        }, { width, height: () => width() * 1.2, borderRadius: () => small() ? 10 : 15, duration: 1, ease: 'power2.inOut' }, .2 + textDuration)
-        .fromTo(main.querySelector('img'), { filter: 'grayscale(1)' }, { filter: 'grayscale(0)', duration: .85, ease: 'none' }, .35 + textDuration)
-        .fromTo(name, { fontSize: () => small() ? 42 : 68 }, { fontSize: () => small() ? 20 : 36, duration: 1, ease: 'power2.inOut' }, .2 + textDuration)
-        .to(tiles, { x: (_,el) => Number(el.dataset.col) * (width() + gap()),
-          y: (_,el) => Number(el.dataset.row) * (width() * 1.2 + gap()),
-          scale: 1, autoAlpha: 1, duration: .95, ease: 'power2.inOut' }, .28 + textDuration)
-        .to({}, { duration: .15 });
+          width: largeWidth, height: () => Math.min(window.innerHeight * .86, 820), borderRadius: 30,
+        }, { width, height: () => width() * 1.2, borderRadius: () => small() ? 12 : 16,
+          duration: 1.32, ease: 'power2.inOut' }, 1.32)
+        .fromTo(name, { fontSize: () => largeWidth() * .26 }, {
+          fontSize: () => width() * .26, duration: 1.32, ease: 'power2.inOut',
+        }, 1.32)
+        .fromTo(image, { scale: 1.16, yPercent: 2.5, filter: 'grayscale(1) contrast(1.08)' }, {
+          scale: 1.02, yPercent: -1.5, duration: 2.8, ease: 'none',
+        }, 0)
+        .to(image, { filter: 'grayscale(0) contrast(1.04)', duration: 1.1, ease: 'none' }, 1.5);
         if (lines.length === 3) {
           timeline
-            .to(lines[0], { autoAlpha: 0, y: -12, duration: .14, ease: 'power1.inOut' }, .5)
-            .to(lines[1], { autoAlpha: 1, y: 0, duration: .14, ease: 'power1.inOut' }, .64)
-            .to(lines[1], { autoAlpha: 0, y: -12, duration: .14, ease: 'power1.inOut' }, .95)
-            .to(lines[2], { autoAlpha: 1, y: 0, duration: .14, ease: 'power1.inOut' }, 1.09);
+            .to(lines[0], { autoAlpha: 0, yPercent: -110, duration: .2, ease: 'power2.inOut' }, .43)
+            .to(lines[1], { autoAlpha: 1, yPercent: 0, duration: .2, ease: 'power2.out' }, .54)
+            .to(lines[1], { autoAlpha: 0, yPercent: -110, duration: .2, ease: 'power2.inOut' }, .92)
+            .to(lines[2], { autoAlpha: 1, yPercent: 0, duration: .2, ease: 'power2.out' }, 1.03);
         }
+        // A stable centre-out order creates depth without random jumps on resize.
+        tiles.sort((a,b) => {
+          const distance = el => Math.abs(Number(el.dataset.col)) + Math.abs(Number(el.dataset.row));
+          return distance(a) - distance(b) || Number(b.dataset.col) - Number(a.dataset.col) || Number(a.dataset.row) - Number(b.dataset.row);
+        }).forEach((tile,index) => {
+          const at = 1.42 + index * .035;
+          timeline.to(tile, {
+            x: () => Number(tile.dataset.col) * (width() + gap()),
+            y: () => Number(tile.dataset.row) * (width() * 1.2 + gap()),
+            scale: 1, autoAlpha: 1, duration: .88, ease: 'power2.out',
+          }, at).fromTo(tile.querySelector('img'), { scale: 1.12 }, { scale: 1, duration: 1.05, ease: 'power1.out' }, at);
+        });
+        timeline.to({}, { duration: .22 });
         return () => { section.classList.remove('is-scroll-story'); };
+      });
+    })();
+
+    /* ---------- Hero depth: video and type travel at different speeds ---------- */
+    (function heroDepth() {
+      const hero = document.querySelector('.hero--cinema');
+      if (!hero) return;
+      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(hero.querySelectorAll('.hero__media > img,.hero__media > video'), {
+          scale: 1.08, yPercent: -2,
+        }, { scale: 1.02, yPercent: 3, ease: 'none', scrollTrigger: {
+          trigger: hero, start: 'top top', end: 'bottom top', scrub: .8,
+        }});
+        gsap.to(hero.querySelector('.hero__inner'), { y: -55, opacity: .35, ease: 'none', scrollTrigger: {
+          trigger: hero, start: 'top top', end: 'bottom top', scrub: .8,
+        }});
       });
     })();
 
