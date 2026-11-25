@@ -76,6 +76,53 @@
     if (!gsap || !ST) return;
     const reduced = PM.reduced;
 
+
+    /* ---------- Opening video: expand from a small rounded window ---------- */
+    (function opening() {
+      const hero = document.querySelector('.hero--reveal');
+      if (!hero || reduced || (location.hash && location.hash !== '#start')) return;
+      const open = () => {
+        gsap.fromTo(hero.querySelector('.hero__stage'),
+          { opacity: 0, clipPath: 'inset(42% 42% 42% 42% round 40px)' },
+          { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 22px)', duration: 1.25, ease: 'power3.inOut', clearProps: 'opacity,clipPath' });
+        gsap.fromTo(hero.querySelectorAll('.hero__copy,.hero__entry,.hero__wordmark,.hero__coach-link'),
+          { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .85, delay: .55, stagger: .08, ease: 'power2.out', clearProps: 'opacity,transform' });
+      };
+      if (PM.revealed) open(); else document.addEventListener('pm:reveal', open, { once: true });
+    })();
+
+    /* ---------- Gabriel: one portrait opens into a surrounding photo mosaic ---------- */
+    (function coachStory() {
+      const section = document.querySelector('[data-coach-story]');
+      if (!section) return;
+      const journey = section.querySelector('.coach-story__journey');
+      const main = section.querySelector('[data-coach-main]');
+      const tiles = [...section.querySelectorAll('[data-coach-tile]')];
+      const name = section.querySelector('.coach-story__name');
+      gsap.matchMedia().add('(prefers-reduced-motion: no-preference) and (min-height: 570px)', () => {
+        const small = () => window.innerWidth < 768;
+        const width = () => Math.min(window.innerWidth * (small() ? .29 : .18), small() ? Infinity : 245);
+        const gap = () => small() ? 12 : 26;
+        section.classList.add('is-scroll-story');
+        gsap.set(tiles, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: .6, autoAlpha: 0 });
+        gsap.set(main, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
+        const timeline = gsap.timeline({ scrollTrigger: {
+          trigger: journey, start: 'top top', end: 'bottom bottom', scrub: .65, invalidateOnRefresh: true,
+        }});
+        timeline.fromTo(main, {
+          width: () => Math.min(window.innerWidth * (small() ? .82 : .49), 640),
+          height: () => Math.min(window.innerHeight * .76, 700), borderRadius: 28,
+        }, { width, height: () => width() * 1.2, borderRadius: () => small() ? 10 : 15, duration: 1, ease: 'power2.inOut' }, .2)
+        .fromTo(main.querySelector('img'), { filter: 'grayscale(1)' }, { filter: 'grayscale(0)', duration: .85, ease: 'none' }, .35)
+        .fromTo(name, { fontSize: () => small() ? 42 : 68 }, { fontSize: () => small() ? 20 : 36, duration: 1, ease: 'power2.inOut' }, .2)
+        .to(tiles, { x: (_,el) => Number(el.dataset.col) * (width() + gap()),
+          y: (_,el) => Number(el.dataset.row) * (width() * 1.2 + gap()),
+          scale: 1, autoAlpha: 1, duration: .95, ease: 'power2.inOut' }, .28)
+        .to({}, { duration: .15 });
+        return () => { section.classList.remove('is-scroll-story'); };
+      });
+    })();
+
     if (!reduced) {
       const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(({ target, intersectionRatio }) => {
