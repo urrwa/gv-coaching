@@ -1519,11 +1519,11 @@
 }
 /* ---------- Opening sequence and Gabriel's scroll portrait ---------- */
 .hero.hero--reveal { display: block; padding: 12px; min-height: 100svh; background: #07111f; }
-.hero--reveal .hero__stage { min-height: max(720px, calc(100svh - 24px)); border-radius: 22px; overflow: hidden; isolation: isolate; }
+.hero--reveal .hero__stage { min-height: max(680px, calc(100svh - 24px)); border-radius: 22px; overflow: hidden; isolation: isolate; }
 .hero--reveal .hero__media { inset: 0; aspect-ratio: auto; }
 .hero--reveal .hero__media > :is(img,video) { object-fit: cover; object-position: 65% center; }
-.hero--reveal .hero__media::after { background: linear-gradient(90deg,rgba(4,11,21,.72),rgba(4,11,21,.18) 72%),linear-gradient(0deg,rgba(4,11,21,.85),transparent 55%); }
-.hero--reveal .hero__inner { min-height: inherit; padding-block: 145px 340px; justify-content: flex-start; width: 100%; }
+.hero--reveal .hero__media::after { background: linear-gradient(90deg,rgba(4,11,21,.5),rgba(4,11,21,.1) 72%),linear-gradient(0deg,rgba(4,11,21,.85),transparent 55%); }
+.hero--reveal .hero__inner { min-height: inherit; padding-block: 145px 340px; padding-inline: var(--gutter); justify-content: flex-start; width: 100%; }
 .hero--reveal .hero__copy { max-width: 850px; gap: 1rem; }
 .hero--reveal .hero__eyebrow { color: #d6e3ff; font-size: .7rem; }
 .hero--reveal .hero__title { font-size: clamp(3.2rem,6.1vw,6.5rem); line-height: .98; letter-spacing: -.055em; font-weight: 600; text-transform: uppercase; }
