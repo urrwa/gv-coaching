@@ -1596,3 +1596,40 @@
 .page-home .stat-item:hover { background-color: var(--site-bg); }
 .coach-story__title .w-mask { padding-block: .08em; margin-block: -.08em; }
 .coach-story__intro .w-mask { vertical-align: bottom; }
+/* Cinematic opening: condensed display type and a centred, layered portrait. */
+.page-home { --font-cinematic: "GV Display", Impact, "Arial Narrow", sans-serif; }
+.hero--cinema .hero__title,
+.coach-story--cinema .coach-story__title,
+.coach-story--cinema .coach-story__name { font-family: var(--font-cinematic); font-weight: 400; }
+.hero--cinema .hero__title { font-size: clamp(4.5rem,7.8vw,8.8rem); line-height: .98; letter-spacing: -.018em; }
+.hero--cinema .hero__copy { max-width: 900px; }
+.hero--cinema .hero__inner { padding-top: 140px; }
+.hero--cinema .hero__media > :is(img,video) { transform-origin: 62% 45%; }
+.coach-story--cinema { padding-top: clamp(5rem,9vw,8rem); }
+.coach-story--cinema .coach-story__head { max-width: 960px; gap: 1.75rem; }
+.coach-story--cinema .coach-story__title { font-size: clamp(3.75rem,8.5vw,8.5rem); line-height: 1; letter-spacing: -.015em; }
+.coach-story--cinema .coach-story__intro { max-width: 58ch; font-size: clamp(1rem,1.45vw,1.15rem); }
+.coach-story--cinema .coach-story__journey { margin-top: 0; }
+.coach-story--cinema .coach-story__tile { box-shadow: 0 18px 55px rgba(0,0,0,.16); }
+.coach-story--cinema .coach-story__tile--main { box-shadow: 0 35px 100px rgba(0,0,0,.35); }
+.coach-story--cinema .coach-story__tile--main > img { transform-origin: 50% 35%; will-change: transform; }
+.coach-story--cinema .coach-story__tile--main::after { inset: 0; background: linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,.1)); }
+.coach-story--cinema .coach-story__name { inset: 0; padding: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: calc(var(--tile-w) * .26); line-height: .94; letter-spacing: -.015em; color: #faf9f4; text-shadow: 0 3px 30px rgba(0,0,0,.25); pointer-events: none; }
+.coach-story--cinema .coach-story__name > span { margin-bottom: .9rem; font-size: clamp(.45rem,.8vw,.7rem); letter-spacing: .22em; color: #f0f2f5; }
+.coach-story--cinema .coach-story__lines { width: 100%; display: grid; overflow: hidden; padding-block: .12em; margin-block: -.12em; }
+.coach-story--cinema .coach-story__lines > b { grid-area: 1 / 1; display: block; font: inherit; line-height: .94; }
+.coach-story--cinema .coach-story__lines > b:nth-child(2) { font-size: .66em; align-self: center; }
+.coach-story--cinema .coach-story__scene::after { background: linear-gradient(90deg,var(--site-bg),transparent 14%,transparent 86%,var(--site-bg)),linear-gradient(0deg,var(--site-bg),transparent 8%,transparent 94%,var(--site-bg)); }
+@media (max-width: 767px) {
+  .hero--cinema .hero__title { font-size: clamp(3.3rem,13.4vw,4.8rem); line-height: .99; }
+  .hero--cinema .hero__inner { padding-top: 116px; }
+  .coach-story--cinema .coach-story__head { padding-inline: 22px; gap: 1.4rem; }
+  .coach-story--cinema .coach-story__title { font-size: clamp(3.3rem,15.2vw,5.2rem); }
+  .coach-story--cinema .coach-story__intro { font-size: .95rem; }
+  .coach-story--cinema .coach-story__name { padding: 6px; }
+  .coach-story--cinema .coach-story__name > span { margin-bottom: .65rem; font-size: .45rem; }
+  .coach-story--cinema .coach-story__scene::after { background: linear-gradient(90deg,var(--site-bg),transparent 6%,transparent 94%,var(--site-bg)),linear-gradient(0deg,var(--site-bg),transparent 9%,transparent 93%,var(--site-bg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero--cinema .hero__media > :is(img,video), .coach-story--cinema .coach-story__tile img { transform: none; }
+}
