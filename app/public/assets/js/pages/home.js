@@ -323,7 +323,46 @@
     /* ---------- Problem: editorial redesign ---------- */
     (function problem() {
 
-      /* Star reveal on heading line 2 */
+      /* ---- Text scramble utility ---- */
+      const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&";
+      function scrambleText(el, finalText, duration) {
+        if (reduced) { el.textContent = finalText; return; }
+        const len = finalText.length;
+        let frame = 0;
+        const totalFrames = Math.round(duration / 40); // ~40ms per tick
+        const resolved = new Array(len).fill(false);
+        const raf = { id: null };
+
+        function tick() {
+          frame++;
+          // progressively lock characters from left as we approach end
+          const lockProgress = frame / totalFrames;
+          let result = "";
+          for (let i = 0; i < len; i++) {
+            if (finalText[i] === " ") { result += " "; continue; }
+            if (finalText[i] === ".") { result += "."; continue; }
+            if (finalText[i] === "Ä") { result += finalText[i]; continue; }
+            if (finalText[i] === "Ö") { result += finalText[i]; continue; }
+            if (finalText[i] === "Ü") { result += finalText[i]; continue; }
+            if (resolved[i] || (i / len) < lockProgress * 1.4) {
+              resolved[i] = true;
+              result += finalText[i];
+            } else {
+              result += CHARS[Math.floor(Math.random() * CHARS.length)];
+            }
+          }
+          el.textContent = result;
+          if (frame < totalFrames) {
+            raf.id = setTimeout(tick, 40);
+          } else {
+            el.textContent = finalText;
+          }
+        }
+        tick();
+        return raf;
+      }
+
+      /* ---- Star reveal on heading ---- */
       const star = document.querySelector(".problem__star");
       if (star) {
         ST.create({
@@ -334,29 +373,35 @@
         });
       }
 
-      /* Float-circle pop-in on scroll-enter (reference style) */
-      document.querySelectorAll(".problem__float-circle").forEach((fc) => {
+      /* ---- Circle pop-in + scramble text on scroll-enter ---- */
+      document.querySelectorAll(".problem__circle-cell").forEach((cell) => {
+        const inner = cell.querySelector(".problem__circle-inner");
+        const label = cell.querySelector(".problem__circle-label");
+        const finalText = label ? (label.dataset.scramble || label.textContent) : "";
+        let activeScramble = null;
+
         ST.create({
-          trigger: fc.closest(".problem__panel") || fc,
-          start: "top 75%",
-          onEnter() { fc.classList.add("is-revealed"); },
-          onLeaveBack() { fc.classList.remove("is-revealed"); }
+          trigger: cell,
+          start: "top 78%",
+          onEnter() {
+            inner.classList.add("is-revealed");
+            if (label && finalText) {
+              if (activeScramble) clearTimeout(activeScramble.id);
+              // slight delay so circle pop-in starts first
+              activeScramble = { id: setTimeout(() => {
+                scrambleText(label, finalText, 700);
+              }, 200) };
+            }
+          },
+          onLeaveBack() {
+            inner.classList.remove("is-revealed");
+            if (activeScramble) { clearTimeout(activeScramble.id); activeScramble = null; }
+            if (label && finalText) label.textContent = finalText;
+          }
         });
       });
 
-      /* Video play/pause via IntersectionObserver */
-      const vid = document.querySelector("[data-problem-video]");
-      if (vid) {
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) { vid.play().catch(() => {}); }
-            else { vid.pause(); }
-          });
-        }, { threshold: 0.25 });
-        obs.observe(vid);
-      }
-
-      /* Scrubbed statement word-reveal */
+      /* ---- Scrubbed statement word-reveal ---- */
       const statEl = document.querySelector("[data-statement] .problem__statement-text");
       if (statEl && !reduced) {
         const words = PM.splitWords(statEl);

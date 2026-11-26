@@ -408,13 +408,11 @@
     </div>
   </div>
 
-  <!-- Row 1: two full-bleed photo panels side by side -->
-  <div class="problem__panels" data-problem-panels="1">
-
-    <!-- Left panel: photo with floating circle text -->
-    <div class="problem__panel problem__panel--photo" data-problem-circle="1">
+  <!-- Row 1: photo left, circle right -->
+  <div class="problem__row" data-problem-row="1">
+    <div class="problem__photo-cell">
       <img
-        class="problem__panel-img"
+        class="problem__photo-img"
         src="/assets/img/problem-circle1-900.webp"
         alt="Gabriel Vogt beim Training mit einem Klienten"
         width="900"
@@ -422,36 +420,26 @@
         loading="lazy"
         decoding="async"
       >
-      <!-- Floating circle overlay with label text -->
-      <div class="problem__float-circle problem__float-circle--br">
-        <span class="problem__float-num">01</span>
-        <span class="problem__float-title">WENIG ZEIT.<br>EINHEIT<br>VERPASST.</span>
+    </div>
+    <div class="problem__circle-cell" data-problem-circle="1">
+      <div class="problem__circle-inner">
+        <span class="problem__circle-num">01</span>
+        <span class="problem__circle-label" data-scramble="WENIG ZEIT. EINHEIT VERPASST.">WENIG ZEIT. EINHEIT VERPASST.</span>
       </div>
     </div>
-
-    <!-- Right panel: dark text panel -->
-    <div class="problem__panel problem__panel--dark">
-      <div class="problem__panel-body">
-        <p class="problem__copy-text">Wir legen fest, welche Übungen Priorität haben und welcher Umfang passt. Dann schauen wir auf die Restwoche und stellen um, was sich verschieben lässt. Dein Rhythmus bleibt.</p>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Row 2: flipped — text left, photo right -->
-  <div class="problem__panels problem__panels--flip" data-problem-panels="2">
-
-    <!-- Left panel: dark text panel -->
-    <div class="problem__panel problem__panel--dark">
-      <div class="problem__panel-body">
-        <p class="problem__copy-text">Wir wahlen passende Ubungen fur deine verfugbare Ausstattung. Fur Reisen vereinfachen wir Training und Ernahrung vorab. Nach der Ruckkehr passen wir wieder an.</p>
+  <!-- Row 2: circle left, photo right -->
+  <div class="problem__row problem__row--flip" data-problem-row="2">
+    <div class="problem__circle-cell" data-problem-circle="2">
+      <div class="problem__circle-inner">
+        <span class="problem__circle-num">02</span>
+        <span class="problem__circle-label" data-scramble="ANDERE GERÄTE. UNTERWEGS.">ANDERE GERÄTE. UNTERWEGS.</span>
       </div>
     </div>
-
-    <!-- Right panel: photo with floating circle text -->
-    <div class="problem__panel problem__panel--photo" data-problem-circle="2">
+    <div class="problem__photo-cell">
       <img
-        class="problem__panel-img"
+        class="problem__photo-img"
         src="/assets/img/problem-circle2-1200.webp"
         alt="Gabriel Vogt beim Dumbbell Training"
         width="1200"
@@ -459,38 +447,33 @@
         loading="lazy"
         decoding="async"
       >
-      <!-- Floating circle overlay -->
-      <div class="problem__float-circle problem__float-circle--tl">
-        <span class="problem__float-num">02</span>
-        <span class="problem__float-title">ANDERE<br>GERATE.<br>UNTERWEGS.</span>
-      </div>
     </div>
-
   </div>
 
-  <!-- Row 3: full-width video panel + circle overlay -->
-  <div class="problem__panels problem__panels--wide" data-problem-panels="3">
-    <div class="problem__panel problem__panel--photo problem__panel--video-wrap" data-problem-circle="3">
-      <video
-        class="problem__panel-img"
-        src="/assets/video/gv-training-loop.mp4"
-        muted
-        loop
-        playsinline
-        preload="none"
-        data-problem-video
-      ></video>
-      <!-- Floating circle overlay -->
-      <div class="problem__float-circle problem__float-circle--cl">
-        <span class="problem__float-num">03</span>
-        <span class="problem__float-title">FORT-<br>SCHRITT<br>BLEIBT AUS.</span>
+  <!-- Row 3: photo left, circle right -->
+  <div class="problem__row" data-problem-row="3">
+    <div class="problem__photo-cell">
+      <img
+        class="problem__photo-img"
+        src="/assets/img/problem-circle2-alt-900.webp"
+        alt="Gabriel Vogt im Beratungsgespräch"
+        width="900"
+        height="900"
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
+    <div class="problem__circle-cell" data-problem-circle="3">
+      <div class="problem__circle-inner">
+        <span class="problem__circle-num">03</span>
+        <span class="problem__circle-label" data-scramble="FORTSCHRITT BLEIBT AUS.">FORTSCHRITT BLEIBT AUS.</span>
       </div>
     </div>
   </div>
 
   <!-- Closing statement -->
   <div class="problem__statement container" data-statement>
-    <p class="problem__statement-text">Du kennst dein Ziel. Wir machen die nachsten Schritte konkret.</p>
+    <p class="problem__statement-text">Du kennst dein Ziel. Wir machen die nächsten Schritte konkret.</p>
   </div>
 
 </section>

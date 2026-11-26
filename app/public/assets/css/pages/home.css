@@ -844,7 +844,7 @@
   background: linear-gradient(0deg, rgba(7,17,31,0.85) 0%, rgba(7,17,31,0) 55%);
 }
 
-/* ---------- 04 PROBLEM SECTION — fit-and-you reference style ---------- */
+/* ---------- 03 PROBLEM SECTION — fit-and-you reference style ---------- */
 .problem {
   background: var(--navy-950);
   overflow: clip;
@@ -896,118 +896,106 @@
   transform: scale(1) rotate(0deg);
 }
 
-/* ---- Panel rows (reference: side-by-side full-bleed panels) ---- */
-.problem__panels {
+/* ---- Rows: photo beside circle (reference layout) ---- */
+.problem__row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: clamp(280px, 45vw, 600px);
+  grid-template-columns: 3fr 2fr;
+  align-items: center;
   gap: 0;
+  min-height: clamp(320px, 50vw, 640px);
 }
-.problem__panels--wide {
-  grid-template-columns: 1fr;
-  min-height: clamp(220px, 38vw, 500px);
+.problem__row--flip {
+  grid-template-columns: 2fr 3fr;
 }
 
-/* Individual panel */
-.problem__panel {
+/* Photo cell */
+.problem__photo-cell {
   position: relative;
+  align-self: stretch;
   overflow: hidden;
-  display: flex;
-  align-items: stretch;
 }
-
-/* Photo panel */
-.problem__panel--photo .problem__panel-img {
+.problem__photo-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
   display: block;
 }
-.problem__panel--photo {
-  min-height: clamp(220px, 35vw, 500px);
-}
 
-/* Dark text panel */
-.problem__panel--dark {
-  background: var(--navy-800);
+/* Circle cell — the dark circle sits inside a rectangular slot, centered */
+.problem__circle-cell {
   display: flex;
-  align-items: flex-end;
-  padding: clamp(2rem, 4vw, 4rem);
-}
-.problem__panel-body {
-  max-width: 36ch;
-}
-.problem__copy-text {
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  line-height: 1.65;
-  color: var(--silver);
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  background: var(--navy-950);
+  padding: clamp(1rem, 3vw, 2.5rem);
 }
 
-/* Floating circle overlay — reference style dark circle with text inside */
-.problem__float-circle {
-  position: absolute;
-  width: clamp(160px, 22vw, 300px);
+/* The circle itself — aspect-ratio keeps it round */
+.problem__circle-inner {
+  width: min(100%, clamp(200px, 28vw, 420px));
   aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--site-bg);
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.06);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.4em;
+  gap: 0.5em;
   text-align: center;
-  padding: 1.5em;
-  z-index: 2;
-  /* entrance state */
+  padding: 1.6em;
+  /* entrance: scale + fade in */
   opacity: 0;
-  transform: scale(0.6);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.65);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.problem__float-circle.is-revealed {
+.problem__circle-inner.is-revealed {
   opacity: 1;
   transform: scale(1);
 }
 
-/* Position variants */
-.problem__float-circle--br { bottom: 8%; right: 8%; }
-.problem__float-circle--tl { top: 8%; left: 8%; }
-.problem__float-circle--cl { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.6); }
-.problem__float-circle--cl.is-revealed { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-
-.problem__float-num {
+.problem__circle-num {
   font-family: var(--font-display);
-  font-size: clamp(0.6rem, 1vw, 0.9rem);
+  font-size: clamp(0.55rem, 0.9vw, 0.8rem);
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   color: var(--blue-400);
   text-transform: uppercase;
+  display: block;
 }
-.problem__float-title {
+.problem__circle-label {
   font-family: var(--font-display);
-  font-size: clamp(0.85rem, 1.6vw, 1.4rem);
+  font-size: clamp(1rem, 2vw, 1.8rem);
   font-weight: 900;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.15;
   color: #fff;
   text-transform: uppercase;
+  display: block;
+  /* scramble characters inherit monospace width trick */
+  font-variant-numeric: tabular-nums;
 }
 
-/* Mobile: stack panels vertically */
+/* Mobile: stack rows vertically, circle below photo */
 @media (max-width: 767px) {
-  .problem__panels {
+  .problem__row,
+  .problem__row--flip {
     grid-template-columns: 1fr;
+    min-height: auto;
   }
-  .problem__panels--flip .problem__panel--dark {
-    order: 1;
+  .problem__photo-cell {
+    min-height: clamp(220px, 55vw, 380px);
   }
-  .problem__panels--flip .problem__panel--photo {
-    order: 0;
+  .problem__row--flip .problem__circle-cell {
+    order: -1;
   }
-  .problem__float-circle {
-    width: clamp(120px, 35vw, 180px);
+  .problem__circle-inner {
+    width: min(100%, 220px);
   }
 }
 
