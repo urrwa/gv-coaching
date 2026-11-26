@@ -1556,6 +1556,12 @@
 .coach-story.is-scroll-story .coach-story__scene { position: sticky; top: 0; height: 100svh; overflow: visible; isolation: auto; }
 /* Main portrait sits above the navy edge-gradient overlay so the full-bleed phase is clean */
 .coach-story.is-scroll-story .coach-story__tile--main { z-index: 5; }
+/* Stronger left/right vignette in grid phase to frame the outer blurred tiles */
+.coach-story--cinema.is-scroll-story .coach-story__scene::after {
+  background:
+    linear-gradient(90deg, var(--site-bg) 0%, transparent 22%, transparent 78%, var(--site-bg) 100%),
+    linear-gradient(0deg, var(--site-bg) 0%, transparent 10%, transparent 92%, var(--site-bg) 100%);
+}
 .coach-story__outro { position: relative; text-align: center; max-width: 760px; margin-inline: auto; padding: 1.5rem 24px clamp(4rem,7vw,7rem); display: grid; justify-items: center; gap: 1.5rem; }
 .coach-story__outro p { max-width: 55ch; color: #c6cfdd; line-height: 1.75; }
 .coach-story__details { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: #a9c4ff; }

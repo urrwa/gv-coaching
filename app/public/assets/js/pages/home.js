@@ -123,6 +123,7 @@
       const image   = main.querySelector('img');
       const tiles   = [...section.querySelectorAll('[data-coach-tile]')];
       const name    = section.querySelector('.coach-story__name');
+      const nameTag = section.querySelector('.coach-story__name > span'); // "Dein Coach" label
       const lines   = [...section.querySelectorAll('[data-coach-line]')];
 
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference) and (min-height: 570px)', () => {
@@ -145,7 +146,15 @@
           xPercent: -50, yPercent: -50, x: 0, y: 0,
           width: fullW, height: fullH, borderRadius: 0,
         });
-        gsap.set(name, { fontSize: () => fullW() * (small() ? .18 : .13) });
+        // Full-bleed: big text, bottom-left aligned, no "Dein Coach" label
+        gsap.set(name, {
+          fontSize: () => fullW() * (small() ? .22 : .17),
+          textAlign: 'left',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-end',
+          padding: () => small() ? '0 20px 28px' : '0 48px 44px',
+        });
+        if (nameTag) gsap.set(nameTag, { autoAlpha: 0 });
         gsap.set(tiles, {
           xPercent: -50, yPercent: -50,
           x: (_,el) => Number(el.dataset.col) * (tileW() + gap()),
@@ -191,7 +200,16 @@
         // ── PHASE B (1.0 → 1.8): Pull back from full-bleed to mid card ────────
         // Portrait shrinks, corners appear, name font scales down proportionally
         tl.to(main, { width: midW, height: midH, borderRadius: () => small() ? 14 : 20, duration: .72, ease: 'power2.inOut' }, 1.0);
-        tl.to(name, { fontSize: () => midW() * .26, duration: .72, ease: 'power2.inOut' }, 1.0);
+        tl.to(name, {
+          fontSize: () => midW() * .26,
+          textAlign: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '12px',
+          duration: .72, ease: 'power2.inOut',
+        }, 1.0);
+        // Restore the "Dein Coach" label as the card forms
+        if (nameTag) tl.to(nameTag, { autoAlpha: 1, duration: .28, ease: 'power1.out' }, 1.3);
         // Image settles to colour as card forms
         tl.to(image, { scale: 1.0, filter: 'grayscale(0) contrast(1.0) brightness(1.0)', duration: .55, ease: 'power1.out' }, 1.1);
 
@@ -200,32 +218,35 @@
         tl.to(name, { fontSize: () => tileW() * .26, duration: .56, ease: 'power2.inOut' }, 1.8);
 
         // ── PHASE D (2.4 → end): Staggered grid reveal ────────────────────────
-        // Sort tiles centre-out for a natural bloom reveal
+        // Sort tiles OUTSIDE-IN so outermost edges pop first (like thegrind reference)
         tiles.sort((a, b) => {
           const dist = el => Math.abs(Number(el.dataset.col)) + Math.abs(Number(el.dataset.row));
-          return dist(a) - dist(b)
-            || Number(b.dataset.col) - Number(a.dataset.col)
-            || Number(a.dataset.row) - Number(b.dataset.row);
+          return dist(b) - dist(a); // descending = edges first
         }).forEach((tile, i) => {
-          const at    = 2.44 + i * .038;
-          const col   = Number(tile.dataset.col);
-          const row   = Number(tile.dataset.row);
+          const at     = 2.38 + i * .042;
+          const col    = Number(tile.dataset.col);
+          const row    = Number(tile.dataset.row);
           const isEdge = Math.abs(col) === 2;
 
-          // Tiles animate from their target position (already set above) with scale+fade
+          // Entry direction: tiles fly in FROM the edges of the frame
+          const fromX = col * (tileW() + gap()) * 0.35;
+          const fromY = row * (tileH() + gap()) * 0.25;
+
+          // Spring pop-in with scale + position offset + fade
           tl.fromTo(tile,
-            { scale: .6, autoAlpha: 0 },
+            { scale: .5, autoAlpha: 0, x: `+=${fromX}`, y: `+=${fromY}` },
             {
-              scale: 1, autoAlpha: isEdge ? .72 : 1,
-              duration: .82, ease: 'power2.out',
+              scale: 1, autoAlpha: isEdge ? .6 : 1,
+              x: `+=0`, y: `+=0`,
+              duration: .92, ease: 'back.out(1.6)',
             }, at)
           .fromTo(tile.querySelector('img'),
-            { scale: 1.14 },
-            { scale: 1, duration: .95, ease: 'power1.out' }, at);
+            { scale: 1.18 },
+            { scale: 1, duration: 1.1, ease: 'power1.out' }, at);
 
-          // Outer-column tiles get a persistent blur (applied after reveal)
+          // Outer-column tiles get heavy blur — depth cue like reference
           if (isEdge) {
-            tl.set(tile, { filter: 'blur(1.5px)' }, at + .82);
+            tl.set(tile, { filter: 'blur(4px)' }, at + .92);
           }
         });
 
