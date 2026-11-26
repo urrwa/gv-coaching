@@ -334,13 +334,13 @@
         });
       }
 
-      /* Circle expand on scroll-enter */
-      document.querySelectorAll("[data-problem-circle]").forEach((circle) => {
+      /* Float-circle pop-in on scroll-enter (reference style) */
+      document.querySelectorAll(".problem__float-circle").forEach((fc) => {
         ST.create({
-          trigger: circle,
-          start: "top 72%",
-          onEnter() { circle.classList.add("is-revealed"); },
-          onLeaveBack() { circle.classList.remove("is-revealed"); }
+          trigger: fc.closest(".problem__panel") || fc,
+          start: "top 75%",
+          onEnter() { fc.classList.add("is-revealed"); },
+          onLeaveBack() { fc.classList.remove("is-revealed"); }
         });
       });
 

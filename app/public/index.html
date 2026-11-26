@@ -382,7 +382,7 @@
 <!-- ============ 03 PROBLEM ============ -->
 <section class="problem section" data-theme="dark" id="problem">
 
-  <!-- Oversized scroll-driven heading -->
+  <!-- Oversized heading -->
   <div class="problem__head-wrap" data-problem-head>
     <div class="container">
       <p class="eyebrow problem__eyebrow" data-reveal="up">Wenn der Alltag dazwischenkommt</p>
@@ -403,89 +403,94 @@
         <span class="problem__word" data-word>PLAN</span>
       </div>
       <div class="problem__heading-line" data-problem-line="3">
-        <span class="problem__word" data-word>VERÄNDERT.</span>
+        <span class="problem__word" data-word>VERANDERT.</span>
       </div>
     </div>
-    <p class="problem__subhead lead muted container" data-reveal="up" data-delay="0.1">Wenig Zeit, eine verpasste Einheit oder eine Reise: Im Coaching besprechen wir, was sich für dich konkret umsetzen lässt.</p>
   </div>
 
-  <!-- Three editorial circle modules -->
-  <div class="problem__editorial container">
+  <!-- Row 1: two full-bleed photo panels side by side -->
+  <div class="problem__panels" data-problem-panels="1">
 
-    <!-- Circle 1: WENIG ZEIT / EINHEIT VERPASST -->
-    <div class="problem__block problem__block--1">
-      <div class="problem__circle-wrap">
-        <div class="problem__circle" data-problem-circle="1">
-          <div class="problem__disk"></div>
-          <img
-            class="problem__circle-img"
-            src="/assets/img/problem-circle1-900.webp"
-            alt="Gabriel Vogt beim Training mit einem Klienten"
-            width="900"
-            height="900"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
-      </div>
-      <div class="problem__copy">
-        <p class="problem__label">01&thinsp;/&thinsp;02</p>
-        <h3 class="problem__scenario-title">WENIG ZEIT.<br>EINHEIT VERPASST.</h3>
-        <p class="muted">Wir legen fest, welche Übungen Priorität haben und welcher Umfang passt. Dann schauen wir auf die Restwoche und stellen um, was sich verschieben lässt. Dein Rhythmus bleibt.</p>
+    <!-- Left panel: photo with floating circle text -->
+    <div class="problem__panel problem__panel--photo" data-problem-circle="1">
+      <img
+        class="problem__panel-img"
+        src="/assets/img/problem-circle1-900.webp"
+        alt="Gabriel Vogt beim Training mit einem Klienten"
+        width="900"
+        height="900"
+        loading="lazy"
+        decoding="async"
+      >
+      <!-- Floating circle overlay with label text -->
+      <div class="problem__float-circle problem__float-circle--br">
+        <span class="problem__float-num">01</span>
+        <span class="problem__float-title">WENIG ZEIT.<br>EINHEIT<br>VERPASST.</span>
       </div>
     </div>
 
-    <!-- Circle 2: UNTERWEGS / ANDERE GERÄTE -->
-    <div class="problem__block problem__block--2">
-      <div class="problem__circle-wrap">
-        <div class="problem__circle" data-problem-circle="2">
-          <div class="problem__disk"></div>
-          <img
-            class="problem__circle-img"
-            src="/assets/img/problem-circle2-1200.webp"
-            alt="Gabriel Vogt beim Training"
-            width="1200"
-            height="900"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
-      </div>
-      <div class="problem__copy">
-        <p class="problem__label">03&thinsp;/&thinsp;04</p>
-        <h3 class="problem__scenario-title">ANDERE GERÄTE.<br>UNTERWEGS.</h3>
-        <p class="muted">Wir wählen passende Übungen für deine verfügbare Ausstattung. Für Reisen vereinfachen wir Training und Ernährung vorab. Nach der Rückkehr passen wir wieder an.</p>
+    <!-- Right panel: dark text panel -->
+    <div class="problem__panel problem__panel--dark">
+      <div class="problem__panel-body">
+        <p class="problem__copy-text">Wir legen fest, welche Übungen Priorität haben und welcher Umfang passt. Dann schauen wir auf die Restwoche und stellen um, was sich verschieben lässt. Dein Rhythmus bleibt.</p>
       </div>
     </div>
 
-    <!-- Circle 3: FORTSCHRITT BLEIBT AUS + video -->
-    <div class="problem__block problem__block--3">
-      <div class="problem__circle-wrap">
-        <div class="problem__circle" data-problem-circle="3">
-          <div class="problem__disk"></div>
-          <video
-            class="problem__circle-video"
-            src="/assets/video/gv-training-loop.mp4"
-            muted
-            loop
-            playsinline
-            preload="none"
-            data-problem-video
-          ></video>
-        </div>
-      </div>
-      <div class="problem__copy">
-        <p class="problem__label">05</p>
-        <h3 class="problem__scenario-title">FORTSCHRITT<br>BLEIBT AUS.</h3>
-        <p class="muted">Wir betrachten deine Trainingsleistung, Umsetzung und den bisherigen Verlauf gemeinsam. Daraus leiten wir ab, ob eine Anpassung sinnvoll ist.</p>
+  </div>
+
+  <!-- Row 2: flipped — text left, photo right -->
+  <div class="problem__panels problem__panels--flip" data-problem-panels="2">
+
+    <!-- Left panel: dark text panel -->
+    <div class="problem__panel problem__panel--dark">
+      <div class="problem__panel-body">
+        <p class="problem__copy-text">Wir wahlen passende Ubungen fur deine verfugbare Ausstattung. Fur Reisen vereinfachen wir Training und Ernahrung vorab. Nach der Ruckkehr passen wir wieder an.</p>
       </div>
     </div>
 
+    <!-- Right panel: photo with floating circle text -->
+    <div class="problem__panel problem__panel--photo" data-problem-circle="2">
+      <img
+        class="problem__panel-img"
+        src="/assets/img/problem-circle2-1200.webp"
+        alt="Gabriel Vogt beim Dumbbell Training"
+        width="1200"
+        height="900"
+        loading="lazy"
+        decoding="async"
+      >
+      <!-- Floating circle overlay -->
+      <div class="problem__float-circle problem__float-circle--tl">
+        <span class="problem__float-num">02</span>
+        <span class="problem__float-title">ANDERE<br>GERATE.<br>UNTERWEGS.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 3: full-width video panel + circle overlay -->
+  <div class="problem__panels problem__panels--wide" data-problem-panels="3">
+    <div class="problem__panel problem__panel--photo problem__panel--video-wrap" data-problem-circle="3">
+      <video
+        class="problem__panel-img"
+        src="/assets/video/gv-training-loop.mp4"
+        muted
+        loop
+        playsinline
+        preload="none"
+        data-problem-video
+      ></video>
+      <!-- Floating circle overlay -->
+      <div class="problem__float-circle problem__float-circle--cl">
+        <span class="problem__float-num">03</span>
+        <span class="problem__float-title">FORT-<br>SCHRITT<br>BLEIBT AUS.</span>
+      </div>
+    </div>
   </div>
 
   <!-- Closing statement -->
   <div class="problem__statement container" data-statement>
-    <p class="problem__statement-text">Du kennst dein Ziel. Wir machen die nächsten Schritte konkret.</p>
+    <p class="problem__statement-text">Du kennst dein Ziel. Wir machen die nachsten Schritte konkret.</p>
   </div>
 
 </section>
