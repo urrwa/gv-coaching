@@ -382,7 +382,7 @@
 <!-- ============ 03 PROBLEM ============ -->
 <section class="problem section" data-theme="dark" id="problem">
 
-  <!-- Oversized heading -->
+  <!-- Heading -->
   <div class="problem__head-wrap" data-problem-head>
     <div class="container">
       <p class="eyebrow problem__eyebrow" data-reveal="up">Wenn der Alltag dazwischenkommt</p>
@@ -403,67 +403,66 @@
     </div>
   </div>
 
-  <!-- Row 1: photo left, circle bleeds right edge of photo -->
-  <div class="problem__row" data-problem-row="1">
-    <div class="problem__photo-cell">
+  <!-- 5-column grid layout (inspired by fit-and-you reference) -->
+  <div class="problem__grid">
+
+    <!-- GROUP A: top row — col1 square photo + col2 circle + empty col3 + col4-5 wide photo -->
+    <div class="problem__g-photo problem__g-photo--a" data-problem-row="1">
       <img
         class="problem__photo-img"
         src="/assets/img/problem-circle1-900.webp"
         alt="Gabriel Vogt beim Training mit einem Klienten"
-        width="900"
-        height="900"
-        loading="lazy"
-        decoding="async"
+        width="900" height="900"
+        loading="lazy" decoding="async"
       >
     </div>
-    <div class="problem__circle-cell" data-problem-circle="1">
+
+    <div class="problem__g-circle problem__g-circle--a" data-problem-circle="1">
       <div class="problem__circle-inner">
         <span class="problem__circle-num">01</span>
         <span class="problem__circle-label" data-scramble="WENIG ZEIT. EINHEIT VERPASST.">WENIG ZEIT. EINHEIT VERPASST.</span>
       </div>
     </div>
-  </div>
 
-  <!-- Row 2: photo right, circle bleeds left edge of photo (below) -->
-  <div class="problem__row problem__row--flip" data-problem-row="2">
-    <div class="problem__photo-cell">
+    <!-- col3: intentionally empty -->
+    <div class="problem__g-empty" aria-hidden="true"></div>
+
+    <div class="problem__g-photo problem__g-photo--wide" data-problem-row="2">
       <img
         class="problem__photo-img"
         src="/assets/img/problem-circle2-1200.webp"
         alt="Gabriel Vogt beim Dumbbell Training"
-        width="1200"
-        height="900"
-        loading="lazy"
-        decoding="async"
+        width="1200" height="900"
+        loading="lazy" decoding="async"
       >
     </div>
-    <div class="problem__circle-cell" data-problem-circle="2">
+
+    <!-- GROUP B: second circle — col4, below wide photo -->
+    <div class="problem__g-circle problem__g-circle--b" data-problem-circle="2">
       <div class="problem__circle-inner">
         <span class="problem__circle-num">02</span>
         <span class="problem__circle-label" data-scramble="ANDERE GERÄTE. UNTERWEGS.">ANDERE GERÄTE. UNTERWEGS.</span>
       </div>
     </div>
-  </div>
 
-  <!-- Row 3: photo left, circle bleeds right -->
-  <div class="problem__row" data-problem-row="3">
-    <div class="problem__photo-cell">
-      <img
-        class="problem__photo-img"
-        src="/assets/img/problem-circle2-alt-900.webp"
-        alt="Gabriel Vogt im Beratungsgespräch"
-        width="900"
-        height="900"
-        loading="lazy"
-        decoding="async"
-      >
-    </div>
-    <div class="problem__circle-cell" data-problem-circle="3">
+    <!-- GROUP C: third circle — col1, further down -->
+    <div class="problem__g-circle problem__g-circle--c" data-problem-circle="3">
       <div class="problem__circle-inner">
         <span class="problem__circle-num">03</span>
         <span class="problem__circle-label" data-scramble="FORTSCHRITT BLEIBT AUS.">FORTSCHRITT BLEIBT AUS.</span>
       </div>
     </div>
+
+    <!-- GROUP D: final video — col2-5, 2:1 ratio -->
+    <div class="problem__g-video">
+      <video
+        class="problem__video"
+        src="/assets/video/gv-training-loop.mp4"
+        autoplay muted loop playsinline
+        aria-label="Gabriel Vogt Training Loop"
+      ></video>
+    </div>
+
   </div>
 
   <!-- Closing statement -->

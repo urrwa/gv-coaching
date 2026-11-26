@@ -381,7 +381,7 @@
         }
       }
 
-      document.querySelectorAll(".problem__circle-cell").forEach((cell) => {
+      document.querySelectorAll("[data-problem-circle]").forEach((cell) => {
         const inner = cell.querySelector(".problem__circle-inner");
         const label = cell.querySelector(".problem__circle-label");
         const finalText = label ? (label.dataset.scramble || label.textContent.trim()) : "";
