@@ -1552,8 +1552,10 @@
 .coach-story__name { position: absolute; z-index: 1; inset: auto 12px 18px; color: #fff; text-align: center; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem,3vw,2.5rem); letter-spacing: -.05em; line-height: .95; text-transform: uppercase; }
 .coach-story__name span { display: block; margin-bottom: 10px; font-family: var(--font-body); font-weight: 400; font-size: .6rem; line-height: 1.2; letter-spacing: .14em; }
 .coach-story.is-scroll-story .coach-story__journey { height: 420svh; }
-/* Scene must NOT clip during full-bleed phase — overflow visible so portrait can fill viewport */
+/* Scene sticky — overflow visible initially so full-bleed portrait can fill viewport; JS clips it at grid phase */
 .coach-story.is-scroll-story .coach-story__scene { position: sticky; top: 0; height: 100svh; overflow: visible; isolation: auto; }
+/* Ensure grid tiles never bleed into the next section — z-index containment */
+.coach-story.is-scroll-story .coach-story__scene { z-index: 1; }
 /* Main portrait sits above the navy edge-gradient overlay so the full-bleed phase is clean */
 .coach-story.is-scroll-story .coach-story__tile--main { z-index: 5; }
 /* Stronger left/right vignette in grid phase to frame the outer blurred tiles */

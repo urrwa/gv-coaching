@@ -218,35 +218,32 @@
         tl.to(name, { fontSize: () => tileW() * .26, duration: .56, ease: 'power2.inOut' }, 1.8);
 
         // ── PHASE D (2.4 → end): Staggered grid reveal ────────────────────────
-        // Sort tiles OUTSIDE-IN so outermost edges pop first (like thegrind reference)
+        // Clip the scene so tiles stay inside viewport during grid phase
+        tl.set(section.querySelector('.coach-story__scene'), { overflow: 'hidden' }, 2.35);
+
+        // Sort tiles inside-out (centre first, edges last) — classic bloom reveal
         tiles.sort((a, b) => {
           const dist = el => Math.abs(Number(el.dataset.col)) + Math.abs(Number(el.dataset.row));
-          return dist(b) - dist(a); // descending = edges first
+          return dist(a) - dist(b);
         }).forEach((tile, i) => {
-          const at     = 2.38 + i * .042;
+          const at     = 2.42 + i * .05;
           const col    = Number(tile.dataset.col);
-          const row    = Number(tile.dataset.row);
           const isEdge = Math.abs(col) === 2;
 
-          // Entry direction: tiles fly in FROM the edges of the frame
-          const fromX = col * (tileW() + gap()) * 0.35;
-          const fromY = row * (tileH() + gap()) * 0.25;
-
-          // Spring pop-in with scale + position offset + fade
+          // Pure scale + fade pop-in — no position offset (tiles already at grid coords)
           tl.fromTo(tile,
-            { scale: .5, autoAlpha: 0, x: `+=${fromX}`, y: `+=${fromY}` },
+            { scale: .55, autoAlpha: 0 },
             {
               scale: 1, autoAlpha: isEdge ? .6 : 1,
-              x: `+=0`, y: `+=0`,
-              duration: .92, ease: 'back.out(1.6)',
+              duration: .78, ease: 'back.out(1.4)',
             }, at)
           .fromTo(tile.querySelector('img'),
-            { scale: 1.18 },
-            { scale: 1, duration: 1.1, ease: 'power1.out' }, at);
+            { scale: 1.15 },
+            { scale: 1, duration: .9, ease: 'power1.out' }, at);
 
           // Outer-column tiles get heavy blur — depth cue like reference
           if (isEdge) {
-            tl.set(tile, { filter: 'blur(4px)' }, at + .92);
+            tl.set(tile, { filter: 'blur(4px)' }, at + .78);
           }
         });
 
