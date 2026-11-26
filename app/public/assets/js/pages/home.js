@@ -140,8 +140,12 @@
 
         section.classList.add('is-scroll-story');
 
-        // Position main tile at centre; hide all peripheral tiles off-screen
-        gsap.set(main, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
+        // Position main tile at centre; apply full-bleed initial state immediately
+        gsap.set(main, {
+          xPercent: -50, yPercent: -50, x: 0, y: 0,
+          width: fullW, height: fullH, borderRadius: 0,
+        });
+        gsap.set(name, { fontSize: () => fullW() * (small() ? .18 : .13) });
         gsap.set(tiles, {
           xPercent: -50, yPercent: -50,
           x: (_,el) => Number(el.dataset.col) * (tileW() + gap()),
@@ -164,9 +168,8 @@
         }});
 
         // ── PHASE A (0 → 1.0): Full-bleed portrait, text cycling ──────────────
-        // Set initial full-bleed state at timeline start
-        tl.set(main, { width: fullW, height: fullH, borderRadius: 0 }, 0);
-        tl.set(name, { fontSize: () => fullW() * (small() ? .18 : .13) }, 0);
+        // Pad start of timeline so position 0 = portrait already full-bleed (set above)
+        tl.to({}, { duration: 0.001 }, 0); // anchor
 
         // Text line cycling across the full-bleed phase
         // Line 0 "Dein Ziel." holds 0→0.30, then exits up
