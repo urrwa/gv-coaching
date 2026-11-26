@@ -440,6 +440,7 @@
   justify-content: flex-end;
   min-height: 230px;
   background: #0d1b2a;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.055);
 }
 
 @media (min-width: 700px) {
@@ -455,14 +456,30 @@
   object-fit: cover;
   object-position: center 25%;
   display: block;
+  transition: transform 0.6s ease;
 }
 
+/* Cinematic bottom vignette — deeper than before */
 .services-bento__card--img::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(4,9,18,0.9) 0%, rgba(4,9,18,0.25) 50%, transparent 100%);
+  background:
+    linear-gradient(to top, rgba(4,9,18,0.95) 0%, rgba(4,9,18,0.5) 35%, rgba(4,9,18,0.1) 65%, transparent 100%),
+    linear-gradient(to bottom, rgba(4,9,18,0.3) 0%, transparent 30%);
   pointer-events: none;
+}
+
+/* Training large card — cinematic blur on photo */
+.services-bento__card--large .services-bento__card-img {
+  filter: blur(1.2px);
+  transform: scale(1.04);
+}
+
+/* Ernährung card — softer blur for food */
+[data-bento="ernaehrung"] .services-bento__card-img {
+  filter: blur(1.5px);
+  transform: scale(1.04);
 }
 
 /* Begleitung wide card — gradient on left side for text legibility */
@@ -474,8 +491,9 @@
 
 /* ---- Dark (no-photo) card ---- */
 .services-bento__card--dark {
-  background: #0e1d2f;
+  background: linear-gradient(145deg, #111f30 0%, #0a1520 100%);
   border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 /* ---- Centered content variant (Fortschritt, Ernährung) ---- */
@@ -553,19 +571,26 @@
 
 .services-bento__card-title {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: #fff;
-  margin: 0 0 .4rem;
+  margin: 0 0 .45rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+/* Large Training card — bigger title */
+.services-bento__card--large .services-bento__card-title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
 }
 
 .services-bento__card-desc {
   font-size: clamp(.85rem, 1.3vw, .95rem);
   line-height: 1.6;
-  color: rgba(255,255,255,0.58);
+  color: rgba(255,255,255,0.62);
   margin: 0;
   max-width: 30ch;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
 }
 
 .services-bento__card--center .services-bento__card-desc {
