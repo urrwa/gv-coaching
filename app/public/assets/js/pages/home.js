@@ -148,7 +148,7 @@
         });
         // Full-bleed: big text, bottom-left aligned, no "Dein Coach" label
         gsap.set(name, {
-          fontSize: () => fullW() * (small() ? .22 : .17),
+          fontSize: () => fullW() * (small() ? .14 : .11),
           textAlign: 'left',
           alignItems: 'flex-start',
           justifyContent: 'flex-end',
