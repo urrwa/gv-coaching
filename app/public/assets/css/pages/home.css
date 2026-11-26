@@ -1035,7 +1035,7 @@
 
 .problem__circle-num {
   font-family: var(--font-display);
-  font-size: clamp(0.5rem, 0.75vw, 0.75rem);
+  font-size: clamp(0.6rem, 0.9vw, 0.9rem);
   font-weight: 700;
   letter-spacing: 0.18em;
   color: var(--blue-400);
@@ -1043,11 +1043,11 @@
   display: block;
 }
 .problem__circle-label {
-  font-family: var(--font-display);
-  font-size: clamp(0.7rem, 1.2vw, 1.1rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  font-family: var(--font-cinematic, "GV Display", Impact, "Arial Narrow", sans-serif);
+  font-size: clamp(1.125rem, 1.5vw, 1.75rem); /* ≈ 18px–28px */
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
   color: #fff;
   text-transform: uppercase;
   display: block;
@@ -1118,7 +1118,7 @@
     width: 95%;
   }
   .problem__circle-label {
-    font-size: clamp(0.65rem, 3.5vw, 0.9rem);
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
   }
 }
 
