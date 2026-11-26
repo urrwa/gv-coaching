@@ -403,7 +403,7 @@
     </div>
   </div>
 
-  <!-- Row 1: photo left, circle right -->
+  <!-- Row 1: photo left, circle bleeds right edge of photo -->
   <div class="problem__row" data-problem-row="1">
     <div class="problem__photo-cell">
       <img
@@ -424,14 +424,8 @@
     </div>
   </div>
 
-  <!-- Row 2: circle left, photo right -->
+  <!-- Row 2: photo right, circle bleeds left edge of photo (below) -->
   <div class="problem__row problem__row--flip" data-problem-row="2">
-    <div class="problem__circle-cell" data-problem-circle="2">
-      <div class="problem__circle-inner">
-        <span class="problem__circle-num">02</span>
-        <span class="problem__circle-label" data-scramble="ANDERE GERÄTE. UNTERWEGS.">ANDERE GERÄTE. UNTERWEGS.</span>
-      </div>
-    </div>
     <div class="problem__photo-cell">
       <img
         class="problem__photo-img"
@@ -443,9 +437,15 @@
         decoding="async"
       >
     </div>
+    <div class="problem__circle-cell" data-problem-circle="2">
+      <div class="problem__circle-inner">
+        <span class="problem__circle-num">02</span>
+        <span class="problem__circle-label" data-scramble="ANDERE GERÄTE. UNTERWEGS.">ANDERE GERÄTE. UNTERWEGS.</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Row 3: photo left, circle right -->
+  <!-- Row 3: photo left, circle bleeds right -->
   <div class="problem__row" data-problem-row="3">
     <div class="problem__photo-cell">
       <img

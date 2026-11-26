@@ -846,7 +846,7 @@
 
 /* ---------- 03 PROBLEM SECTION — fit-and-you reference style ---------- */
 .problem {
-  background: var(--navy-950);
+  background: #000;
   overflow: clip;
 }
 
@@ -896,23 +896,25 @@
   transform: scale(1) rotate(0deg);
 }
 
-/* ---- Rows: photo beside circle (reference layout) ---- */
+/* ---- Rows: photo + circle-bleed layout (fit-and-you reference) ---- *
+ *  Each row: photo takes ~60% width; the circle is position:absolute,
+ *  centered on the photo's outer edge so it bleeds half into the photo
+ *  and half into the dark background.                                   */
 .problem__row {
-  display: grid;
-  grid-template-columns: 3fr 2fr;
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 0;
-  min-height: clamp(320px, 50vw, 640px);
-}
-.problem__row--flip {
-  grid-template-columns: 2fr 3fr;
+  min-height: clamp(360px, 55vw, 680px);
+  /* rows bleed edge-to-edge */
 }
 
-/* Photo cell */
+/* Photo cell: 58% from the left */
 .problem__photo-cell {
   position: relative;
+  width: 58%;
   align-self: stretch;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .problem__photo-img {
   position: absolute;
@@ -924,31 +926,38 @@
   display: block;
 }
 
-/* Circle cell — the dark circle sits inside a rectangular slot, centered */
+/* Circle cell: fills remaining space, holds the circle centered on the edge */
 .problem__circle-cell {
+  flex: 1;
+  align-self: stretch;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  background: var(--navy-950);
-  padding: clamp(1rem, 3vw, 2.5rem);
+  /* circle anchors to the left edge of this cell = right edge of photo */
+  justify-content: flex-start;
 }
 
-/* The circle itself — aspect-ratio keeps it round */
+/* The bleed circle — positioned so its centre sits on the photo/bg boundary */
 .problem__circle-inner {
-  width: min(100%, clamp(200px, 28vw, 420px));
-  aspect-ratio: 1;
+  --circle-size: clamp(240px, 38vw, 540px);
+  width: var(--circle-size);
+  height: var(--circle-size);
   border-radius: 50%;
-  background: #0a0a0a;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.07);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
   text-align: center;
-  padding: 1.6em;
-  /* entrance: scale + fade in */
+  padding: 1.8em;
+  flex-shrink: 0;
+  /* Pull half the circle's width into the photo cell */
+  margin-left: calc(var(--circle-size) / -2);
+  position: relative;
+  z-index: 2;
+  /* entrance animation */
   opacity: 0;
   transform: scale(0.65);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
@@ -959,9 +968,21 @@
   transform: scale(1);
 }
 
+/* Flipped row: photo on the right, circle bleeds from right */
+.problem__row--flip {
+  flex-direction: row-reverse;
+}
+.problem__row--flip .problem__circle-cell {
+  justify-content: flex-start;
+}
+.problem__row--flip .problem__circle-inner {
+  /* mirror: pull into photo from the left side */
+  margin-left: calc(var(--circle-size) / -2);
+}
+
 .problem__circle-num {
   font-family: var(--font-display);
-  font-size: clamp(0.55rem, 0.9vw, 0.8rem);
+  font-size: clamp(0.55rem, 0.85vw, 0.8rem);
   font-weight: 700;
   letter-spacing: 0.18em;
   color: var(--blue-400);
@@ -970,32 +991,36 @@
 }
 .problem__circle-label {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 2vw, 1.8rem);
+  font-size: clamp(0.95rem, 1.9vw, 1.75rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: #fff;
   text-transform: uppercase;
   display: block;
-  /* scramble characters inherit monospace width trick */
   font-variant-numeric: tabular-nums;
 }
 
-/* Mobile: stack rows vertically, circle below photo */
+/* Mobile: stack vertically, circle centered below photo */
 @media (max-width: 767px) {
   .problem__row,
   .problem__row--flip {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     min-height: auto;
   }
   .problem__photo-cell {
-    min-height: clamp(220px, 55vw, 380px);
+    width: 100%;
+    min-height: clamp(220px, 60vw, 400px);
   }
-  .problem__row--flip .problem__circle-cell {
-    order: -1;
+  .problem__circle-cell {
+    width: 100%;
+    justify-content: center;
+    padding-block: clamp(2rem, 6vw, 3.5rem);
   }
-  .problem__circle-inner {
-    width: min(100%, 220px);
+  .problem__circle-inner,
+  .problem__row--flip .problem__circle-inner {
+    --circle-size: min(80vw, 280px);
+    margin-left: 0;
   }
 }
 
