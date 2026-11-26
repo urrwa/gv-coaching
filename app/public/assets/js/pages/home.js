@@ -183,6 +183,34 @@
       });
     })();
 
+    /* ---------- Cinematic footer: portrait drift + content entrance ---------- */
+    (function footerCinematic() {
+      const footer = document.querySelector('[data-footer-cin]');
+      if (!footer) return;
+      const img = footer.querySelector('[data-footer-img]');
+      const content = footer.querySelector('[data-footer-content]');
+      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        // Portrait: subtle scale zoom as footer scrolls into view
+        if (img) {
+          gsap.fromTo(img,
+            { scale: 1.06, yPercent: 2 },
+            { scale: 1.0, yPercent: -1.5, ease: 'none',
+              scrollTrigger: { trigger: footer, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
+            }
+          );
+        }
+        // Content: gentle entrance as footer arrives
+        if (content) {
+          gsap.fromTo(content,
+            { autoAlpha: 0, y: 28 },
+            { autoAlpha: 1, y: 0, duration: .9, ease: 'power2.out',
+              scrollTrigger: { trigger: footer, start: 'top 80%', toggleActions: 'play none none reverse' }
+            }
+          );
+        }
+      });
+    })();
+
     /* ---------- Hero depth: video and type travel at different speeds ---------- */
     (function heroDepth() {
       const hero = document.querySelector('.hero--cinema');

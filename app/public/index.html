@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
   <link rel="stylesheet" href="/assets/css/pages/home.css?v=cinematic-20261126">
-  <link rel="stylesheet" href="/assets/css/footer.css?v=20261124">
+  <link rel="stylesheet" href="/assets/css/footer.css?v=20261126">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
     /* Scroll through two headlines before the coach portrait opens into the mosaic. */
@@ -890,37 +890,52 @@
 
 
   </main>
-  <footer class="footer footer--gv" data-theme="dark" id="seitenende">
-    <svg class="gv-footer__watermark" viewBox="0 0 110 130" fill="none" aria-hidden="true" focusable="false"><g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M29 41C19 34 17 27 22 21C31 10 77 10 86 21C91 27 89 34 79 41L73 36C80 31 82 27 77 24C68 19 40 19 31 24C26 27 28 31 35 36Z"/><path d="M29 39C15 49 9 62 10 77C12 101 29 118 54 118C79 118 96 101 98 77C99 62 93 49 79 39C64 34 44 34 29 39Z"/></g><path fill="currentColor" d="M25 56H39L54 83L69 56H83L61 101H47Z"/></svg>
-    <div class="container gv-footer__inner">
-      <div class="gv-footer__main">
-        <div class="gv-footer__intro">
-          <h2 class="gv-footer__title">Dein Ziel.<br>Meine Begleitung.</h2>
-          <p class="gv-footer__description">Persönliches Online Fitness Coaching mit Gabriel Vogt. Für alle, die Training und Ernährung in ihrem Alltag verankern möchten.</p>
-          <a class="gv-footer__cta" href="#performance-check">Coaching anfragen <span aria-hidden="true">↗</span></a>
-        </div>
-        <nav class="gv-footer__column" aria-label="Footer Navigation">
-          <h2 class="gv-footer__heading">Entdecken</h2>
-          <a href="#coaching">Coaching</a>
-          <a href="#methode">G5-Methode</a>
-          <a href="#ergebnisse">Ergebnisse</a>
-          <a href="#ueber">Über Gabriel</a>
-          <a href="#faq">FAQ</a>
-        </nav>
+  <footer class="footer footer--gv footer--cinematic" data-theme="dark" id="seitenende" data-footer-cin>
+    <!-- Background portrait: Gabriel seated, fades into navy on all edges -->
+    <div class="gv-footer__portrait" aria-hidden="true">
+      <img class="gv-footer__portrait-img" data-footer-img
+        src="/assets/img/gv-footer-portrait-900.webp"
+        srcset="/assets/img/gv-footer-portrait-900.webp 900w, /assets/img/gv-footer-portrait-1600.webp 1600w"
+        sizes="(min-width:1200px) 50vw, 70vw"
+        alt="" width="608" height="1088" loading="lazy" decoding="async">
+    </div>
+    <!-- Dark gradient overlays: top, sides, bottom — blend portrait into navy -->
+    <div class="gv-footer__overlay" aria-hidden="true"></div>
+
+    <div class="gv-footer__inner" data-footer-content>
+      <!-- Top: logo + tagline centered -->
+      <header class="gv-footer__header">
+        <a class="gv-footer__logo" href="#start" aria-label="GV Coaching – Startseite">
+          <img src="/assets/brand/gv-logo-white.svg" alt="GV Coaching" width="930" height="140" loading="lazy" decoding="async">
+        </a>
+        <p class="gv-footer__tagline">Bereit für deinen nächsten Schritt?</p>
+        <p class="gv-footer__sub">Lass uns über dein Ziel sprechen.</p>
+        <a class="gv-footer__cta" href="#performance-check">Coaching anfragen <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <!-- Lower content: contact left, links right -->
+      <div class="gv-footer__columns">
         <div class="gv-footer__column gv-footer__contact">
           <h2 class="gv-footer__heading">Kontakt</h2>
           <address class="gv-footer__address"><strong>GV Coaching · Gabriel Vogt</strong><br>Lukasstraße 17<br>75172 Pforzheim, Deutschland</address>
-          <a class="gv-footer__email" href="mailto:support@gvcoaching.net" data-href-email><span data-email-text>support@gvcoaching.net</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
-          <a href="#kontakt">Nachricht schreiben</a>
+          <a class="gv-footer__email" href="mailto:support@gvcoaching.net" data-href-email><span data-email-text>support@gvcoaching.net</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
         </div>
+        <nav class="gv-footer__column" aria-label="Footer Navigation">
+          <h2 class="gv-footer__heading">Navigation</h2>
+          <a href="#coaching">Coaching</a>
+          <a href="#ueber">Über Gabriel</a>
+          <a href="#faq">FAQ</a>
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+        </nav>
       </div>
-      <div class="gv-footer__brand-row">
-        <a class="gv-footer__signature" href="#start" aria-label="GV Coaching – Startseite"><img src="/assets/brand/gv-logo-white.svg" alt="GV Coaching" width="930" height="140" loading="lazy" decoding="async"></a>
-        <a class="gv-footer__back" href="#start" aria-label="Zurück nach oben"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20V4M5 11l7-7 7 7"/></svg></a>
-      </div>
+
+      <!-- Bottom bar -->
       <div class="gv-footer__bottom">
-        <p>© <span data-year>2026</span> GV Coaching</p>
-        <nav class="gv-footer__legal" aria-label="Rechtliche Informationen"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav>
+        <p>© <span data-year>2026</span> GV Coaching · Gabriel Vogt</p>
+        <a class="gv-footer__back" href="#start" aria-label="Zurück nach oben">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
+        </a>
       </div>
     </div>
   </footer>
