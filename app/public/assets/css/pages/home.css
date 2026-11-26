@@ -483,11 +483,77 @@
   transform: scale(1.04);
 }
 
-/* Begleitung wide card — gradient on left side for text legibility */
-.services-bento__card--wide::after {
+/* ---- Begleitung — split-panel: text left, photo right ---- */
+.services-bento__card--begleitung {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+  /* no ::after pseudo overlay — gradient is on the photo panel */
+}
+
+/* Text panel — navy background, left 38% */
+.services-bento__begleitung-text {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 38%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--site-bg, #07111F);
+  /* Subtle right-edge feather so text side blends into photo */
+}
+
+/* Photo panel — right 62%, portrait image fills it */
+.services-bento__begleitung-photo {
+  position: relative;
+  flex: 0 0 62%;
+  overflow: hidden;
+}
+
+.services-bento__begleitung-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+/* Gradient that blends photo's left edge into the navy text panel */
+.services-bento__begleitung-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    linear-gradient(to right, rgba(4,9,18,0.82) 0%, rgba(4,9,18,0.3) 50%, transparent 100%),
-    linear-gradient(to top, rgba(4,9,18,0.5) 0%, transparent 60%);
+    linear-gradient(to right, rgba(7,17,31,0.92) 0%, rgba(7,17,31,0.4) 25%, rgba(7,17,31,0.05) 55%, transparent 80%),
+    linear-gradient(to top, rgba(4,9,18,0.3) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* Hover: subtle zoom on photo */
+.services-bento__card--begleitung:hover .services-bento__begleitung-photo img {
+  transform: scale(1.03);
+}
+
+/* Mobile: stack vertically — photo on top, text below */
+@media (max-width: 699px) {
+  .services-bento__card--begleitung {
+    flex-direction: column;
+  }
+  .services-bento__begleitung-photo {
+    flex: 0 0 auto;
+    height: 300px;
+  }
+  .services-bento__begleitung-text {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
 }
 
 /* ---- Dark (no-photo) card ---- */
@@ -539,7 +605,7 @@
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
 }
 
-/* Left-aligned body (Begleitung) */
+/* Left-aligned body (legacy — no longer used by Begleitung) */
 .services-bento__card-body--left {
   max-width: 55%;
 }
