@@ -904,46 +904,53 @@
    5 equal cols, ~24px outer margin, gap = 0 (cells touch edges)
    ================================================================ */
 
-/* --  5-col CSS grid foundation  -- */
+/* --  5-col CSS grid foundation  -- *
+ *  col size = (100% - 48px margins - 4×12px gaps) / 5               *
+ *  We set explicit row heights as multiples of 1 col-unit so         *
+ *  aspect-ratios never blow up the equal-column constraint.           */
 .problem__grid {
+  --pg-cols: 5;
+  --pg-gap:  12px;
+  --pg-margin: 24px;
+  /* col unit = (viewport - 2*margin - (cols-1)*gap) / cols */
+  --pg-col: calc((100vw - 2 * var(--pg-margin) - (var(--pg-cols) - 1) * var(--pg-gap)) / var(--pg-cols));
+
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  /* row 1: square (1 col unit tall) | row 2: 1 col unit | row 3: 2:1 video */
   grid-template-rows:
-    /* row 1 */ auto          /* group-A photos + circle-A */
-    /* row 2 */ auto          /* circle-B (under wide photo, right side) */
-    /* row 3 */ auto          /* circle-C (left side) + gap */
-    /* row 4 */ auto;         /* video (col 2-5) */
-  margin-inline: 24px;
-  gap: 12px;
+    var(--pg-col)                          /* row 1: photos + circle-A */
+    var(--pg-col)                          /* row 2: circle-B */
+    calc(var(--pg-col) * 2 + var(--pg-gap));  /* row 3: circle-C + video (2:1 for 4 cols) */
+  margin-inline: var(--pg-margin);
+  gap: var(--pg-gap);
 }
 
-/* -- Photo A: col 1, row 1 — small square -- */
+/* -- Photo A: col 1, row 1 — small square (1 col × 1 col) -- */
 .problem__g-photo--a {
   grid-column: 1;
   grid-row: 1;
-  aspect-ratio: 1 / 1;
   position: relative;
   overflow: hidden;
   border-radius: 4px;
 }
 
-/* -- Circle A: col 2, row 1 — same height as photo A -- */
+/* -- Circle A: col 2, row 1 -- */
 .problem__g-circle--a {
   grid-column: 2;
   grid-row: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;
 }
 
-/* -- Empty col 3, row 1 -- */
+/* -- Empty col 3, row 1 (deliberate gap) -- */
 .problem__g-empty {
   grid-column: 3;
   grid-row: 1;
 }
 
-/* -- Wide photo: col 4-5, row 1 — same height as small photo -- */
+/* -- Wide photo: col 4-5, row 1 — landscape (2 cols × 1 col) -- */
 .problem__g-photo--wide {
   grid-column: 4 / 6;
   grid-row: 1;
@@ -952,34 +959,29 @@
   border-radius: 4px;
 }
 
-/* -- Circle B: col 4, row 2 — directly below wide photo -- */
+/* -- Circle B: col 4, row 2 — below wide photo -- */
 .problem__g-circle--b {
   grid-column: 4;
   grid-row: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;
-  margin-top: 12px;
 }
 
-/* -- Circle C: col 1, row 3 — further down left -- */
+/* -- Circle C: col 1, row 3 — lower left -- */
 .problem__g-circle--c {
   grid-column: 1;
   grid-row: 3;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  aspect-ratio: 1 / 1;
-  margin-top: 12px;
+  padding-top: 0;
 }
 
-/* -- Video: col 2-5, row 3 (aligns with circle C row) -- */
+/* -- Video: col 2-5, row 3 — 2:1 (4 cols wide, fills row 3 height) -- */
 .problem__g-video {
   grid-column: 2 / 6;
   grid-row: 3;
-  margin-top: 12px;
-  aspect-ratio: 2 / 1;
   position: relative;
   overflow: hidden;
   border-radius: 4px;
@@ -1051,7 +1053,7 @@
   display: block;
 }
 
-/* Mobile: single column stack */
+/* Mobile: 2-col stack */
 @media (max-width: 600px) {
   .problem__head-wrap {
     padding-top: 2.5rem;
@@ -1061,55 +1063,59 @@
     font-size: clamp(2rem, 10vw, 3.2rem);
   }
   .problem__grid {
+    --pg-cols: 2;
+    --pg-gap: 10px;
+    --pg-margin: 16px;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto auto auto auto;
     margin-inline: 16px;
     gap: 10px;
   }
-  /* Photo A: full row */
+  /* Photo A: full 2-col row, 4:3 */
   .problem__g-photo--a {
     grid-column: 1 / 3;
-    grid-row: auto;
+    grid-row: 1;
     aspect-ratio: 4 / 3;
   }
-  /* Circle A: half row */
+  /* Circle A: col 1, row 2 */
   .problem__g-circle--a {
     grid-column: 1;
-    grid-row: auto;
+    grid-row: 2;
     aspect-ratio: 1;
-    margin-top: 0;
   }
-  /* Empty col: hidden on mobile */
+  /* Empty: hidden */
   .problem__g-empty {
     display: none;
   }
-  /* Wide photo: full row */
+  /* Wide photo: full row, 16:9 */
   .problem__g-photo--wide {
     grid-column: 1 / 3;
-    grid-row: auto;
+    grid-row: 3;
     aspect-ratio: 16 / 9;
   }
-  /* Circle B: half left */
+  /* Circle B: col 2, row 2 */
   .problem__g-circle--b {
     grid-column: 2;
-    grid-row: auto;
-    margin-top: 0;
+    grid-row: 2;
+    aspect-ratio: 1;
   }
-  /* Circle C: half left, new row */
+  /* Circle C: col 1, row 4 */
   .problem__g-circle--c {
     grid-column: 1;
-    grid-row: auto;
-    margin-top: 0;
+    grid-row: 4;
+    aspect-ratio: 1;
+    align-items: center;
+    padding-top: 0;
   }
-  /* Video: full row */
+  /* Video: full row, 16:9 */
   .problem__g-video {
     grid-column: 1 / 3;
-    grid-row: auto;
-    margin-top: 0;
+    grid-row: 5;
     aspect-ratio: 16 / 9;
   }
   .problem__circle-inner {
     padding: 0.75em;
+    width: 95%;
   }
   .problem__circle-label {
     font-size: clamp(0.65rem, 3.5vw, 0.9rem);
