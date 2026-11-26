@@ -351,8 +351,9 @@
 }
 
 /* Desktop: exact reference layout
-   Col 1: tall left card (rows 1-2)
-   Col 2: top wide card (row 1) + 2 small cards side-by-side (row 2)
+   Col 1: tall Training card (rows 1-2)
+   Col 2: Ernährung (row 1) + bottom-row wrapper (row 2)
+   bottom-row wrapper splits into 2 equal cards side-by-side
 */
 @media (min-width: 700px) {
   .services-bento__grid {
@@ -368,13 +369,14 @@
     grid-column: 2;
     grid-row: 1;
   }
-  /* Bottom 2 small cards share col 2 row 2 side by side */
-  .services-bento__card--bottom-left,
-  .services-bento__card--bottom-right {
+  /* Bottom row wrapper occupies col 2, row 2 */
+  .services-bento__bottom-row {
+    grid-column: 2;
     grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
   }
-  .services-bento__card--bottom-left { grid-column: 2 / 3; }
-  .services-bento__card--bottom-right { grid-column: 3 / 4; }
 }
 
 /* Base card */
