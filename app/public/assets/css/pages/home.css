@@ -403,13 +403,13 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     align-items: stretch;
-    min-height: 580px;
+    min-height: 440px;
   }
   /* Large left card fills full grid height */
   .services-bento__card--large {
     grid-row: 1;
     align-self: stretch;
-    min-height: 580px;
+    min-height: 440px;
   }
   /* Right column: flex column so rows size themselves */
   .services-bento__right-col {
@@ -474,7 +474,7 @@
 .services-bento__card--large .services-bento__card-img {
   filter: blur(1px);
   transform: scale(1.04);
-  object-position: center 35%;
+  object-position: center 20%;
 }
 
 /* Ernährung card — softer blur for food */
