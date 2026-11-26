@@ -14,66 +14,62 @@
 }
 
 /* ── Portrait layer ───────────────────────────────────────────────────────── */
+/* Strategy: img fills the full container with object-fit:cover so there are
+   NO bare pixel edges at any viewport width. A CSS mask then fades all four
+   edges to transparent before the colour overlay adds depth over the face.  */
 .gv-footer__portrait {
   position: absolute;
   inset: 0;
   z-index: 0;
-  /* Portrait centered horizontally, bottom-anchored so face stays in upper half */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   overflow: hidden;
+  /* CSS mask fades all edges to transparent — eliminates sharp rectangle    */
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%, black 18%, black 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 12%, black 72%, transparent 100%);
+  -webkit-mask-composite: destination-in;
+          mask-image:
+    linear-gradient(to right,  transparent 0%, black 18%, black 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 12%, black 72%, transparent 100%);
+          mask-composite: intersect;
 }
 
 .gv-footer__portrait-img {
   display: block;
-  /* Fill the footer height; face lands in the center-top third */
+  /* Full bleed: cover the entire footer at every viewport width             */
+  width: 100%;
   height: 100%;
-  width: auto;
-  max-width: none;
   object-fit: cover;
-  object-position: center 15%;
-  /* Subtle entrance scale; JS adds the drift */
+  /* Keep Gabriel's face and upper body in the central third                 */
+  object-position: center 20%;
+  /* Subtle entrance scale; JS adds the scroll-linked drift                  */
   transform-origin: center 25%;
   will-change: transform;
 }
 
-/* ── Multi-directional overlay: fades portrait into navy on all edges ─────── */
+/* ── Colour overlay: depth and readability over the visible image area ────── */
+/* The mask above has already removed hard edges; this layer adds tonal depth */
 .gv-footer__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  /* Layered gradients: heavy top+bottom+sides, restrained centre over the face */
   background:
-    /* top: strong fade in from navy */
+    /* top band: strong navy fade so logo/tagline area is clean               */
     linear-gradient(to bottom,
       #07111f 0%,
-      #07111fc8 14%,
-      #07111f88 28%,
+      #07111fcc 10%,
+      #07111f66 24%,
       transparent 44%),
-    /* bottom: strong fade out to navy */
+    /* bottom: footer bar fades back into navy                                */
     linear-gradient(to top,
       #07111f 0%,
-      #07111fe0 20%,
-      #07111fa0 38%,
-      transparent 56%),
-    /* left side: fade in from navy */
-    linear-gradient(to right,
-      #07111f 0%,
-      #07111fe8 8%,
-      #07111f80 20%,
-      transparent 42%),
-    /* right side: fade in from navy */
-    linear-gradient(to left,
-      #07111f 0%,
-      #07111fe8 8%,
-      #07111f80 20%,
-      transparent 42%),
-    /* centre dark veil: keeps text readable without blocking the face fully */
-    radial-gradient(ellipse 55% 65% at 50% 38%,
-      #07111f28 0%,
-      #07111f70 60%,
+      #07111fdd 16%,
+      #07111f88 32%,
+      transparent 52%),
+    /* soft centre veil: readable text without blocking Gabriel's face        */
+    radial-gradient(ellipse 60% 70% at 50% 42%,
+      #07111f18 0%,
+      #07111f55 55%,
       transparent 100%);
 }
 
@@ -280,38 +276,28 @@
   }
 
   .gv-footer__portrait-img {
-    /* On mobile: show torso + face; heavier overlay keeps text readable */
-    height: 100%;
+    /* On mobile: full bleed, face centred in upper portion */
     width: 100%;
-    object-position: center 10%;
+    height: 100%;
+    object-position: center 12%;
   }
 
-  /* Heavier side fades on mobile since viewport is narrow */
+  /* Mobile overlay: top/bottom fades only — mask handles left/right edges  */
   .gv-footer__overlay {
     background:
       linear-gradient(to bottom,
         #07111f 0%,
-        #07111fcc 16%,
-        #07111f88 32%,
-        transparent 50%),
+        #07111fcc 14%,
+        #07111f66 28%,
+        transparent 46%),
       linear-gradient(to top,
         #07111f 0%,
-        #07111fee 22%,
-        #07111fb0 42%,
-        transparent 60%),
-      linear-gradient(to right,
-        #07111f 0%,
-        #07111ff5 12%,
-        #07111f90 28%,
-        transparent 55%),
-      linear-gradient(to left,
-        #07111f 0%,
-        #07111ff5 12%,
-        #07111f90 28%,
-        transparent 55%),
-      radial-gradient(ellipse 70% 60% at 50% 35%,
-        #07111f50 0%,
-        #07111f88 60%,
+        #07111fdd 18%,
+        #07111f88 36%,
+        transparent 56%),
+      radial-gradient(ellipse 72% 65% at 50% 38%,
+        #07111f28 0%,
+        #07111f66 60%,
         transparent 100%);
   }
 
