@@ -871,7 +871,7 @@
 }
 .problem__word {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 10rem);
+  font-size: clamp(3.5rem, 13vw, 13rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   color: #fff;

@@ -374,24 +374,33 @@
       }
 
       /* ---- Circle pop-in + scramble text on scroll-enter ---- */
+      function revealCircle(inner, label, finalText) {
+        inner.classList.add("is-revealed");
+        if (label && finalText && !reduced) {
+          setTimeout(() => scrambleText(label, finalText, 700), 220);
+        }
+      }
+
       document.querySelectorAll(".problem__circle-cell").forEach((cell) => {
         const inner = cell.querySelector(".problem__circle-inner");
         const label = cell.querySelector(".problem__circle-label");
-        const finalText = label ? (label.dataset.scramble || label.textContent) : "";
+        const finalText = label ? (label.dataset.scramble || label.textContent.trim()) : "";
         let activeScramble = null;
+
+        /* Check if already in viewport on page load */
+        const rect = cell.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+          /* already visible — reveal immediately with a small delay */
+          setTimeout(() => revealCircle(inner, label, finalText), 400);
+          return;
+        }
 
         ST.create({
           trigger: cell,
-          start: "top 78%",
+          start: "top 80%",
           onEnter() {
-            inner.classList.add("is-revealed");
-            if (label && finalText) {
-              if (activeScramble) clearTimeout(activeScramble.id);
-              // slight delay so circle pop-in starts first
-              activeScramble = { id: setTimeout(() => {
-                scrambleText(label, finalText, 700);
-              }, 200) };
-            }
+            if (activeScramble) { clearTimeout(activeScramble.id); activeScramble = null; }
+            revealCircle(inner, label, finalText);
           },
           onLeaveBack() {
             inner.classList.remove("is-revealed");
