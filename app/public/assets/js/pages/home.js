@@ -151,10 +151,14 @@
         .fromTo(name, { fontSize: () => largeWidth() * .26 }, {
           fontSize: () => width() * .26, duration: 1.32, ease: 'power2.inOut',
         }, 1.32)
-        .fromTo(image, { scale: 1.16, yPercent: 2.5, filter: 'grayscale(1) contrast(1.08)' }, {
-          scale: 1.02, yPercent: -1.5, duration: 2.8, ease: 'none',
-        }, 0)
-        .to(image, { filter: 'grayscale(0) contrast(1.04)', duration: 1.1, ease: 'none' }, 1.5);
+        // Image motion: phase-keyed to match text transitions for cinematic sync.
+        // Phase 1 (0 → 0.43): "Dein Ziel." — slight zoom in, face high-frame, desaturated.
+        // Phase 2 (0.43 → 0.92): "Meine Begleitung." — settle toward natural, begin colour.
+        // Phase 3 (0.92 → 1.32): "Gabriel Vogt." — fully settled, colour restored, stable before pullback.
+        gsap.set(image, { scale: 1.06, yPercent: 2, filter: 'grayscale(1) contrast(1.08)' });
+        timeline
+          .to(image, { scale: 1.04, yPercent: 0.5, filter: 'grayscale(.4) contrast(1.05)', duration: .49, ease: 'power1.inOut' }, 0.43)
+          .to(image, { scale: 1.0, yPercent: -1.5, filter: 'grayscale(0) contrast(1.0)', duration: .40, ease: 'power1.inOut' }, 0.92);
         if (lines.length === 3) {
           timeline
             .to(lines[0], { autoAlpha: 0, yPercent: -110, duration: .2, ease: 'power2.inOut' }, .43)
