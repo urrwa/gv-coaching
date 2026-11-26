@@ -343,21 +343,49 @@
   margin-inline: auto;
 }
 
-/* Grid: 2 cols on desktop, stacked on mobile */
+/* Grid: stacked on mobile */
 .services-bento__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: .75rem;
 }
 
+/* Desktop: exact reference layout
+   Col 1: tall left card (rows 1-2)
+   Col 2: top wide card (row 1) + 2 small cards side-by-side (row 2)
+*/
 @media (min-width: 700px) {
   .services-bento__grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: 1fr 1fr;
+    min-height: 560px;
   }
-  /* Large card spans full height of rows 1+2 on the left */
   .services-bento__card--large {
+    grid-column: 1;
     grid-row: 1 / 3;
+  }
+  .services-bento__card--top-right {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  /* Bottom 2 small cards share col 2 row 2 side by side */
+  .services-bento__card--bottom-left,
+  .services-bento__card--bottom-right {
+    grid-row: 2;
+  }
+  .services-bento__card--bottom-left { grid-column: 2; }
+  .services-bento__card--bottom-right { grid-column: 3; }
+  /* Extend grid to 3 cols so bottom row splits */
+  .services-bento__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .services-bento__card--large {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .services-bento__card--top-right {
+    grid-column: 2 / 4;
+    grid-row: 1;
   }
 }
 
@@ -369,17 +397,13 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 280px;
+  min-height: 240px;
   background: #0d1b2a;
 }
 
-.services-bento__card--large {
-  min-height: 420px;
-}
-
 @media (min-width: 700px) {
-  .services-bento__card--large { min-height: 560px; }
-  .services-bento__card { min-height: 260px; }
+  .services-bento__card { min-height: 0; }
+  .services-bento__grid { min-height: 580px; }
 }
 
 /* Image cards */
