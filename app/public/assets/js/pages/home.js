@@ -114,71 +114,121 @@
       if (PM.revealed) open(); else document.addEventListener('pm:reveal', open, { once: true });
     })();
 
-    /* ---------- Cinematic coach portrait: type leads, the image pulls back ---------- */
+    /* ---------- Cinematic coach portrait: full-bleed → pullback → grid ---------- */
     (function coachStory() {
       const section = document.querySelector('[data-coach-story]');
       if (!section) return;
       const journey = section.querySelector('.coach-story__journey');
-      const main = section.querySelector('[data-coach-main]');
-      const image = main.querySelector('img');
-      const tiles = [...section.querySelectorAll('[data-coach-tile]')];
-      const name = section.querySelector('.coach-story__name');
-      const lines = [...section.querySelectorAll('[data-coach-line]')];
+      const main    = section.querySelector('[data-coach-main]');
+      const image   = main.querySelector('img');
+      const tiles   = [...section.querySelectorAll('[data-coach-tile]')];
+      const name    = section.querySelector('.coach-story__name');
+      const lines   = [...section.querySelectorAll('[data-coach-line]')];
+
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference) and (min-height: 570px)', () => {
-        const small = () => window.innerWidth < 768;
-        const width = () => Math.min(window.innerWidth * (small() ? .29 : .18), small() ? Infinity : 245);
-        const largeWidth = () => Math.min(window.innerWidth * (small() ? .86 : .56), 760);
-        const gap = () => small() ? 14 : 30;
+        const small   = () => window.innerWidth < 768;
+        // Final tile size (grid cell)
+        const tileW   = () => Math.min(window.innerWidth * (small() ? .29 : .18), small() ? Infinity : 245);
+        const tileH   = () => tileW() * 1.2;
+        const gap     = () => small() ? 14 : 30;
+        // Mid-pullback card size (~56vw desktop, 86vw mobile) — matches thegrind.nl mid frame
+        const midW    = () => Math.min(window.innerWidth * (small() ? .86 : .56), 760);
+        const midH    = () => Math.min(window.innerHeight * .84, 820);
+        // Full-bleed sizes
+        const fullW   = () => window.innerWidth;
+        const fullH   = () => window.innerHeight;
+
         section.classList.add('is-scroll-story');
+
+        // Position main tile at centre; hide all peripheral tiles off-screen
         gsap.set(main, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
         gsap.set(tiles, {
           xPercent: -50, yPercent: -50,
-          x: (_,el) => Number(el.dataset.col) * (width() + gap()) * .72,
-          y: (_,el) => Number(el.dataset.row) * (width() * 1.2 + gap()) * .72,
-          scale: .72, autoAlpha: 0,
+          x: (_,el) => Number(el.dataset.col) * (tileW() + gap()),
+          y: (_,el) => Number(el.dataset.row) * (tileH() + gap()),
+          autoAlpha: 0,
         });
+
+        // Text lines: start with line 0 visible, others hidden below
         if (lines.length === 3) {
-          gsap.set(lines, { autoAlpha: 0, yPercent: 110 });
+          gsap.set(lines, { autoAlpha: 0, yPercent: 100 });
           gsap.set(lines[0], { autoAlpha: 1, yPercent: 0 });
         }
-        const timeline = gsap.timeline({ scrollTrigger: {
-          trigger: journey, start: 'top top', end: 'bottom bottom', scrub: .8, invalidateOnRefresh: true,
+
+        // Image: start desaturated with slight zoom
+        gsap.set(image, { scale: 1.08, filter: 'grayscale(1) contrast(1.1) brightness(.92)' });
+
+        const tl = gsap.timeline({ scrollTrigger: {
+          trigger: journey, start: 'top top', end: 'bottom bottom',
+          scrub: 1.0, invalidateOnRefresh: true,
         }});
-        timeline.fromTo(main, {
-          width: largeWidth, height: () => Math.min(window.innerHeight * .86, 820), borderRadius: 30,
-        }, { width, height: () => width() * 1.2, borderRadius: () => small() ? 12 : 16,
-          duration: 1.32, ease: 'power2.inOut' }, 1.32)
-        .fromTo(name, { fontSize: () => largeWidth() * .26 }, {
-          fontSize: () => width() * .26, duration: 1.32, ease: 'power2.inOut',
-        }, 1.32)
-        // Image motion: phase-keyed to match text transitions for cinematic sync.
-        // Phase 1 (0 → 0.43): "Dein Ziel." — slight zoom in, face high-frame, desaturated.
-        // Phase 2 (0.43 → 0.92): "Meine Begleitung." — settle toward natural, begin colour.
-        // Phase 3 (0.92 → 1.32): "Gabriel Vogt." — fully settled, colour restored, stable before pullback.
-        gsap.set(image, { scale: 1.06, yPercent: 2, filter: 'grayscale(1) contrast(1.08)' });
-        timeline
-          .to(image, { scale: 1.04, yPercent: 0.5, filter: 'grayscale(.4) contrast(1.05)', duration: .49, ease: 'power1.inOut' }, 0.43)
-          .to(image, { scale: 1.0, yPercent: -1.5, filter: 'grayscale(0) contrast(1.0)', duration: .40, ease: 'power1.inOut' }, 0.92);
-        if (lines.length === 3) {
-          timeline
-            .to(lines[0], { autoAlpha: 0, yPercent: -110, duration: .2, ease: 'power2.inOut' }, .43)
-            .to(lines[1], { autoAlpha: 1, yPercent: 0, duration: .2, ease: 'power2.out' }, .54)
-            .to(lines[1], { autoAlpha: 0, yPercent: -110, duration: .2, ease: 'power2.inOut' }, .92)
-            .to(lines[2], { autoAlpha: 1, yPercent: 0, duration: .2, ease: 'power2.out' }, 1.03);
-        }
-        // A stable centre-out order creates depth without random jumps on resize.
-        tiles.sort((a,b) => {
-          const distance = el => Math.abs(Number(el.dataset.col)) + Math.abs(Number(el.dataset.row));
-          return distance(a) - distance(b) || Number(b.dataset.col) - Number(a.dataset.col) || Number(a.dataset.row) - Number(b.dataset.row);
-        }).forEach((tile,index) => {
-          const at = 1.42 + index * .035;
-          timeline.to(tile, {
-            x: () => Number(tile.dataset.col) * (width() + gap()),
-            y: () => Number(tile.dataset.row) * (width() * 1.2 + gap()),
-            scale: 1, autoAlpha: 1, duration: .88, ease: 'power2.out',
-          }, at).fromTo(tile.querySelector('img'), { scale: 1.12 }, { scale: 1, duration: 1.05, ease: 'power1.out' }, at);
+
+        // ── PHASE A (0 → 1.0): Full-bleed portrait, text cycling ──────────────
+        // Set initial full-bleed state at timeline start
+        tl.set(main, { width: fullW, height: fullH, borderRadius: 0 }, 0);
+        tl.set(name, { fontSize: () => fullW() * (small() ? .18 : .13) }, 0);
+
+        // Text line cycling across the full-bleed phase
+        // Line 0 "Dein Ziel." holds 0→0.30, then exits up
+        tl.to(lines[0], { autoAlpha: 0, yPercent: -100, duration: .18, ease: 'power2.inOut' }, 0.32);
+        // Line 1 "Meine Begleitung." enters, holds 0.42→0.68, exits
+        tl.fromTo(lines[1],
+          { autoAlpha: 0, yPercent: 100 },
+          { autoAlpha: 1, yPercent: 0,   duration: .16, ease: 'power2.out' }, 0.44);
+        tl.to(lines[1], { autoAlpha: 0, yPercent: -100, duration: .16, ease: 'power2.inOut' }, 0.68);
+        // Line 2 "Gabriel Vogt." enters and stays
+        tl.fromTo(lines[2],
+          { autoAlpha: 0, yPercent: 100 },
+          { autoAlpha: 1, yPercent: 0,   duration: .16, ease: 'power2.out' }, 0.78);
+
+        // Subtle image motion during full-bleed: slow drift and gradual desaturation easing
+        tl.to(image, { scale: 1.04, filter: 'grayscale(.6) contrast(1.05) brightness(.96)', duration: .55, ease: 'power1.inOut' }, 0.32);
+        tl.to(image, { scale: 1.0,  filter: 'grayscale(.2) contrast(1.02) brightness(1.0)',  duration: .40, ease: 'power1.inOut' }, 0.78);
+
+        // ── PHASE B (1.0 → 1.8): Pull back from full-bleed to mid card ────────
+        // Portrait shrinks, corners appear, name font scales down proportionally
+        tl.to(main, { width: midW, height: midH, borderRadius: () => small() ? 14 : 20, duration: .72, ease: 'power2.inOut' }, 1.0);
+        tl.to(name, { fontSize: () => midW() * .26, duration: .72, ease: 'power2.inOut' }, 1.0);
+        // Image settles to colour as card forms
+        tl.to(image, { scale: 1.0, filter: 'grayscale(0) contrast(1.0) brightness(1.0)', duration: .55, ease: 'power1.out' }, 1.1);
+
+        // ── PHASE C (1.8 → 2.4): Shrink mid card → final tile size ───────────
+        tl.to(main, { width: tileW, height: tileH, borderRadius: () => small() ? 10 : 14, duration: .56, ease: 'power2.inOut' }, 1.8);
+        tl.to(name, { fontSize: () => tileW() * .26, duration: .56, ease: 'power2.inOut' }, 1.8);
+
+        // ── PHASE D (2.4 → end): Staggered grid reveal ────────────────────────
+        // Sort tiles centre-out for a natural bloom reveal
+        tiles.sort((a, b) => {
+          const dist = el => Math.abs(Number(el.dataset.col)) + Math.abs(Number(el.dataset.row));
+          return dist(a) - dist(b)
+            || Number(b.dataset.col) - Number(a.dataset.col)
+            || Number(a.dataset.row) - Number(b.dataset.row);
+        }).forEach((tile, i) => {
+          const at    = 2.44 + i * .038;
+          const col   = Number(tile.dataset.col);
+          const row   = Number(tile.dataset.row);
+          const isEdge = Math.abs(col) === 2;
+
+          // Tiles animate from their target position (already set above) with scale+fade
+          tl.fromTo(tile,
+            { scale: .6, autoAlpha: 0 },
+            {
+              scale: 1, autoAlpha: isEdge ? .72 : 1,
+              duration: .82, ease: 'power2.out',
+            }, at)
+          .fromTo(tile.querySelector('img'),
+            { scale: 1.14 },
+            { scale: 1, duration: .95, ease: 'power1.out' }, at);
+
+          // Outer-column tiles get a persistent blur (applied after reveal)
+          if (isEdge) {
+            tl.set(tile, { filter: 'blur(1.5px)' }, at + .82);
+          }
         });
-        timeline.to({}, { duration: .22 });
+
+        // Tail: hold the grid for a beat
+        tl.to({}, { duration: .28 });
+
         return () => { section.classList.remove('is-scroll-story'); };
       });
     })();

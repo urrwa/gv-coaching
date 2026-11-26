@@ -1551,8 +1551,11 @@
 .coach-story__tile--main::after { content: ''; position: absolute; inset: 30% 0 0; background: linear-gradient(0deg,rgba(7,17,31,.8),transparent); }
 .coach-story__name { position: absolute; z-index: 1; inset: auto 12px 18px; color: #fff; text-align: center; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem,3vw,2.5rem); letter-spacing: -.05em; line-height: .95; text-transform: uppercase; }
 .coach-story__name span { display: block; margin-bottom: 10px; font-family: var(--font-body); font-weight: 400; font-size: .6rem; line-height: 1.2; letter-spacing: .14em; }
-.coach-story.is-scroll-story .coach-story__journey { height: 230svh; }
-.coach-story.is-scroll-story .coach-story__scene { position: sticky; top: 0; height: 100svh; }
+.coach-story.is-scroll-story .coach-story__journey { height: 420svh; }
+/* Scene must NOT clip during full-bleed phase — overflow visible so portrait can fill viewport */
+.coach-story.is-scroll-story .coach-story__scene { position: sticky; top: 0; height: 100svh; overflow: visible; isolation: auto; }
+/* Main portrait sits above the navy edge-gradient overlay so the full-bleed phase is clean */
+.coach-story.is-scroll-story .coach-story__tile--main { z-index: 5; }
 .coach-story__outro { position: relative; text-align: center; max-width: 760px; margin-inline: auto; padding: 1.5rem 24px clamp(4rem,7vw,7rem); display: grid; justify-items: center; gap: 1.5rem; }
 .coach-story__outro p { max-width: 55ch; color: #c6cfdd; line-height: 1.75; }
 .coach-story__details { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: #a9c4ff; }
@@ -1578,7 +1581,7 @@
   .coach-story__tile { --tile-w: 29vw; border-radius: 10px; transform: translate(calc(-50% + var(--col) * (var(--tile-w) + 12px)),calc(-50% + var(--row) * (var(--tile-w) * 1.2 + 12px))); }
   .coach-story__name { inset: auto 6px 12px; font-size: 1.25rem; }
   .coach-story__name span { font-size: .43rem; margin-bottom: 6px; }
-  .coach-story.is-scroll-story .coach-story__journey { height: 190svh; }
+  .coach-story.is-scroll-story .coach-story__journey { height: 360svh; }
   .coach-story__scene::after { background: linear-gradient(90deg,var(--story-bg),transparent 8%,transparent 92%,var(--story-bg)),linear-gradient(0deg,var(--story-bg),transparent 15%,transparent 85%,var(--story-bg)); }
   .coach-story__details { font-size: .6rem; gap: 10px 14px; }
 }
