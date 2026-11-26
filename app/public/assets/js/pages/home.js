@@ -320,32 +320,54 @@
       });
     }
 
-    /* ---------- Problem: image swap ---------- */
+    /* ---------- Problem: editorial redesign ---------- */
     (function problem() {
-      const rows = document.querySelectorAll("[data-problem]");
-      const imgs = document.querySelectorAll("[data-problem-img]");
-      const cap = document.querySelector("[data-problem-caption]");
-      if (!rows.length) return;
-      const setActive = (id) => {
-        rows.forEach((r) => r.classList.toggle("is-active", r.dataset.problem === id));
-        imgs.forEach((im) => im.classList.toggle("is-active", im.dataset.problemImg === id));
-        const row = Array.from(rows).find((r) => r.dataset.problem === id);
-        if (cap && row) cap.textContent = row.dataset.caption || "";
-      };
-      setActive("1");
-      rows.forEach((r) => {
-        r.addEventListener("mouseenter", () => setActive(r.dataset.problem));
-        r.addEventListener("focusin", () => setActive(r.dataset.problem));
-        ST.create({ trigger: r, start: "top 55%", end: "bottom 55%", onEnter: () => setActive(r.dataset.problem), onEnterBack: () => setActive(r.dataset.problem) });
-      });
-    })();
 
-    /* ---------- Problem: scrubbed statement ---------- */
-    (function statement() {
-      const el = document.querySelector("[data-statement] .problem__statement-text");
-      if (!el || reduced) return;
-      const words = PM.splitWords(el);
-      gsap.from(words, { color: "#8793A3", stagger: 0.08, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "bottom 50%", scrub: 0.35 } });
+      /* Star reveal on heading line 2 */
+      const star = document.querySelector(".problem__star");
+      if (star) {
+        ST.create({
+          trigger: ".problem__heading-track",
+          start: "top 70%",
+          onEnter() { star.classList.add("is-visible"); },
+          onLeaveBack() { star.classList.remove("is-visible"); }
+        });
+      }
+
+      /* Circle expand on scroll-enter */
+      document.querySelectorAll("[data-problem-circle]").forEach((circle) => {
+        ST.create({
+          trigger: circle,
+          start: "top 72%",
+          onEnter() { circle.classList.add("is-revealed"); },
+          onLeaveBack() { circle.classList.remove("is-revealed"); }
+        });
+      });
+
+      /* Video play/pause via IntersectionObserver */
+      const vid = document.querySelector("[data-problem-video]");
+      if (vid) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { vid.play().catch(() => {}); }
+            else { vid.pause(); }
+          });
+        }, { threshold: 0.25 });
+        obs.observe(vid);
+      }
+
+      /* Scrubbed statement word-reveal */
+      const statEl = document.querySelector("[data-statement] .problem__statement-text");
+      if (statEl && !reduced) {
+        const words = PM.splitWords(statEl);
+        gsap.from(words, {
+          color: "#8793A3",
+          stagger: 0.08,
+          ease: "none",
+          scrollTrigger: { trigger: statEl, start: "top 85%", end: "bottom 50%", scrub: 0.35 }
+        });
+      }
+
     })();
 
     /* ---------- Audience toggle ---------- */

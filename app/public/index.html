@@ -380,66 +380,114 @@
 
 
 <!-- ============ 03 PROBLEM ============ -->
-<section class="problem section" data-theme="dark" id="problem">
-  <div class="container problem__layout">
-    <div class="problem__sticky">
-      <p class="eyebrow" data-reveal="up">Wenn der Alltag dazwischenkommt</p>
-      <h2 class="display-l problem__title" data-reveal="words">Wenn dein Alltag den Plan verändert.</h2>
-      <p class="lead muted problem__lead" data-reveal="up" data-delay="0.15">Wenig Zeit, eine verpasste Einheit oder eine Reise: Im Coaching besprechen wir, was sich für dich konkret umsetzen lässt. Zum Beispiel so:</p>
-      <div class="problem__visual" aria-hidden="true">
-        <div class="frame frame--16-10 frame--grade problem__frame" data-reveal="clip">
-          <img class="problem__img is-active" data-problem-img="1" src="/assets/img/gv-client-planning-1600.webp" srcset="/assets/img/gv-client-planning-900.webp 900w, /assets/img/gv-client-planning-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1073" loading="lazy" decoding="async" style="object-position: 50% 45%">
-          <img class="problem__img" data-problem-img="2" src="/assets/img/gv-client-training-wide-1600.webp" srcset="/assets/img/gv-client-training-wide-900.webp 900w, /assets/img/gv-client-training-wide-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1073" loading="lazy" decoding="async" style="object-position: 50% 35%">
-          <img class="problem__img" data-problem-img="3" src="/assets/img/gv-client-planning-1600.webp" srcset="/assets/img/gv-client-planning-900.webp 900w, /assets/img/gv-client-planning-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1073" loading="lazy" decoding="async" style="object-position: 50% 50%">
-          <img class="problem__img" data-problem-img="4" src="/assets/img/gv-client-lifestyle-1600.webp" srcset="/assets/img/gv-client-lifestyle-900.webp 900w, /assets/img/gv-client-lifestyle-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1073" loading="lazy" decoding="async" style="object-position: 72% 40%">
-          <img class="problem__img" data-problem-img="5" src="/assets/img/gv-client-assessment-wide-1600.webp" srcset="/assets/img/gv-client-assessment-wide-900.webp 900w, /assets/img/gv-client-assessment-wide-1600.webp 1600w" sizes="(min-width: 900px) 45vw, 92vw" alt="" width="1600" height="1073" loading="lazy" decoding="async" style="object-position: 50% 35%">
-          <span class="frame__caption" data-problem-caption>Zeit für Training</span>
+<section class=”problem section” data-theme=”dark” id=”problem”>
+
+  <!-- Oversized scroll-driven heading -->
+  <div class=”problem__head-wrap” data-problem-head>
+    <div class=”container”>
+      <p class=”eyebrow problem__eyebrow” data-reveal=”up”>Wenn der Alltag dazwischenkommt</p>
+    </div>
+    <div class=”problem__heading-track” aria-hidden=”true”>
+      <div class=”problem__heading-line” data-problem-line=”1”>
+        <span class=”problem__word” data-word>WENN</span>
+        <span class=”problem__word” data-word>DEIN</span>
+        <span class=”problem__word” data-word>ALLTAG</span>
+      </div>
+      <div class=”problem__heading-line” data-problem-line=”2”>
+        <span class=”problem__word” data-word>DEN</span>
+        <span class=”problem__gap” data-problem-gap>
+          <svg class=”problem__star” viewBox=”0 0 48 48” fill=”none” aria-hidden=”true”>
+            <path d=”M24 0 L26 20 L48 24 L26 28 L24 48 L22 28 L0 24 L22 20 Z” fill=”currentColor”/>
+          </svg>
+        </span>
+        <span class=”problem__word” data-word>PLAN</span>
+      </div>
+      <div class=”problem__heading-line” data-problem-line=”3”>
+        <span class=”problem__word” data-word>VERÄNDERT.</span>
+      </div>
+    </div>
+    <p class=”problem__subhead lead muted container” data-reveal=”up” data-delay=”0.1”>Wenig Zeit, eine verpasste Einheit oder eine Reise: Im Coaching besprechen wir, was sich für dich konkret umsetzen lässt.</p>
+  </div>
+
+  <!-- Three editorial circle modules -->
+  <div class=”problem__editorial container”>
+
+    <!-- Circle 1: WENIG ZEIT / EINHEIT VERPASST -->
+    <div class=”problem__block problem__block--1”>
+      <div class=”problem__circle-wrap”>
+        <div class=”problem__circle” data-problem-circle=”1”>
+          <div class=”problem__disk”></div>
+          <img
+            class=”problem__circle-img”
+            src=”/assets/img/problem-circle1-900.webp”
+            alt=”Gabriel Vogt beim Training mit einem Klienten”
+            width=”900”
+            height=”900”
+            loading=”lazy”
+            decoding=”async”
+          >
         </div>
+      </div>
+      <div class=”problem__copy”>
+        <p class=”problem__label”>01&thinsp;/&thinsp;02</p>
+        <h3 class=”problem__scenario-title”>WENIG ZEIT.<br>EINHEIT VERPASST.</h3>
+        <p class=”muted”>Wir legen fest, welche Übungen Priorität haben und welcher Umfang passt. Dann schauen wir auf die Restwoche und stellen um, was sich verschieben lässt. Dein Rhythmus bleibt.</p>
       </div>
     </div>
 
-    <ol class="problem__list" data-problem-list>
-      <li class="problem__row" data-problem="1" data-caption="Zeit für Training" data-reveal="up">
-        <span class="problem__num">01</span>
-        <div class="problem__row-body">
-          <h3 class="h3">„Heute bleibt mir wenig Zeit.“</h3>
-          <p class="muted">Wir legen fest, welche Übungen Priorität haben und welcher Umfang in deine verfügbare Zeit passt. Dein nächster Schritt bleibt überschaubar.</p>
+    <!-- Circle 2: UNTERWEGS / ANDERE GERÄTE -->
+    <div class=”problem__block problem__block--2”>
+      <div class=”problem__circle-wrap”>
+        <div class=”problem__circle” data-problem-circle=”2”>
+          <div class=”problem__disk”></div>
+          <img
+            class=”problem__circle-img”
+            src=”/assets/img/problem-circle2-1200.webp”
+            alt=”Gabriel Vogt beim Training”
+            width=”1200”
+            height=”900”
+            loading=”lazy”
+            decoding=”async”
+          >
         </div>
-      </li>
-      <li class="problem__row" data-problem="2" data-caption="Regelmäßig trainieren" data-reveal="up">
-        <span class="problem__num">02</span>
-        <div class="problem__row-body">
-          <h3 class="h3">„Ich habe eine Einheit verpasst.“</h3>
-          <p class="muted">Wir schauen auf die verbleibende Woche und besprechen, welche Einheiten du sinnvoll umstellen kannst. Danach knüpfst du wieder an deinen Rhythmus an.</p>
+      </div>
+      <div class=”problem__copy”>
+        <p class=”problem__label”>03&thinsp;/&thinsp;04</p>
+        <h3 class=”problem__scenario-title”>ANDERE GERÄTE.<br>UNTERWEGS.</h3>
+        <p class=”muted”>Wir wählen passende Übungen für deine verfügbare Ausstattung. Für Reisen vereinfachen wir Training und Ernährung vorab. Nach der Rückkehr passen wir wieder an.</p>
+      </div>
+    </div>
+
+    <!-- Circle 3: FORTSCHRITT BLEIBT AUS + video -->
+    <div class=”problem__block problem__block--3”>
+      <div class=”problem__circle-wrap”>
+        <div class=”problem__circle” data-problem-circle=”3”>
+          <div class=”problem__disk”></div>
+          <video
+            class=”problem__circle-video”
+            src=”/assets/video/gv-training-loop.mp4”
+            muted
+            loop
+            playsinline
+            preload=”none”
+            data-problem-video
+          ></video>
         </div>
-      </li>
-      <li class="problem__row" data-problem="3" data-caption="Individuelle Planung" data-reveal="up">
-        <span class="problem__num">03</span>
-        <div class="problem__row-body">
-          <h3 class="h3">„Ich habe andere Geräte zur Verfügung.“</h3>
-          <p class="muted">Wir wählen passende Übungen für deine Ausstattung im Studio oder zu Hause. Du weißt, welche Alternative du statt einer nicht verfügbaren Übung nutzen kannst.</p>
-        </div>
-      </li>
-      <li class="problem__row" data-problem="4" data-caption="Dranbleiben" data-reveal="up">
-        <span class="problem__num">04</span>
-        <div class="problem__row-body">
-          <h3 class="h3">„Ich bin nächste Woche unterwegs.“</h3>
-          <p class="muted">Wir besprechen vorab, was am Reiseort möglich ist, und vereinfachen Training und Ernährung entsprechend. Nach deiner Rückkehr passen wir wieder an.</p>
-        </div>
-      </li>
-      <li class="problem__row" data-problem="5" data-caption="Persönliches Feedback" data-reveal="up">
-        <span class="problem__num">05</span>
-        <div class="problem__row-body">
-          <h3 class="h3">„Ich sehe gerade keinen Fortschritt.“</h3>
-          <p class="muted">Wir betrachten deine Trainingsleistung, deine Umsetzung und den bisherigen Verlauf gemeinsam. Daraus leiten wir ab, ob eine Anpassung sinnvoll ist.</p>
-        </div>
-      </li>
-    </ol>
+      </div>
+      <div class=”problem__copy”>
+        <p class=”problem__label”>05</p>
+        <h3 class=”problem__scenario-title”>FORTSCHRITT<br>BLEIBT AUS.</h3>
+        <p class=”muted”>Wir betrachten deine Trainingsleistung, Umsetzung und den bisherigen Verlauf gemeinsam. Daraus leiten wir ab, ob eine Anpassung sinnvoll ist.</p>
+      </div>
+    </div>
+
   </div>
 
-  <div class="problem__statement container" data-statement>
-    <p class="problem__statement-text">Du kennst dein Ziel. Wir machen die nächsten Schritte konkret.</p>
+  <!-- Closing statement -->
+  <div class=”problem__statement container” data-statement>
+    <p class=”problem__statement-text”>Du kennst dein Ziel. Wir machen die nächsten Schritte konkret.</p>
   </div>
+
 </section>
 
 <!-- ============ 04 WHO IT'S FOR ============ -->
