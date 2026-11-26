@@ -663,29 +663,17 @@
 /* ================================================================
    EVERYDAY PLAN — scroll-triggered word flip
    ================================================================ */
-(function everydayPlan() {
-  const section = document.querySelector('.everyday-plan');
+(function howItWorks() {
+  const section = document.querySelector('.how-it-works');
   if (!section) return;
 
-  // Reveal eyebrow + sub on enter
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) section.classList.add('is-visible');
-    });
-  }, { threshold: 0.15 });
-  revealObs.observe(section);
-
-  // Flip word when section is 55% scrolled through
-  const flipObs = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        section.classList.add('is-flipped');
-      } else {
-        // Only un-flip if scrolling back up (above section)
-        const rect = section.getBoundingClientRect();
-        if (rect.top > 0) section.classList.remove('is-flipped');
+        section.classList.add('is-visible');
+        obs.disconnect();
       }
     });
-  }, { threshold: 0.55 });
-  flipObs.observe(section);
+  }, { threshold: 0.15 });
+  obs.observe(section);
 })();
