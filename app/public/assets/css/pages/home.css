@@ -474,7 +474,7 @@
 .services-bento__card--large .services-bento__card-img {
   filter: blur(1px);
   transform: scale(1.04);
-  object-position: center 20%;
+  object-position: center 42%;
 }
 
 /* Ernährung card — softer blur for food */
