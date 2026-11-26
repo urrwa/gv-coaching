@@ -308,13 +308,43 @@
    ============================================================ */
 
 /* ============ SERVICES BENTO GRID ============ */
-.services-bento {
-  padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem);
-  background: var(--site-bg);
+/* ============================================================
+   COACHING REVEAL — sticky overlap + corner-radius animation
+   ============================================================ */
+
+/* Wrapper creates the scroll-pin zone */
+.coaching-reveal {
+  position: relative;
+  /* JS will set --pin-height dynamically */
 }
 
+/* The incoming section itself */
+.services-bento {
+  position: relative;
+  z-index: 10;
+  background: var(--site-bg);
+  /* Animated corner radius — starts at 64px on desktop, JS drives to 0 */
+  border-radius: var(--bento-radius, 64px) var(--bento-radius, 64px) 0 0;
+  /* Soft shadow so it reads against the section behind */
+  box-shadow: 0 -8px 48px rgba(0,0,0,0.55), 0 -1px 0 rgba(255,255,255,0.05);
+  /* Clip the section surface to the same radius */
+  overflow: hidden;
+  padding: clamp(3.5rem, 7vw, 6rem) clamp(1rem, 5vw, 3.5rem) clamp(4rem, 8vw, 7rem);
+  /* Smooth-motion fallback: no transition — JS handles scrub */
+  will-change: border-radius;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-bento {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .coaching-reveal { position: static; }
+}
+
+/* ---- Section header ---- */
 .services-bento__inner {
-  max-width: 1200px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
@@ -324,143 +354,222 @@
 }
 
 .services-bento__eyebrow {
-  font-size: .85rem;
-  letter-spacing: .12em;
+  font-size: .75rem;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin: 0 0 .75rem;
+  color: #6ea8ff;
+  margin: 0 0 1rem;
+  font-weight: 600;
 }
 
 .services-bento__title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
   color: #fff;
-  margin: 0;
-  max-width: 20ch;
+  margin: 0 0 1.1rem;
+  max-width: 22ch;
   margin-inline: auto;
 }
 
-/* Grid: stacked on mobile */
+.services-bento__title-accent {
+  color: #6ea8ff;
+}
+
+.services-bento__subtitle {
+  font-size: clamp(.95rem, 1.5vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.5);
+  margin: 0 auto;
+  max-width: 52ch;
+}
+
+/* ============================================================
+   BENTO GRID
+   Mobile: single column stack
+   Desktop: left tall card + right column (wide top + 2 bottom)
+   ============================================================ */
+
 .services-bento__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: .75rem;
+  gap: 14px;
 }
 
-/* Desktop: exact reference layout
-   Col 1: tall Training card (rows 1-2)
-   Col 2: Ernährung (row 1) + bottom-row wrapper (row 2)
-   bottom-row wrapper splits into 2 equal cards side-by-side
-*/
 @media (min-width: 700px) {
   .services-bento__grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    min-height: 560px;
+    grid-template-rows: auto;
+    align-items: stretch;
+    min-height: 580px;
   }
+  /* Large left card fills full grid height */
   .services-bento__card--large {
-    grid-column: 1;
-    grid-row: 1 / 3;
-  }
-  .services-bento__card--top-right {
-    grid-column: 2;
     grid-row: 1;
+    align-self: stretch;
+    min-height: 580px;
   }
-  /* Bottom row wrapper occupies col 2, row 2 */
+  /* Right column: flex column so rows size themselves */
+  .services-bento__right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  /* Wide top card — 60% of right col height */
+  .services-bento__card--wide {
+    flex: 0 0 58%;
+  }
+  /* Bottom row takes remaining space */
   .services-bento__bottom-row {
-    grid-column: 2;
-    grid-row: 2;
+    flex: 1 1 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: .75rem;
+    gap: 14px;
   }
 }
 
-/* Base card */
+/* ---- Base card ---- */
 .services-bento__card {
   position: relative;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 240px;
+  min-height: 230px;
   background: #0d1b2a;
 }
 
 @media (min-width: 700px) {
   .services-bento__card { min-height: 0; }
-  .services-bento__grid { min-height: 580px; }
 }
 
-/* Image cards */
+/* ---- Image cards ---- */
 .services-bento__card--img .services-bento__card-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 25%;
   display: block;
 }
 
-/* Dark overlay on image cards */
 .services-bento__card--img::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(5,10,18,0.92) 0%, rgba(5,10,18,0.3) 55%, transparent 100%);
+  background: linear-gradient(to top, rgba(4,9,18,0.9) 0%, rgba(4,9,18,0.25) 50%, transparent 100%);
+  pointer-events: none;
 }
 
-/* Dark no-image card */
+/* Begleitung wide card — gradient on left side for text legibility */
+.services-bento__card--wide::after {
+  background:
+    linear-gradient(to right, rgba(4,9,18,0.82) 0%, rgba(4,9,18,0.3) 50%, transparent 100%),
+    linear-gradient(to top, rgba(4,9,18,0.5) 0%, transparent 60%);
+}
+
+/* ---- Dark (no-photo) card ---- */
 .services-bento__card--dark {
-  background: #0d1b2a;
+  background: #0e1d2f;
   border: 1px solid rgba(255,255,255,0.07);
-  justify-content: flex-start;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  gap: 1rem;
 }
 
+/* ---- Centered content variant (Fortschritt, Ernährung) ---- */
+.services-bento__card--center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---- Card icon ---- */
 .services-bento__card-icon {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.07);
+  background: rgba(110,168,255,0.1);
+  border: 1px solid rgba(110,168,255,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin-bottom: 1rem;
 }
 
-/* Card body text */
+/* Icon floating above body in center layout */
+.services-bento__card--center .services-bento__card-icon {
+  position: relative;
+  z-index: 1;
+}
+
+/* Overlay icon (Ernährung — sits above image) */
+.services-bento__card-icon--overlay {
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ---- Card body ---- */
 .services-bento__card-body {
   position: relative;
   z-index: 1;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
 }
 
+/* Left-aligned body (Begleitung) */
+.services-bento__card-body--left {
+  max-width: 55%;
+}
+
+/* Centred body (Fortschritt / Ernährung) */
+.services-bento__card--center .services-bento__card-body {
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* Centred body for Training (bottom of card) */
+.services-bento__card-body--center {
+  text-align: center;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+/* Dark card body — no extra padding beyond flex gap */
 .services-bento__card--dark .services-bento__card-body {
   padding: 0;
 }
 
+/* Fortschritt: stack icon + body centered */
+.services-bento__card--dark.services-bento__card--center {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  gap: 0;
+}
+
 .services-bento__card-title {
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: #fff;
   margin: 0 0 .4rem;
 }
 
 .services-bento__card-desc {
-  font-size: clamp(.9rem, 1.4vw, 1rem);
-  line-height: 1.55;
-  color: rgba(255,255,255,0.6);
+  font-size: clamp(.85rem, 1.3vw, .95rem);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.58);
   margin: 0;
-  max-width: 36ch;
+  max-width: 30ch;
+}
+
+.services-bento__card--center .services-bento__card-desc {
+  margin-inline: auto;
 }
 
 /* ---- old stats-bar kept for safety (now unused) ---- */

@@ -511,6 +511,64 @@
       });
     })();
 
+    /* ---------- Coaching reveal: sticky overlap + corner-radius scrub ---------- */
+    (function coachingReveal() {
+      const wrapper   = document.querySelector('.coaching-reveal');
+      const section   = document.querySelector('.services-bento');
+      const preceding = wrapper && wrapper.previousElementSibling; // coach-story section
+      if (!wrapper || !section || !preceding || reduced) return;
+
+      /* Starting radius values */
+      const radiusStart = window.matchMedia('(min-width: 700px)').matches ? 64 : 32;
+
+      /* 1. Pin the preceding section in place while the new one slides over it */
+      ST.create({
+        trigger: wrapper,
+        start: 'top bottom',   /* when wrapper top hits viewport bottom, start pinning */
+        end: () => `+=${section.offsetHeight * 0.65}`, /* release after partial overlap */
+        pin: preceding,
+        pinSpacing: false,
+        anticipatePin: 1,
+        id: 'coaching-pin',
+      });
+
+      /* 2. Scrub corner radius from radiusStart → 0 as section top reaches viewport top */
+      gsap.set(section, { '--bento-radius': `${radiusStart}px` });
+
+      ST.create({
+        trigger: section,
+        start: 'top bottom',   /* section enters viewport from bottom */
+        end: 'top top',        /* section top reaches viewport top → radius = 0 */
+        scrub: true,
+        onUpdate(self) {
+          const r = radiusStart * (1 - self.progress);
+          section.style.setProperty('--bento-radius', `${r.toFixed(2)}px`);
+          section.style.borderRadius = `${r.toFixed(2)}px ${r.toFixed(2)}px 0 0`;
+        },
+        onLeave() {
+          section.style.borderRadius = '0 0 0 0';
+        },
+        onEnterBack() {
+          /* radius will re-animate as user scrolls back */
+        },
+      });
+
+      /* 3. Subtle card content reveal (opacity + small y lift) */
+      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        const cards = section.querySelectorAll('.services-bento__card');
+        cards.forEach((card, i) => {
+          gsap.fromTo(card,
+            { opacity: 0.4, y: 24 },
+            {
+              opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+              scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
+              delay: i * 0.07,
+            }
+          );
+        });
+      });
+    })();
+
     /* ---------- Final CTA: mask reveal ---------- */
     (function finalCta() {
       const sec = document.querySelector("[data-final]");

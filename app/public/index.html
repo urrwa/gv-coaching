@@ -296,63 +296,84 @@
   </div>
 </section>
 
-<!-- ============ COACHING AT A GLANCE — bento grid ============ -->
-<section class="services-bento" id="coaching" aria-label="Das bietet GV Coaching">
-  <div class="services-bento__inner">
+<!-- ============ COACHING — sticky overlap + bento grid ============ -->
+<!-- Wrapper that pins the preceding section and slides this one over it -->
+<div class="coaching-reveal" id="coaching-reveal">
 
-    <header class="services-bento__header">
-      <p class="services-bento__eyebrow">Was du bekommst</p>
-      <h2 class="services-bento__title">Alles, was du für deinen Fortschritt brauchst.</h2>
-    </header>
+  <section class="services-bento" id="coaching" aria-label="Das bietet GV Coaching">
+    <div class="services-bento__inner">
 
-    <div class="services-bento__grid">
+      <header class="services-bento__header">
+        <p class="services-bento__eyebrow">DEIN COACHING</p>
+        <h2 class="services-bento__title">Coaching, das zu deinem<br><span class="services-bento__title-accent">Alltag passt.</span></h2>
+        <p class="services-bento__subtitle">Training, Ernährung, persönliche Begleitung und regelmäßiges Feedback&nbsp;–&nbsp;abgestimmt auf dich.</p>
+      </header>
 
-      <!-- Card 1: Training — large left spanning full height -->
-      <article class="services-bento__card services-bento__card--large services-bento__card--img" data-bento="training">
-        <img class="services-bento__card-img" src="/assets/img/features-training-900.webp" alt="Training im Gym" loading="lazy" decoding="async" width="900" height="1200">
-        <div class="services-bento__card-body">
-          <h3 class="services-bento__card-title">Training</h3>
-          <p class="services-bento__card-desc">Übungen und Belastung abgestimmt auf deinen Trainingsstand und deine Ausstattung.</p>
-        </div>
-      </article>
+      <div class="services-bento__grid">
 
-      <!-- Card 2: Ernährung — top right, wide image card -->
-      <article class="services-bento__card services-bento__card--top-right services-bento__card--img" data-bento="ernaehrung">
-        <img class="services-bento__card-img" src="/assets/img/features-nutrition-900.webp" alt="Ernährung" loading="lazy" decoding="async" width="1200" height="800">
-        <div class="services-bento__card-body">
-          <h3 class="services-bento__card-title">Ernährung</h3>
-          <p class="services-bento__card-desc">Klare Orientierung beim Essen, mit Spielraum für deinen Alltag.</p>
-        </div>
-      </article>
-
-      <!-- Cards 3+4: bottom row wrapper — side by side on desktop -->
-      <div class="services-bento__bottom-row">
-
-        <!-- Card 3: Begleitung — dark card -->
-        <article class="services-bento__card services-bento__card--dark" data-bento="begleitung">
-          <div class="services-bento__card-icon" aria-hidden="true">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="12" cy="10" r="4.5" stroke="white" stroke-width="1.5"/><circle cx="22" cy="10" r="4.5" stroke="white" stroke-width="1.5"/><path d="M2 26c0-4.4 4.5-8 10-8M16 26c0-4.4 2.7-7.1 6-8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="services-bento__card-body">
-            <h3 class="services-bento__card-title">Begleitung</h3>
-            <p class="services-bento__card-desc">Persönlicher Austausch mit mir zu deinen Fragen und nächsten Schritten.</p>
+        <!-- Card 1: Training — large left, full height -->
+        <article class="services-bento__card services-bento__card--large services-bento__card--img" data-bento="training">
+          <img class="services-bento__card-img" src="/assets/img/features-training-900.webp" alt="Training im Gym" loading="lazy" decoding="async" width="900" height="1200">
+          <div class="services-bento__card-body services-bento__card-body--center">
+            <h3 class="services-bento__card-title">Training</h3>
+            <p class="services-bento__card-desc">Übungen und Belastung abgestimmt auf deinen Trainingsstand und deine Ausstattung.</p>
           </div>
         </article>
 
-        <!-- Card 4: Fortschritt — image card -->
-        <article class="services-bento__card services-bento__card--img" data-bento="fortschritt">
-          <img class="services-bento__card-img" src="/assets/img/features-begleitung-900.webp" alt="Fortschritt messen" loading="lazy" decoding="async" width="900" height="1200">
-          <div class="services-bento__card-body">
-            <h3 class="services-bento__card-title">Fortschritt</h3>
-            <p class="services-bento__card-desc">Wöchentliche Rückmeldungen und Anpassungen an deine Entwicklung.</p>
-          </div>
-        </article>
+        <!-- Right column -->
+        <div class="services-bento__right-col">
 
-      </div><!-- /.services-bento__bottom-row -->
+          <!-- Card 2: Begleitung — top-right wide image card -->
+          <article class="services-bento__card services-bento__card--img services-bento__card--wide" data-bento="begleitung">
+            <img class="services-bento__card-img" src="/assets/img/features-begleitung2-900.webp" alt="Persönliche Begleitung im Coaching" loading="lazy" decoding="async" width="1200" height="800">
+            <div class="services-bento__card-body services-bento__card-body--left">
+              <h3 class="services-bento__card-title">Begleitung</h3>
+              <p class="services-bento__card-desc">Persönlicher Austausch mit mir zu deinen Fragen und nächsten Schritten.</p>
+            </div>
+          </article>
 
-    </div><!-- /.services-bento__grid -->
-  </div>
-</section>
+          <!-- Bottom two: Fortschritt + Ernährung -->
+          <div class="services-bento__bottom-row">
+
+            <!-- Card 3: Fortschritt — dark icon card -->
+            <article class="services-bento__card services-bento__card--dark services-bento__card--center" data-bento="fortschritt">
+              <div class="services-bento__card-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polyline points="3,20 9,13 14,16 20,8 25,4" stroke="#6ea8ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <line x1="25" y1="4" x2="25" y2="10" stroke="#6ea8ff" stroke-width="1.75" stroke-linecap="round"/>
+                  <line x1="19" y1="4" x2="25" y2="4" stroke="#6ea8ff" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="services-bento__card-body">
+                <h3 class="services-bento__card-title">Fortschritt</h3>
+                <p class="services-bento__card-desc">Wöchentliche Rückmeldungen und Anpassungen an deine Entwicklung.</p>
+              </div>
+            </article>
+
+            <!-- Card 4: Ernährung — image card -->
+            <article class="services-bento__card services-bento__card--img services-bento__card--center" data-bento="ernaehrung">
+              <img class="services-bento__card-img" src="/assets/img/features-nutrition-900.webp" alt="Ernährung" loading="lazy" decoding="async" width="1200" height="800">
+              <div class="services-bento__card-icon services-bento__card-icon--overlay" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C8 2 4 6 4 10c0 3.5 2 6 4 7v3h8v-3c2-1 4-3.5 4-7 0-4-4-8-8-8z" stroke="white" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+                  <line x1="8" y1="17" x2="16" y2="17" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="services-bento__card-body">
+                <h3 class="services-bento__card-title">Ernährung</h3>
+                <p class="services-bento__card-desc">Klare Orientierung beim Essen, mit Spielraum für deinen Alltag.</p>
+              </div>
+            </article>
+
+          </div><!-- /.services-bento__bottom-row -->
+
+        </div><!-- /.services-bento__right-col -->
+
+      </div><!-- /.services-bento__grid -->
+    </div><!-- /.services-bento__inner -->
+  </section>
+
+</div><!-- /.coaching-reveal -->
 
 
 <!-- ============ 02 TRUST ============ -->
