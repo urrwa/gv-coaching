@@ -511,53 +511,6 @@
       });
     })();
 
-    /* ---------- Features reveal: sticky bg + rising panel ---------- */
-    (function featuresReveal() {
-      const section = document.querySelector('[data-features-reveal]');
-      if (!section) return;
-      const bgWrap  = section.querySelector('[data-features-bg]');
-      const journey = section.querySelector('[data-features-journey]');
-      const panel   = section.querySelector('[data-features-panel]');
-      if (!bgWrap || !journey || !panel) return;
-
-      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-        // Initial state: panel sits below the sticky bg, with rounded top corners
-        gsap.set(panel, { y: '100vh', borderRadius: '3vw 3vw 0 0' });
-
-        // Phase 1 — panel rises from bottom of viewport to cover the bg
-        // Trigger: journey enters viewport from below → pin releases when panel top = viewport top
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: journey,
-            start: 'top bottom',   // journey's top hits viewport bottom
-            end: 'top top',        // journey's top hits viewport top (panel fully covers bg)
-            scrub: 1.0,
-            invalidateOnRefresh: true,
-          }
-        });
-
-        tl.to(panel, {
-          y: 0,
-          borderRadius: '0 0 0 0',
-          ease: 'none',
-        });
-
-        // Phase 2 — once panel covers bg, unpin the sticky bg so it scrolls away normally
-        // We achieve this by listening for the scrub to complete
-        ST.create({
-          trigger: journey,
-          start: 'top top',
-          onEnter: () => { bgWrap.style.position = 'relative'; },
-          onLeaveBack: () => { bgWrap.style.position = 'sticky'; },
-        });
-
-        return () => {
-          gsap.set(panel, { clearProps: 'all' });
-          bgWrap.style.position = '';
-        };
-      });
-    })();
-
     /* ---------- Final CTA: mask reveal ---------- */
     (function finalCta() {
       const sec = document.querySelector("[data-final]");
