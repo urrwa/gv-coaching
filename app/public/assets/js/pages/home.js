@@ -659,3 +659,33 @@
   }
   if (window.PM && window.PM.ready) run(); else document.addEventListener("pm:ready", run, { once: true });
 })();
+
+/* ================================================================
+   EVERYDAY PLAN — scroll-triggered word flip
+   ================================================================ */
+(function everydayPlan() {
+  const section = document.querySelector('.everyday-plan');
+  if (!section) return;
+
+  // Reveal eyebrow + sub on enter
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) section.classList.add('is-visible');
+    });
+  }, { threshold: 0.15 });
+  revealObs.observe(section);
+
+  // Flip word when section is 55% scrolled through
+  const flipObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        section.classList.add('is-flipped');
+      } else {
+        // Only un-flip if scrolling back up (above section)
+        const rect = section.getBoundingClientRect();
+        if (rect.top > 0) section.classList.remove('is-flipped');
+      }
+    });
+  }, { threshold: 0.55 });
+  flipObs.observe(section);
+})();

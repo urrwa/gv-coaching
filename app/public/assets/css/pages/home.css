@@ -2200,3 +2200,118 @@
 @media (prefers-reduced-motion: reduce) {
   .hero--cinema .hero__media > :is(img,video), .coach-story--cinema .coach-story__tile img { transform: none; }
 }
+
+/* ================================================================
+   EVERYDAY PLAN — cinematic scroll-text section
+   ================================================================ */
+.everyday-plan {
+  position: relative;
+  background: var(--site-bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding-block: 10svh;
+}
+
+.everyday-plan__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
+}
+
+.everyday-plan__eyebrow {
+  font-size: clamp(.75rem, 1.4vw, 1rem);
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(240,242,245,.45);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.everyday-plan.is-visible .everyday-plan__eyebrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.everyday-plan__display {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  line-height: .9;
+}
+
+.everyday-plan__word {
+  grid-area: 1 / 1;
+  font-size: clamp(4.5rem, 14vw, 13rem);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: .88;
+  text-transform: uppercase;
+  color: #f0f2f5;
+  display: block;
+  will-change: transform, opacity;
+  transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s cubic-bezier(.16,1,.3,1);
+}
+
+/* Word A — visible by default */
+.everyday-plan__word--a {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: .1s;
+}
+
+/* Word B — hidden below, slides up on scroll */
+.everyday-plan__word--b {
+  transform: translateY(110%);
+  opacity: 0;
+  color: #3b82f6; /* blue accent matching GV brand CTA */
+  transition-delay: 0s;
+}
+
+/* Triggered state */
+.everyday-plan.is-flipped .everyday-plan__word--a {
+  transform: translateY(-110%);
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.everyday-plan.is-flipped .everyday-plan__word--b {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: .05s;
+}
+
+.everyday-plan__sub {
+  font-size: clamp(.9rem, 1.6vw, 1.1rem);
+  color: rgba(240,242,245,.5);
+  max-width: 46ch;
+  line-height: 1.65;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .8s ease .3s, transform .8s ease .3s;
+}
+
+.everyday-plan.is-visible .everyday-plan__sub {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .everyday-plan__word,
+  .everyday-plan__eyebrow,
+  .everyday-plan__sub { transition: none; }
+}
+
+@media (max-width: 767px) {
+  .everyday-plan__word { font-size: clamp(3.4rem, 17vw, 5.5rem); }
+}
