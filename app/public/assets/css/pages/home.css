@@ -896,25 +896,28 @@
   transform: scale(1) rotate(0deg);
 }
 
-/* ---- Rows: photo + circle-bleed layout (fit-and-you reference) ---- *
- *  Each row: photo takes ~60% width; the circle is position:absolute,
- *  centered on the photo's outer edge so it bleeds half into the photo
- *  and half into the dark background.                                   */
+/* ---- Rows: photo + circle side-by-side (fit-and-you reference) ---- *
+ *  Each row is a 2-col grid: photo (wider) | circle (square, same       *
+ *  height). Both columns fill the row height. No overlap.               */
 .problem__row {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: clamp(360px, 55vw, 680px);
-  /* rows bleed edge-to-edge */
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  align-items: stretch;
+  gap: 0;
+  min-height: clamp(280px, 38vw, 520px);
+}
+.problem__row--flip {
+  grid-template-columns: 2fr 3fr;
+  direction: rtl; /* reverses column order visually */
+}
+.problem__row--flip > * {
+  direction: ltr; /* restore content direction inside cells */
 }
 
-/* Photo cell: 58% from the left */
+/* Photo cell — full height, clips image */
 .problem__photo-cell {
   position: relative;
-  width: 58%;
-  align-self: stretch;
   overflow: hidden;
-  flex-shrink: 0;
 }
 .problem__photo-img {
   position: absolute;
@@ -926,37 +929,29 @@
   display: block;
 }
 
-/* Circle cell: fills remaining space, holds the circle centered on the edge */
+/* Circle cell — dark bg, circle centred inside */
 .problem__circle-cell {
-  flex: 1;
-  align-self: stretch;
-  position: relative;
   display: flex;
   align-items: center;
-  /* circle anchors to the left edge of this cell = right edge of photo */
-  justify-content: flex-start;
+  justify-content: center;
+  background: #000;
+  padding: clamp(1.5rem, 3vw, 3rem);
 }
 
-/* The bleed circle — positioned so its centre sits on the photo/bg boundary */
+/* The circle — fills most of the cell height */
 .problem__circle-inner {
-  --circle-size: clamp(240px, 38vw, 540px);
-  width: var(--circle-size);
-  height: var(--circle-size);
+  width: min(100%, clamp(160px, 22vw, 320px));
+  aspect-ratio: 1;
   border-radius: 50%;
-  background: #000;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
   text-align: center;
-  padding: 1.8em;
-  flex-shrink: 0;
-  /* Pull half the circle's width into the photo cell */
-  margin-left: calc(var(--circle-size) / -2);
-  position: relative;
-  z-index: 2;
+  padding: 1.5em;
   /* entrance animation */
   opacity: 0;
   transform: scale(0.65);
@@ -966,18 +961,6 @@
 .problem__circle-inner.is-revealed {
   opacity: 1;
   transform: scale(1);
-}
-
-/* Flipped row: photo on the right, circle bleeds from right */
-.problem__row--flip {
-  flex-direction: row-reverse;
-}
-.problem__row--flip .problem__circle-cell {
-  justify-content: flex-start;
-}
-.problem__row--flip .problem__circle-inner {
-  /* mirror: pull into photo from the left side */
-  margin-left: calc(var(--circle-size) / -2);
 }
 
 .problem__circle-num {
@@ -1001,26 +984,20 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Mobile: stack vertically, circle centered below photo */
-@media (max-width: 767px) {
+/* Mobile: keep side-by-side but shorter */
+@media (max-width: 600px) {
   .problem__row,
   .problem__row--flip {
-    flex-direction: column;
-    min-height: auto;
+    grid-template-columns: 3fr 2fr;
+    direction: ltr;
+    min-height: clamp(160px, 50vw, 260px);
   }
-  .problem__photo-cell {
-    width: 100%;
-    min-height: clamp(220px, 60vw, 400px);
+  .problem__row--flip {
+    grid-template-columns: 2fr 3fr;
   }
-  .problem__circle-cell {
-    width: 100%;
-    justify-content: center;
-    padding-block: clamp(2rem, 6vw, 3.5rem);
-  }
-  .problem__circle-inner,
-  .problem__row--flip .problem__circle-inner {
-    --circle-size: min(80vw, 280px);
-    margin-left: 0;
+  .problem__circle-inner {
+    width: min(100%, clamp(100px, 30vw, 180px));
+    padding: 1em;
   }
 }
 
