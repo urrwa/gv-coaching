@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127f">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127g">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261126k">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
@@ -54,7 +54,7 @@
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
   <script defer src="/assets/js/check.js?v=fitness-check-20261126"></script>
-  <script defer src="/assets/js/pages/home.js?v=20261127a"></script>
+  <script defer src="/assets/js/pages/home.js?v=20261127g"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
   <script defer src="/assets/js/pages/kontakt.js?v=copy-20261126"></script>
 
@@ -322,9 +322,10 @@
         <p class="services-bento__subtitle">Training, Ernährung, persönliche Begleitung und regelmäßiges Feedback&nbsp;–&nbsp;abgestimmt auf dich.</p>
       </header>
 
-      <!-- 3 simple cards — placeholder until final design is ready -->
+      <!-- 3 cards -->
       <div class="simple-cards">
 
+        <!-- Card 1: Training — simple -->
         <article class="simple-card">
           <div class="simple-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -338,27 +339,54 @@
           <p class="simple-card__desc">Übungen und Belastung abgestimmt auf deinen Trainingsstand und deine Ausstattung. 2–4 Einheiten pro Woche, für Home und Gym.</p>
         </article>
 
-        <article class="simple-card">
-          <div class="simple-card__icon" aria-hidden="true">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/>
-              <polyline points="10,16 14,20 22,12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Card 2: Fortschritt — full circle gauge -->
+        <article class="simple-card simple-card--infographic">
+          <div class="sc-gauge" aria-hidden="true">
+            <svg class="sc-gauge__svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <!-- Track circle -->
+              <circle class="sc-gauge__track" cx="60" cy="60" r="46" fill="none" stroke="rgba(110,168,255,0.12)" stroke-width="7" stroke-linecap="round"/>
+              <!-- Progress arc — 86% of full circle = 86% of 289 ≈ 248.5 dashoffset from 289 total -->
+              <circle class="sc-gauge__fill" id="scGaugeFill" cx="60" cy="60" r="46" fill="none"
+                stroke="#6ea8ff" stroke-width="7" stroke-linecap="round"
+                stroke-dasharray="289" stroke-dashoffset="289"
+                transform="rotate(-90 60 60)"/>
             </svg>
+            <div class="sc-gauge__center">
+              <span class="sc-gauge__num" id="scGaugeNum">0</span><span class="sc-gauge__pct">%</span>
+              <span class="sc-gauge__sub">WEEKLY<br>Check-in</span>
+            </div>
           </div>
           <h3 class="simple-card__title">Fortschritt</h3>
-          <p class="simple-card__desc">Wöchentliche Check-ins und Rückmeldungen. Dein Plan wird kontinuierlich an deine Entwicklung angepasst.</p>
+          <p class="simple-card__desc">Wöchentliche Rückmeldungen und Anpassungen an deine Entwicklung.</p>
         </article>
 
-        <article class="simple-card">
-          <div class="simple-card__icon" aria-hidden="true">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <path d="M16 4C10 4 6 9 6 14c0 6 6 14 10 14s10-8 10-14c0-5-4-10-10-10z" stroke="currentColor" stroke-width="2"/>
-              <line x1="16" y1="10" x2="16" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
-              <line x1="10" y1="16" x2="22" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
-            </svg>
+        <!-- Card 3: Ernährung — bar chart -->
+        <article class="simple-card simple-card--infographic">
+          <div class="sc-bars" aria-hidden="true">
+            <div class="sc-bars__chart">
+              <div class="sc-bars__group">
+                <div class="sc-bars__track">
+                  <div class="sc-bars__bar" data-target="78" style="height:0%"></div>
+                </div>
+                <span class="sc-bars__label">Protein</span>
+              </div>
+              <div class="sc-bars__group">
+                <div class="sc-bars__track">
+                  <div class="sc-bars__bar sc-bars__bar--mid" data-target="62" style="height:0%"></div>
+                </div>
+                <span class="sc-bars__label">Carbs</span>
+              </div>
+              <div class="sc-bars__group">
+                <div class="sc-bars__track">
+                  <div class="sc-bars__bar sc-bars__bar--light" data-target="50" style="height:0%"></div>
+                </div>
+                <span class="sc-bars__label">Spielraum</span>
+              </div>
+            </div>
+            <p class="sc-bars__caption">ALLTÄGLICHE ERNÄHRUNG</p>
           </div>
           <h3 class="simple-card__title">Ernährung</h3>
-          <p class="simple-card__desc">Klare Orientierung beim Essen, mit Spielraum für deinen Alltag. Kein Kalorienzählen, keine starren Verbote.</p>
+          <p class="simple-card__desc">Klare Orientierung beim Essen, mit Spielraum für deinen Alltag.</p>
         </article>
 
       </div><!-- /.simple-cards -->
