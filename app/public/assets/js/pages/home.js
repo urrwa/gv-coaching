@@ -723,22 +723,30 @@
     const pauseBtn = card.querySelector('[data-pause-infographic="fortschritt"]');
     if (!svgEl || !numEl) return;
 
-    /* Build 28 gauge segments dynamically */
+    /* Build 28 gauge segments dynamically — proper arcs along the semicircle */
     const TOTAL_SEGS = 28;
-    const R = 76;          // radius
-    const CX = 100, CY = 105;  // center (bottom-center of viewBox)
-    const START_DEG = 180; // leftmost point
-    const END_DEG   = 0;   // rightmost point
-    const GAP_DEG   = 4;   // gap between segments
-    const SEG_DEG   = (END_DEG - START_DEG + 360) / TOTAL_SEGS - GAP_DEG; // span each seg covers
+    const R   = 76;              // arc radius
+    const CX  = 100, CY = 108;  // center point (below midline so semicircle fits in 120-tall viewBox)
+    const GAP_DEG = 3.5;         // angular gap between segments (degrees)
+    // Full sweep: 180° left → 0° right (bottom semicircle, left-to-right)
+    // In SVG coords: 180° is left, 0° is right, angles measured clockwise from +X
+    const TOTAL_DEG   = 180;
+    const SEG_SPAN    = (TOTAL_DEG / TOTAL_SEGS) - GAP_DEG; // arc each segment fills
 
-    // We draw from 180° → 0° anticlockwise (i.e. sweep-flag=0 going right)
-    // Actually: start=180°, increment each seg by step going counterclockwise in SVG
-    const STEP = 180 / (TOTAL_SEGS - 1);
+    // Convert angle (0°=right, 90°=bottom, 180°=left, standard math)
+    // SVG uses clockwise, so: x = cx + r*cos(θ), y = cy - r*sin(θ)
+    function pt(deg) {
+      const rad = deg * Math.PI / 180;
+      return [CX + R * Math.cos(rad), CY - R * Math.sin(rad)];
+    }
 
-    function polar(deg) {
-      const rad = (deg - 90) * Math.PI / 180; // SVG: 0° = top
-      return [CX + R * Math.cos(rad), CY + R * Math.sin(rad)];
+    // Build SVG arc path string for a segment spanning [startDeg, endDeg]
+    // Segments go left→right: i=0 starts at 180°, i=27 ends at 0°
+    function arcPath(startDeg, endDeg) {
+      const [x1, y1] = pt(startDeg);
+      const [x2, y2] = pt(endDeg);
+      // large-arc-flag=0 (each seg < 180°), sweep-flag=0 (counter-clockwise in SVG = going left→right at top)
+      return `M ${x1.toFixed(3)} ${y1.toFixed(3)} A ${R} ${R} 0 0 0 ${x2.toFixed(3)} ${y2.toFixed(3)}`;
     }
 
     const segsGroup = svgEl.querySelector('#gaugeSegs') || svgEl.querySelector('.gauge-segs');
@@ -746,27 +754,25 @@
 
     const segEls = [];
     for (let i = 0; i < TOTAL_SEGS; i++) {
-      // Map 0 → leftmost (270° in standard), TOTAL_SEGS-1 → rightmost (90°)
-      // We want left-to-right: deg from 210° down to 30° (semicircle bottom)
-      const startAngle = 210 - i * (180 / (TOTAL_SEGS - 1));
-      const endAngle   = startAngle - (180 / TOTAL_SEGS - GAP_DEG * 0.9);
+      // i=0 → leftmost (180°), i=TOTAL_SEGS-1 → rightmost (~0°)
+      const segStart = 180 - i * (TOTAL_DEG / TOTAL_SEGS);            // leading edge
+      const segEnd   = segStart - SEG_SPAN;                             // trailing edge
 
-      const [x1, y1] = polar(startAngle + 90); // offset so 0=right in our coord
-      const [x2, y2] = polar(endAngle   + 90);
+      const d = arcPath(segStart, segEnd);
 
-      // Background segment
-      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      bg.setAttribute('x1', x1); bg.setAttribute('y1', y1);
-      bg.setAttribute('x2', x2); bg.setAttribute('y2', y2);
-      bg.setAttribute('stroke', 'rgba(110,168,255,0.1)');
+      // Background arc (always visible, dim)
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      bg.setAttribute('d', d);
+      bg.setAttribute('fill', 'none');
+      bg.setAttribute('stroke', 'rgba(110,168,255,0.12)');
       bg.setAttribute('stroke-width', '5');
       bg.setAttribute('stroke-linecap', 'round');
       segsGroup.appendChild(bg);
 
-      // Active segment (lit)
-      const on = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      on.setAttribute('x1', x1); on.setAttribute('y1', y1);
-      on.setAttribute('x2', x2); on.setAttribute('y2', y2);
+      // Active arc (lit when segment is on)
+      const on = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      on.setAttribute('d', d);
+      on.setAttribute('fill', 'none');
       on.setAttribute('stroke', '#6ea8ff');
       on.setAttribute('stroke-width', '5');
       on.setAttribute('stroke-linecap', 'round');
