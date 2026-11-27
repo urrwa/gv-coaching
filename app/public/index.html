@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127a">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127b">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261126k">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
@@ -328,37 +328,39 @@
         <article class="services-bento__card services-bento__card--large services-bento__card--img" data-bento="training">
           <img class="services-bento__card-img bento-bw" src="/assets/img/features-training-900.webp" alt="Training im Gym" loading="lazy" decoding="async" width="900" height="1200">
 
-          <!-- Floating animated metric bubbles -->
+          <!-- Floating animated icon orbs -->
           <div class="training-bubbles" aria-hidden="true">
-            <!-- Bubble 1: Einheiten pro Woche -->
+            <!-- Orb 1: 2–4 Einheiten / Woche -->
             <div class="tbubble tbubble--1">
-              <div class="tbubble__icon">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><line x1="5" y1="2" x2="5" y2="6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="11" y1="2" x2="11" y2="6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <div class="tbubble__orb">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="4" y="7" width="20" height="17" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                  <line x1="9" y1="4" x2="9" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="19" y1="4" x2="19" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="8" y1="16" x2="20" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+                </svg>
               </div>
-              <div class="tbubble__text">
-                <span class="tbubble__num">2–4</span>
-                <span class="tbubble__label">Einheiten / Woche</span>
-              </div>
+              <span class="tbubble__tag">2–4 / Woche</span>
             </div>
-            <!-- Bubble 2: Plan angepasst -->
+            <!-- Orb 2: Dein Plan angepasst -->
             <div class="tbubble tbubble--2">
-              <div class="tbubble__icon">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><polyline points="5,8 7,10 11,6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="tbubble__orb">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.8"/>
+                  <polyline points="9,14 12.5,17.5 19,11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="tbubble__text">
-                <span class="tbubble__label--main">Dein Plan</span>
-                <span class="tbubble__label">an dich angepasst</span>
-              </div>
+              <span class="tbubble__tag">Dein Plan</span>
             </div>
-            <!-- Bubble 3: Ausstattung -->
+            <!-- Orb 3: Home oder Gym -->
             <div class="tbubble tbubble--3">
-              <div class="tbubble__icon">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3,8 L6,5 L10,11 L13,8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="5" r="1.2" fill="currentColor"/></svg>
+              <div class="tbubble__orb">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M5 14L14 6L23 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 12V21H12V17H16V21H20V12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="tbubble__text">
-                <span class="tbubble__label--main">Jede Ausstattung</span>
-                <span class="tbubble__label">Home oder Gym</span>
-              </div>
+              <span class="tbubble__tag">Home & Gym</span>
             </div>
           </div>
 
