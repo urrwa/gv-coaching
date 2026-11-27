@@ -1039,10 +1039,18 @@
         word.style.opacity   = opacity;
       });
 
-      // ── Video reveal overlaps with KS exit ──
-      // Covers start opening when KS is 60% through its exit (as "LLING" begins),
-      // and are fully open by the time KS is completely gone (p=1 → revP=1 shortly after).
-      const revP = progress(p, 0.60, 1.0);
+    }
+
+    /* ═══════════ Stage 2 – video curtain reveal (driven by reveal stage scroll) ═══════════ */
+    function updateReveal() {
+      if (!revealStage) return;
+      const rect    = revealStage.getBoundingClientRect();
+      const stageH  = revealStage.offsetHeight;
+      const scrolled = -rect.top;
+
+      // Covers open during first 40% of the reveal stage scroll
+      const revP = progress(scrolled, 0, stageH * 0.40);
+
       if (coverLeft)  coverLeft.style.transform  = `translateY(${-revP * 100}%)`;
       if (coverRight) coverRight.style.transform = `translateY(${revP * 100}%)`;
 
@@ -1054,12 +1062,6 @@
         videoRevealed = false;
         if (playBtn) playBtn.classList.remove('is-visible');
       }
-    }
-
-    /* ═══════════ Stage 2 – hold period (video stays pinned, no extra animation) ═══════════ */
-    function updateReveal() {
-      // Nothing to drive here — reveal is handled inside updateKs() for overlap timing.
-      // This stage just provides scroll real-estate so the video holds on screen.
     }
 
     /* ═══════════ Stage 3 – Scroll-sequential card reveals ═══════════ */
