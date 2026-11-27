@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261126k">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127a">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261126k">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
@@ -54,7 +54,7 @@
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
   <script defer src="/assets/js/check.js?v=fitness-check-20261126"></script>
-  <script defer src="/assets/js/pages/home.js?v=20261126k"></script>
+  <script defer src="/assets/js/pages/home.js?v=20261127a"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
   <script defer src="/assets/js/pages/kontakt.js?v=copy-20261126"></script>
 
@@ -324,9 +324,44 @@
 
       <div class="services-bento__grid">
 
-        <!-- Card 1: Training — large left, full height -->
+        <!-- Card 1: Training — large left, B&W photo + floating metric bubbles -->
         <article class="services-bento__card services-bento__card--large services-bento__card--img" data-bento="training">
-          <img class="services-bento__card-img" src="/assets/img/features-training-900.webp" alt="Training im Gym" loading="lazy" decoding="async" width="900" height="1200">
+          <img class="services-bento__card-img bento-bw" src="/assets/img/features-training-900.webp" alt="Training im Gym" loading="lazy" decoding="async" width="900" height="1200">
+
+          <!-- Floating animated metric bubbles -->
+          <div class="training-bubbles" aria-hidden="true">
+            <!-- Bubble 1: Einheiten pro Woche -->
+            <div class="tbubble tbubble--1">
+              <div class="tbubble__icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><line x1="5" y1="2" x2="5" y2="6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="11" y1="2" x2="11" y2="6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div class="tbubble__text">
+                <span class="tbubble__num">2–4</span>
+                <span class="tbubble__label">Einheiten / Woche</span>
+              </div>
+            </div>
+            <!-- Bubble 2: Plan angepasst -->
+            <div class="tbubble tbubble--2">
+              <div class="tbubble__icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><polyline points="5,8 7,10 11,6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="tbubble__text">
+                <span class="tbubble__label--main">Dein Plan</span>
+                <span class="tbubble__label">an dich angepasst</span>
+              </div>
+            </div>
+            <!-- Bubble 3: Ausstattung -->
+            <div class="tbubble tbubble--3">
+              <div class="tbubble__icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3,8 L6,5 L10,11 L13,8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="5" r="1.2" fill="currentColor"/></svg>
+              </div>
+              <div class="tbubble__text">
+                <span class="tbubble__label--main">Jede Ausstattung</span>
+                <span class="tbubble__label">Home oder Gym</span>
+              </div>
+            </div>
+          </div>
+
           <div class="services-bento__card-body services-bento__card-body--center">
             <h3 class="services-bento__card-title">Training</h3>
             <p class="services-bento__card-desc">Übungen und Belastung abgestimmt auf deinen Trainingsstand und deine Ausstattung.</p>
@@ -354,47 +389,23 @@
           <!-- Bottom two: Fortschritt + Ernährung -->
           <div class="services-bento__bottom-row">
 
-            <!-- Card 3: Fortschritt — animated infographic card -->
+            <!-- Card 3: Fortschritt — segmented gauge + counting number -->
             <article class="services-bento__card services-bento__card--infographic" data-bento="fortschritt" data-infographic="fortschritt">
               <div class="infographic infographic--fortschritt" aria-hidden="true">
-                <p class="infographic__caption">Woche für Woche</p>
-                <div class="infographic__arc-wrap">
-                  <svg class="infographic__arc-svg" viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- 30 arc segments, each a short arc stroke -->
-                    <g class="arc-segments">
-                      <path class="arc-seg" d="M20.5,115 A90,90 0 0,1 26.0,86.5"/>
-                      <path class="arc-seg" d="M26.0,86.5 A90,90 0 0,1 36.5,61.5"/>
-                      <path class="arc-seg" d="M36.5,61.5 A90,90 0 0,1 51.5,41.0"/>
-                      <path class="arc-seg" d="M51.5,41.0 A90,90 0 0,1 70.5,26.0"/>
-                      <path class="arc-seg" d="M70.5,26.0 A90,90 0 0,1 92.5,17.5"/>
-                      <path class="arc-seg" d="M92.5,17.5 A90,90 0 0,1 115.5,16.0"/>
-                      <path class="arc-seg" d="M115.5,16.0 A90,90 0 0,1 138.0,22.0"/>
-                      <path class="arc-seg" d="M138.0,22.0 A90,90 0 0,1 157.5,34.5"/>
-                      <path class="arc-seg" d="M157.5,34.5 A90,90 0 0,1 173.5,52.5"/>
-                      <path class="arc-seg" d="M173.5,52.5 A90,90 0 0,1 183.5,74.5"/>
-                      <path class="arc-seg" d="M183.5,74.5 A90,90 0 0,1 187.0,98.5"/>
-                      <path class="arc-seg" d="M187.0,98.5 A90,90 0 0,1 183.5,122.0"/>
-                      <!-- inner path guide (thin blue) -->
+                <div class="gauge-wrap">
+                  <svg class="gauge-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <!-- 28 gauge segments arranged in a semicircle -->
+                    <g class="gauge-segs" id="gaugeSegs">
+                      <!-- Generated via JS at runtime: segments lit by data-seg index 0–27 -->
                     </g>
-                    <!-- Leading glow segment -->
-                    <path class="arc-lead" d="M20.5,115 A90,90 0 0,1 187,98" fill="none" stroke="rgba(110,168,255,0.12)" stroke-width="12" stroke-linecap="round"/>
-                    <!-- Main drawn arc -->
-                    <path class="arc-drawn"
-                      d="M20.5,115 A90,90 0 0,1 187,98"
-                      fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round"
-                      stroke-dasharray="380" stroke-dashoffset="380"/>
-                    <!-- Center text -->
-                    <text class="arc-center-text" x="110" y="88" text-anchor="middle" fill="#c8d8f0" font-size="10" font-family="inherit" letter-spacing="0.03em">Dein</text>
-                    <text class="arc-center-text" x="110" y="101" text-anchor="middle" fill="#c8d8f0" font-size="10" font-family="inherit" letter-spacing="0.03em">Wochen-Check</text>
+                    <!-- Center number display -->
+                    <text class="gauge-num" id="gaugeNum" x="100" y="90" text-anchor="middle" fill="#fff" font-size="32" font-family="inherit" font-weight="700">0</text>
+                    <text class="gauge-pct" x="128" y="90" text-anchor="middle" fill="rgba(110,168,255,0.8)" font-size="16" font-family="inherit" font-weight="600">%</text>
                   </svg>
-                </div>
-                <!-- Steps row -->
-                <div class="infographic__steps-row">
-                  <span class="infographic__step" data-step="0">Training</span>
-                  <span class="infographic__arrow" aria-hidden="true">→</span>
-                  <span class="infographic__step" data-step="1">Feedback</span>
-                  <span class="infographic__arrow" aria-hidden="true">→</span>
-                  <span class="infographic__step" data-step="2">Anpassen</span>
+                  <div class="gauge-label">
+                    <span class="gauge-label__main">Wöchentlicher</span>
+                    <span class="gauge-label__sub">Check-in</span>
+                  </div>
                 </div>
               </div>
               <div class="services-bento__card-body">
@@ -406,58 +417,31 @@
               </button>
             </article>
 
-            <!-- Card 4: Ernährung — animated infographic card -->
+            <!-- Card 4: Ernährung — animated growing bar chart -->
             <article class="services-bento__card services-bento__card--infographic" data-bento="ernaehrung" data-infographic="ernaehrung">
               <div class="infographic infographic--ernaehrung" aria-hidden="true">
-                <p class="infographic__caption">Passt in deinen Alltag</p>
-                <div class="infographic__plate-wrap">
-                  <svg class="infographic__plate-svg" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- Outer decorative ring -->
-                    <circle class="plate-ring-outer" cx="110" cy="78" r="52" fill="none" stroke="rgba(110,168,255,0.18)" stroke-width="1.5" stroke-dasharray="6 4"/>
-                    <!-- Inner ring -->
-                    <circle class="plate-ring-inner" cx="110" cy="78" r="38" fill="rgba(10,22,44,0.7)" stroke="rgba(110,168,255,0.35)" stroke-width="1"/>
-                    <!-- Plate symbol — stylised circle with fork/knife -->
-                    <circle cx="110" cy="78" r="24" fill="rgba(15,30,55,0.9)" stroke="rgba(110,168,255,0.4)" stroke-width="1"/>
-                    <line x1="104" y1="68" x2="104" y2="88" stroke="rgba(200,216,240,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-                    <line x1="110" y1="68" x2="110" y2="88" stroke="rgba(200,216,240,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M116,68 L116,76 Q116,80 120,80 L120,88" stroke="rgba(200,216,240,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-                    <!-- Ingredient labels around the ring -->
-                    <g class="plate-label" data-label="0">
-                      <rect x="51" y="38" width="52" height="18" rx="6" fill="rgba(10,22,44,0.85)" stroke="rgba(110,168,255,0.3)" stroke-width="1"/>
-                      <text x="77" y="51" text-anchor="middle" fill="#c8d8f0" font-size="9" font-family="inherit">Gemüse</text>
-                      <line x1="103" y1="47" x2="110" y2="58" stroke="rgba(110,168,255,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
-                    </g>
-                    <g class="plate-label" data-label="1">
-                      <rect x="124" y="62" width="50" height="18" rx="6" fill="rgba(10,22,44,0.85)" stroke="rgba(110,168,255,0.3)" stroke-width="1"/>
-                      <text x="149" y="75" text-anchor="middle" fill="#c8d8f0" font-size="9" font-family="inherit">Protein</text>
-                      <line x1="124" y1="71" x2="148" y2="71" stroke="rgba(110,168,255,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
-                    </g>
-                    <g class="plate-label" data-label="2">
-                      <rect x="51" y="104" width="52" height="18" rx="6" fill="rgba(10,22,44,0.85)" stroke="rgba(110,168,255,0.3)" stroke-width="1"/>
-                      <text x="77" y="117" text-anchor="middle" fill="#c8d8f0" font-size="9" font-family="inherit">Beilage</text>
-                      <line x1="103" y1="113" x2="110" y2="100" stroke="rgba(110,168,255,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
-                    </g>
-                    <!-- Context panels -->
-                    <g class="context-panel" data-context="zuhause">
-                      <rect x="6" y="62" width="56" height="34" rx="7" fill="rgba(10,22,44,0.9)" stroke="rgba(110,168,255,0.25)" stroke-width="1"/>
-                      <!-- house icon -->
-                      <polyline points="20,86 20,76 28,69 36,76 36,86" stroke="rgba(110,168,255,0.7)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                      <rect x="24" y="79" width="8" height="7" rx="1" stroke="rgba(110,168,255,0.7)" stroke-width="1.2" fill="none"/>
-                      <text x="44" y="80" text-anchor="middle" fill="#c8d8f0" font-size="8.5" font-family="inherit">Zu-</text>
-                      <text x="44" y="90" text-anchor="middle" fill="#c8d8f0" font-size="8.5" font-family="inherit">hause</text>
-                      <!-- connector line to plate -->
-                      <line x1="62" y1="79" x2="72" y2="79" stroke="rgba(110,168,255,0.3)" stroke-width="1" stroke-dasharray="3 2" class="context-line"/>
-                    </g>
-                    <g class="context-panel" data-context="unterwegs">
-                      <rect x="158" y="97" width="58" height="34" rx="7" fill="rgba(10,22,44,0.9)" stroke="rgba(110,168,255,0.25)" stroke-width="1"/>
-                      <!-- bag icon -->
-                      <rect x="167" y="108" width="14" height="12" rx="2" stroke="rgba(110,168,255,0.7)" stroke-width="1.3" fill="none"/>
-                      <path d="M169,108 Q169,104 174,104 Q179,104 179,108" stroke="rgba(110,168,255,0.7)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-                      <text x="192" y="117" text-anchor="middle" fill="#c8d8f0" font-size="8.5" font-family="inherit">Unter-</text>
-                      <text x="192" y="127" text-anchor="middle" fill="#c8d8f0" font-size="8.5" font-family="inherit">wegs</text>
-                      <line x1="158" y1="114" x2="148" y2="100" stroke="rgba(110,168,255,0.3)" stroke-width="1" stroke-dasharray="3 2" class="context-line"/>
-                    </g>
-                  </svg>
+                <div class="barchart-wrap">
+                  <div class="barchart">
+                    <div class="barchart__bar-group">
+                      <div class="barchart__bar-track">
+                        <div class="barchart__bar" data-bar="0" data-target="78" style="height:0%"></div>
+                      </div>
+                      <span class="barchart__label">Protein</span>
+                    </div>
+                    <div class="barchart__bar-group">
+                      <div class="barchart__bar-track">
+                        <div class="barchart__bar" data-bar="1" data-target="62" style="height:0%"></div>
+                      </div>
+                      <span class="barchart__label">Carbs</span>
+                    </div>
+                    <div class="barchart__bar-group">
+                      <div class="barchart__bar-track">
+                        <div class="barchart__bar barchart__bar--accent" data-bar="2" data-target="48" style="height:0%"></div>
+                      </div>
+                      <span class="barchart__label">Spielraum</span>
+                    </div>
+                  </div>
+                  <p class="barchart__caption">Alltagstaugliche Ernährung</p>
                 </div>
               </div>
               <div class="services-bento__card-body">

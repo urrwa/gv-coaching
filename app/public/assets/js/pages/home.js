@@ -679,195 +679,287 @@
 })();
 
 /* ================================================================
-   INFOGRAPHIC CARDS — Fortschritt + Ernährung
-   IntersectionObserver: start when visible, pause when off-screen
+   INFOGRAPHIC CARDS — reference-style animated infographics
+   Training bubbles (float), Fortschritt gauge (count-up),
+   Ernährung bar chart (grow)
    ================================================================ */
 (function infographicCards() {
   'use strict';
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- FORTSCHRITT ---- */
+  /* ---- Shared pause button helper ---- */
+  function makePauseToggle(pauseBtn, onPause, onResume) {
+    const PAUSE_SVG  = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor"/></svg>';
+    const PLAY_SVG   = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>';
+    let paused = false;
+    if (!pauseBtn) return () => paused;
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      if (paused) {
+        pauseBtn.setAttribute('aria-label', 'Animation fortsetzen');
+        pauseBtn.innerHTML = PLAY_SVG;
+        pauseBtn.setAttribute('data-paused', 'true');
+        onPause && onPause();
+      } else {
+        pauseBtn.setAttribute('aria-label', 'Animation pausieren');
+        pauseBtn.innerHTML = PAUSE_SVG;
+        pauseBtn.removeAttribute('data-paused');
+        onResume && onResume();
+      }
+    });
+    return () => paused;
+  }
+
+  /* ================================================================
+     FORTSCHRITT — segmented gauge + count-up number
+     ================================================================ */
   (function fortschrittCard() {
     const card = document.querySelector('[data-infographic="fortschritt"]');
     if (!card) return;
 
-    const arcDrawn   = card.querySelector('.arc-drawn');
-    const steps      = card.querySelectorAll('.infographic__step');
-    const pauseBtn   = card.querySelector('[data-pause-infographic="fortschritt"]');
+    const svgEl    = card.querySelector('.gauge-svg');
+    const numEl    = document.getElementById('gaugeNum');
+    const pauseBtn = card.querySelector('[data-pause-infographic="fortschritt"]');
+    if (!svgEl || !numEl) return;
 
-    let paused   = false;
-    let stepIdx  = -1;
-    let stepTimer = null;
+    /* Build 28 gauge segments dynamically */
+    const TOTAL_SEGS = 28;
+    const R = 76;          // radius
+    const CX = 100, CY = 105;  // center (bottom-center of viewBox)
+    const START_DEG = 180; // leftmost point
+    const END_DEG   = 0;   // rightmost point
+    const GAP_DEG   = 4;   // gap between segments
+    const SEG_DEG   = (END_DEG - START_DEG + 360) / TOTAL_SEGS - GAP_DEG; // span each seg covers
 
-    const STEP_TIMES = [0, 2200, 4400]; // ms offset within 7000ms cycle
+    // We draw from 180° → 0° anticlockwise (i.e. sweep-flag=0 going right)
+    // Actually: start=180°, increment each seg by step going counterclockwise in SVG
+    const STEP = 180 / (TOTAL_SEGS - 1);
 
-    function activateStep(idx) {
-      steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    function polar(deg) {
+      const rad = (deg - 90) * Math.PI / 180; // SVG: 0° = top
+      return [CX + R * Math.cos(rad), CY + R * Math.sin(rad)];
     }
 
-    function runStepSequence() {
-      if (paused || reduced) return;
-      STEP_TIMES.forEach((t, i) => {
-        setTimeout(() => {
-          if (!paused) activateStep(i);
-        }, t);
+    const segsGroup = svgEl.querySelector('#gaugeSegs') || svgEl.querySelector('.gauge-segs');
+    if (!segsGroup) return;
+
+    const segEls = [];
+    for (let i = 0; i < TOTAL_SEGS; i++) {
+      // Map 0 → leftmost (270° in standard), TOTAL_SEGS-1 → rightmost (90°)
+      // We want left-to-right: deg from 210° down to 30° (semicircle bottom)
+      const startAngle = 210 - i * (180 / (TOTAL_SEGS - 1));
+      const endAngle   = startAngle - (180 / TOTAL_SEGS - GAP_DEG * 0.9);
+
+      const [x1, y1] = polar(startAngle + 90); // offset so 0=right in our coord
+      const [x2, y2] = polar(endAngle   + 90);
+
+      // Background segment
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      bg.setAttribute('x1', x1); bg.setAttribute('y1', y1);
+      bg.setAttribute('x2', x2); bg.setAttribute('y2', y2);
+      bg.setAttribute('stroke', 'rgba(110,168,255,0.1)');
+      bg.setAttribute('stroke-width', '5');
+      bg.setAttribute('stroke-linecap', 'round');
+      segsGroup.appendChild(bg);
+
+      // Active segment (lit)
+      const on = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      on.setAttribute('x1', x1); on.setAttribute('y1', y1);
+      on.setAttribute('x2', x2); on.setAttribute('y2', y2);
+      on.setAttribute('stroke', '#6ea8ff');
+      on.setAttribute('stroke-width', '5');
+      on.setAttribute('stroke-linecap', 'round');
+      on.style.opacity = '0';
+      on.style.transition = 'opacity .15s ease';
+      segsGroup.appendChild(on);
+
+      segEls.push(on);
+    }
+
+    /* Count-up animation */
+    const TARGET = 86; // % shown — represents coaching completion/consistency
+    const CYCLE  = 2800; // ms to reach TARGET
+    let animFrame = null;
+    let startTime = null;
+    let currentVal = 0;
+    let litCount   = 0;
+    let running    = false;
+    let loopTimer  = null;
+
+    function lightSegs(count) {
+      segEls.forEach((el, i) => {
+        const lit = i < count;
+        el.style.opacity = lit ? '1' : '0';
+        // Glow on the leading edge segment
+        el.style.filter = (lit && i === count - 1)
+          ? 'drop-shadow(0 0 4px rgba(110,168,255,0.9))'
+          : 'none';
       });
-      // reset after arc loop (7s)
-      setTimeout(() => {
-        if (!paused) activateStep(-1);
-      }, 6500);
+    }
+
+    function animateTo(targetPct, duration, done) {
+      const startSeg  = litCount;
+      const targetSeg = Math.round(TOTAL_SEGS * targetPct / 100);
+      const startNum  = currentVal;
+      startTime = null;
+      cancelAnimationFrame(animFrame);
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        const p = Math.min((ts - startTime) / duration, 1);
+        const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; // easeInOut
+        const seg = Math.round(startSeg + (targetSeg - startSeg) * ease);
+        const num = Math.round(startNum + (targetPct - startNum) * ease);
+        lightSegs(seg);
+        numEl.textContent = num;
+        litCount   = seg;
+        currentVal = num;
+        if (p < 1) {
+          animFrame = requestAnimationFrame(step);
+        } else {
+          done && done();
+        }
+      }
+      animFrame = requestAnimationFrame(step);
+    }
+
+    function runCycle() {
+      if (!running) return;
+      // Reset
+      litCount = 0; currentVal = 0;
+      lightSegs(0); numEl.textContent = '0';
+      // Count up to TARGET over CYCLE ms
+      animateTo(TARGET, CYCLE, () => {
+        // Hold for 1.5s then fade out and restart
+        loopTimer = setTimeout(() => {
+          if (!running) return;
+          // Quick fade out
+          animateTo(0, 600, () => {
+            loopTimer = setTimeout(() => { if (running) runCycle(); }, 400);
+          });
+        }, 1500);
+      });
     }
 
     function startAnimation() {
       if (reduced) {
-        // Static: arc fully drawn, all steps visible
-        if (arcDrawn) {
-          arcDrawn.style.strokeDashoffset = '0';
-          arcDrawn.style.opacity = '1';
-        }
-        steps.forEach(s => s.classList.add('is-active'));
+        // Static: fully lit gauge at TARGET
+        lightSegs(TOTAL_SEGS);
+        numEl.textContent = TARGET;
         return;
       }
-      if (arcDrawn) arcDrawn.classList.add('is-animating');
-      runStepSequence();
-      // repeat step sequence every 7s to match keyframe loop
-      stepTimer = setInterval(runStepSequence, 7000);
+      running = true;
+      runCycle();
     }
 
     function stopAnimation() {
-      if (arcDrawn) arcDrawn.classList.remove('is-animating');
-      clearInterval(stepTimer);
-      activateStep(-1);
+      running = false;
+      cancelAnimationFrame(animFrame);
+      clearTimeout(loopTimer);
     }
 
-    function togglePause() {
-      paused = !paused;
-      if (paused) {
-        stopAnimation();
-        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation fortsetzen');
-        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>');
-        pauseBtn && pauseBtn.setAttribute('data-paused', 'true');
-      } else {
-        startAnimation();
-        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation pausieren');
-        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor"/></svg>');
-        pauseBtn && pauseBtn.removeAttribute('data-paused');
-      }
-    }
+    const isPaused = makePauseToggle(pauseBtn,
+      () => stopAnimation(),
+      () => startAnimation()
+    );
 
-    if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
-
-    // IntersectionObserver: play when >=30% visible, stop when off-screen
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting && !paused) {
+        if (e.isIntersecting && !isPaused()) {
           startAnimation();
-        } else if (!e.isIntersecting && !paused) {
+        } else if (!e.isIntersecting) {
           stopAnimation();
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
     obs.observe(card);
   })();
 
-  /* ---- ERNÄHRUNG ---- */
+  /* ================================================================
+     ERNÄHRUNG — animated growing bar chart
+     ================================================================ */
   (function ernaehrungCard() {
     const card = document.querySelector('[data-infographic="ernaehrung"]');
     if (!card) return;
 
-    const ring       = card.querySelector('.plate-ring-outer');
-    const labels     = card.querySelectorAll('.plate-label');
-    const contexts   = card.querySelectorAll('.context-panel');
-    const pauseBtn   = card.querySelector('[data-pause-infographic="ernaehrung"]');
+    const bars     = card.querySelectorAll('.barchart__bar');
+    const pauseBtn = card.querySelector('[data-pause-infographic="ernaehrung"]');
+    if (!bars.length) return;
 
-    let paused    = false;
-    let timers    = [];
-
-    // Staggered reveal timings (ms)
-    const LABEL_TIMES   = [600, 1400, 2200];
-    const CONTEXT_TIMES = [3000, 4200];
-    const CYCLE = 9000; // full loop
+    const TARGETS = [78, 62, 48]; // % heights (data-target on each bar)
+    const DELAYS  = [0, 280, 560]; // stagger ms
+    const GROW_MS = 900;
+    const HOLD_MS = 2200;
+    const SHRINK_MS = 600;
+    const PAUSE_MS  = 500;
+    let running = false;
+    let timers  = [];
 
     function clearTimers() {
-      timers.forEach(t => clearTimeout(t));
-      timers = [];
+      timers.forEach(t => clearTimeout(t)); timers = [];
     }
 
-    function hideAll() {
-      labels.forEach(l  => l.classList.remove('is-visible'));
-      contexts.forEach(c => c.classList.remove('is-visible'));
+    function setBarH(bar, pct, duration) {
+      bar.style.transitionDuration = duration + 'ms';
+      bar.style.height = pct + '%';
+    }
+
+    function resetBars() {
+      bars.forEach(b => setBarH(b, 0, 0));
     }
 
     function runCycle() {
-      if (paused || reduced) return;
-      hideAll();
-      LABEL_TIMES.forEach((t, i) => {
+      if (!running) return;
+      resetBars();
+      // Grow staggered
+      bars.forEach((bar, i) => {
         const tid = setTimeout(() => {
-          if (!paused && labels[i]) labels[i].classList.add('is-visible');
-        }, t);
+          if (!running) return;
+          setBarH(bar, TARGETS[i], GROW_MS);
+        }, DELAYS[i]);
         timers.push(tid);
       });
-      CONTEXT_TIMES.forEach((t, i) => {
-        const tid = setTimeout(() => {
-          if (!paused && contexts[i]) contexts[i].classList.add('is-visible');
-        }, t);
-        timers.push(tid);
-      });
-      // fade out before reset
-      const fadeOut = setTimeout(() => {
-        if (!paused) hideAll();
-      }, CYCLE - 700);
-      timers.push(fadeOut);
+      // Hold then shrink
+      const holdTid = setTimeout(() => {
+        if (!running) return;
+        bars.forEach(bar => setBarH(bar, 0, SHRINK_MS));
+        const nextTid = setTimeout(() => {
+          if (running) runCycle();
+        }, SHRINK_MS + PAUSE_MS);
+        timers.push(nextTid);
+      }, DELAYS[DELAYS.length - 1] + GROW_MS + HOLD_MS);
+      timers.push(holdTid);
     }
-
-    let cycleInterval = null;
 
     function startAnimation() {
       if (reduced) {
-        labels.forEach(l  => l.classList.add('is-visible'));
-        contexts.forEach(c => c.classList.add('is-visible'));
-        if (ring) ring.classList.add('is-animating');
+        bars.forEach((bar, i) => setBarH(bar, TARGETS[i], 0));
         return;
       }
-      if (ring) ring.classList.add('is-animating');
+      running = true;
       runCycle();
-      cycleInterval = setInterval(runCycle, CYCLE);
     }
 
     function stopAnimation() {
-      if (ring) ring.classList.remove('is-animating');
+      running = false;
       clearTimers();
-      clearInterval(cycleInterval);
-      hideAll();
+      resetBars();
     }
 
-    function togglePause() {
-      paused = !paused;
-      if (paused) {
-        stopAnimation();
-        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation fortsetzen');
-        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>');
-        pauseBtn && pauseBtn.setAttribute('data-paused', 'true');
-      } else {
-        startAnimation();
-        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation pausieren');
-        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor"/></svg>');
-        pauseBtn && pauseBtn.removeAttribute('data-paused');
-      }
-    }
-
-    if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
+    const isPaused = makePauseToggle(pauseBtn,
+      () => stopAnimation(),
+      () => startAnimation()
+    );
 
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting && !paused) {
+        if (e.isIntersecting && !isPaused()) {
           startAnimation();
-        } else if (!e.isIntersecting && !paused) {
+        } else if (!e.isIntersecting) {
           stopAnimation();
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
     obs.observe(card);
   })();
 

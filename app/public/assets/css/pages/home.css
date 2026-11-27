@@ -665,7 +665,7 @@
 }
 
 /* ================================================================
-   INFOGRAPHIC CARDS — Fortschritt + Ernährung animated SVG
+   INFOGRAPHIC CARDS — reference-style animated infographics
    ================================================================ */
 
 /* Card shell */
@@ -678,166 +678,292 @@
   align-items: stretch;
   gap: 0;
   padding: 0;
+  min-height: 320px;
 }
 
 /* Infographic visual area — fills upper portion of card */
 .infographic {
   position: relative;
   flex: 1 1 auto;
-  min-height: 170px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding: .9rem .9rem .4rem;
+  justify-content: center;
+  padding: 1rem .9rem .5rem;
   overflow: hidden;
 }
 
-/* Caption above SVG */
-.infographic__caption {
-  font-size: .68rem;
+/* Card body — fixed bottom strip */
+.services-bento__card--infographic .services-bento__card-body {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  padding: .9rem 1.1rem 1.1rem;
+  border-top: 1px solid rgba(110,168,255,0.08);
+  background: linear-gradient(to top, rgba(7,17,31,0.9) 0%, transparent 100%);
+}
+
+/* ================================================================
+   TRAINING CARD — B&W photo + floating bubbles
+   ================================================================ */
+
+/* B&W filter on training image */
+.bento-bw {
+  filter: grayscale(100%) brightness(0.7) contrast(1.1);
+}
+
+/* Bubble container — sits above photo */
+.training-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Individual bubble */
+.tbubble {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem .7rem .45rem .5rem;
+  border-radius: 12px;
+  background: rgba(7,17,31,0.82);
+  border: 1px solid rgba(110,168,255,0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #c8d8f0;
+  font-size: .72rem;
   font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(110,168,255,0.55);
-  margin: 0 0 .4rem;
-  text-align: center;
+  line-height: 1.25;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  animation: tbubbleFloat 4s ease-in-out infinite;
 }
 
-/* ---- Fortschritt infographic ---- */
-.infographic__arc-wrap {
-  width: 100%;
-  max-width: 220px;
-  margin: 0 auto;
+.tbubble--1 {
+  top: 18%;
+  left: 8%;
+  animation-delay: 0s;
+  animation-duration: 3.8s;
 }
-.infographic__arc-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
+.tbubble--2 {
+  top: 44%;
+  right: 7%;
+  animation-delay: -1.3s;
+  animation-duration: 4.4s;
 }
-
-/* Arc segments — faint background dots */
-.arc-seg {
-  fill: none;
-  stroke: rgba(110,168,255,0.14);
-  stroke-width: 3;
-  stroke-linecap: round;
+.tbubble--3 {
+  bottom: 22%;
+  left: 10%;
+  animation-delay: -2.6s;
+  animation-duration: 3.6s;
 }
 
-/* Main drawn arc — animates stroke-dashoffset */
-.arc-drawn {
-  transition: none;
-}
-
-/* Animated draw — uses CSS custom property set by JS */
-.arc-drawn.is-animating {
-  animation: arcDraw 7s ease-in-out infinite;
-}
-
-@keyframes arcDraw {
-  0%   { stroke-dashoffset: 380; opacity: 0.4; }
-  15%  { opacity: 1; }
-  65%  { stroke-dashoffset: 0; }
-  80%  { stroke-dashoffset: 0; opacity: 1; }
-  95%  { stroke-dashoffset: 380; opacity: 0.4; }
-  100% { stroke-dashoffset: 380; opacity: 0.4; }
+@keyframes tbubbleFloat {
+  0%, 100% { transform: translateY(0px); opacity: 0.88; }
+  50%       { transform: translateY(-6px); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .arc-drawn.is-animating {
-    animation: none;
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
+  .tbubble { animation: none; opacity: 1; }
 }
 
-/* Center label text */
-.arc-center-text {
-  font-family: var(--font-body, sans-serif);
-}
-
-/* Steps row below arc */
-.infographic__steps-row {
+/* Bubble icon wrapper */
+.tbubble__icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .35rem;
-  margin-top: .5rem;
-  flex-wrap: wrap;
-}
-
-.infographic__step {
-  font-size: .68rem;
-  font-weight: 600;
-  letter-spacing: .04em;
-  color: rgba(200,216,240,0.45);
-  padding: .2rem .5rem;
-  border-radius: 20px;
-  border: 1px solid rgba(110,168,255,0.12);
-  transition: color .3s ease, border-color .3s ease, background .3s ease;
-  white-space: nowrap;
-}
-
-.infographic__step.is-active {
+  border-radius: 7px;
+  background: rgba(110,168,255,0.14);
   color: #6ea8ff;
-  border-color: rgba(110,168,255,0.45);
-  background: rgba(110,168,255,0.08);
 }
 
-.infographic__arrow {
-  font-size: .6rem;
-  color: rgba(110,168,255,0.25);
+/* Bubble text lines */
+.tbubble__text {
+  display: flex;
+  flex-direction: column;
+  gap: .05rem;
+}
+.tbubble__num {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.tbubble__label {
+  font-size: .64rem;
+  font-weight: 500;
+  color: rgba(200,216,240,0.65);
+  line-height: 1.2;
+}
+.tbubble__label--main {
+  font-size: .72rem;
+  font-weight: 700;
+  color: #c8d8f0;
+  line-height: 1.1;
 }
 
-/* ---- Ernährung infographic ---- */
-.infographic__plate-wrap {
+/* ================================================================
+   FORTSCHRITT CARD — segmented gauge + count-up number
+   ================================================================ */
+
+.gauge-wrap {
   width: 100%;
-  max-width: 220px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
 }
-.infographic__plate-svg {
+
+.gauge-svg {
   width: 100%;
+  max-width: 200px;
   height: auto;
   display: block;
   overflow: visible;
 }
 
-/* Plate labels — fade in staggered */
-.plate-label {
-  opacity: 0;
-  transition: opacity .4s ease;
+/* Gauge segment paths — built by JS */
+.gauge-seg-bg {
+  fill: none;
+  stroke: rgba(110,168,255,0.1);
+  stroke-width: 6;
+  stroke-linecap: round;
 }
-.plate-label.is-visible { opacity: 1; }
-
-/* Context panels — fade + slide up */
-.context-panel {
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity .4s ease, transform .4s ease;
+.gauge-seg-on {
+  fill: none;
+  stroke: #6ea8ff;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: opacity .15s ease;
 }
-.context-panel.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Outer ring spin animation */
-.plate-ring-outer.is-animating {
-  animation: ringRotate 20s linear infinite;
-  transform-origin: 110px 78px;
+.gauge-seg-on.gauge-glow {
+  stroke: #9ec4ff;
+  filter: drop-shadow(0 0 4px rgba(110,168,255,0.7));
 }
 
-@keyframes ringRotate {
-  to { transform: rotate(360deg); }
+/* Count-up number */
+.gauge-num {
+  font-family: var(--font-display, inherit);
+  letter-spacing: -.01em;
+}
+.gauge-pct {
+  font-family: var(--font-body, inherit);
+}
+
+/* Label below gauge */
+.gauge-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .15rem;
+  margin-top: -.4rem;
+}
+.gauge-label__main {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: rgba(110,168,255,0.6);
+}
+.gauge-label__sub {
+  font-size: .78rem;
+  font-weight: 700;
+  color: #c8d8f0;
+  letter-spacing: .02em;
+}
+
+/* Reduced motion: show full gauge static */
+@media (prefers-reduced-motion: reduce) {
+  .gauge-seg-on { transition: none; }
+}
+
+/* ================================================================
+   ERNÄHRUNG CARD — animated growing bar chart
+   ================================================================ */
+
+.barchart-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  padding: 0 .5rem;
+}
+
+.barchart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.1rem;
+  width: 100%;
+  height: 110px;
+}
+
+.barchart__bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  flex: 1;
+  max-width: 52px;
+}
+
+.barchart__bar-track {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 6px 6px 0 0;
+  background: rgba(110,168,255,0.07);
+  overflow: hidden;
+}
+
+.barchart__bar {
+  width: 100%;
+  background: linear-gradient(to top, rgba(110,168,255,0.9) 0%, rgba(110,168,255,0.5) 100%);
+  border-radius: 4px 4px 0 0;
+  transition: height .6s cubic-bezier(.22,.61,.36,1);
+  box-shadow: 0 -2px 12px rgba(110,168,255,0.2);
+}
+
+/* Last bar (Spielraum) — lighter / accent */
+.barchart__bar--accent {
+  background: linear-gradient(to top, rgba(110,168,255,0.55) 0%, rgba(110,168,255,0.25) 100%);
+  box-shadow: 0 -1px 8px rgba(110,168,255,0.1);
+}
+
+.barchart__label {
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: rgba(200,216,240,0.55);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.barchart__caption {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(110,168,255,0.5);
+  margin: 0;
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .plate-ring-outer.is-animating { animation: none; }
-  .plate-label { opacity: 1 !important; }
-  .context-panel { opacity: 1 !important; transform: none !important; }
+  .barchart__bar { transition: none; }
 }
 
-/* ---- Pause button ---- */
+/* ================================================================
+   PAUSE BUTTON (shared by both infographic cards)
+   ================================================================ */
+
 .infographic__pause-btn {
   position: absolute;
   bottom: .6rem;
@@ -861,24 +987,6 @@
   color: #6ea8ff;
   border-color: rgba(110,168,255,0.5);
   background: rgba(10,22,44,0.9);
-}
-.infographic__pause-btn[data-paused="true"] svg rect:first-child {
-  /* Show play icon when paused — handled via JS innerHTML swap */
-}
-
-/* Card body in infographic cards — fixed bottom strip, does NOT grow */
-.services-bento__card--infographic .services-bento__card-body {
-  position: relative;
-  z-index: 1;
-  flex: 0 0 auto;
-  padding: .9rem 1.1rem 1.1rem;
-  border-top: 1px solid rgba(110,168,255,0.08);
-  background: linear-gradient(to top, rgba(7,17,31,0.9) 0%, transparent 100%);
-}
-
-/* Infographic cards need enough room to show the visual */
-.services-bento__card--infographic {
-  min-height: 320px;
 }
 
 /* ---- old stats-bar kept for safety (now unused) ---- */
