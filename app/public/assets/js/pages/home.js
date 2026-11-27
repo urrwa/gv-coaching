@@ -677,3 +677,198 @@
   }, { threshold: 0.15 });
   obs.observe(section);
 })();
+
+/* ================================================================
+   INFOGRAPHIC CARDS — Fortschritt + Ernährung
+   IntersectionObserver: start when visible, pause when off-screen
+   ================================================================ */
+(function infographicCards() {
+  'use strict';
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- FORTSCHRITT ---- */
+  (function fortschrittCard() {
+    const card = document.querySelector('[data-infographic="fortschritt"]');
+    if (!card) return;
+
+    const arcDrawn   = card.querySelector('.arc-drawn');
+    const steps      = card.querySelectorAll('.infographic__step');
+    const pauseBtn   = card.querySelector('[data-pause-infographic="fortschritt"]');
+
+    let paused   = false;
+    let stepIdx  = -1;
+    let stepTimer = null;
+
+    const STEP_TIMES = [0, 2200, 4400]; // ms offset within 7000ms cycle
+
+    function activateStep(idx) {
+      steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    }
+
+    function runStepSequence() {
+      if (paused || reduced) return;
+      STEP_TIMES.forEach((t, i) => {
+        setTimeout(() => {
+          if (!paused) activateStep(i);
+        }, t);
+      });
+      // reset after arc loop (7s)
+      setTimeout(() => {
+        if (!paused) activateStep(-1);
+      }, 6500);
+    }
+
+    function startAnimation() {
+      if (reduced) {
+        // Static: arc fully drawn, all steps visible
+        if (arcDrawn) {
+          arcDrawn.style.strokeDashoffset = '0';
+          arcDrawn.style.opacity = '1';
+        }
+        steps.forEach(s => s.classList.add('is-active'));
+        return;
+      }
+      if (arcDrawn) arcDrawn.classList.add('is-animating');
+      runStepSequence();
+      // repeat step sequence every 7s to match keyframe loop
+      stepTimer = setInterval(runStepSequence, 7000);
+    }
+
+    function stopAnimation() {
+      if (arcDrawn) arcDrawn.classList.remove('is-animating');
+      clearInterval(stepTimer);
+      activateStep(-1);
+    }
+
+    function togglePause() {
+      paused = !paused;
+      if (paused) {
+        stopAnimation();
+        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation fortsetzen');
+        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>');
+        pauseBtn && pauseBtn.setAttribute('data-paused', 'true');
+      } else {
+        startAnimation();
+        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation pausieren');
+        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor"/></svg>');
+        pauseBtn && pauseBtn.removeAttribute('data-paused');
+      }
+    }
+
+    if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
+
+    // IntersectionObserver: play when >=30% visible, stop when off-screen
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !paused) {
+          startAnimation();
+        } else if (!e.isIntersecting && !paused) {
+          stopAnimation();
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(card);
+  })();
+
+  /* ---- ERNÄHRUNG ---- */
+  (function ernaehrungCard() {
+    const card = document.querySelector('[data-infographic="ernaehrung"]');
+    if (!card) return;
+
+    const ring       = card.querySelector('.plate-ring-outer');
+    const labels     = card.querySelectorAll('.plate-label');
+    const contexts   = card.querySelectorAll('.context-panel');
+    const pauseBtn   = card.querySelector('[data-pause-infographic="ernaehrung"]');
+
+    let paused    = false;
+    let timers    = [];
+
+    // Staggered reveal timings (ms)
+    const LABEL_TIMES   = [600, 1400, 2200];
+    const CONTEXT_TIMES = [3000, 4200];
+    const CYCLE = 9000; // full loop
+
+    function clearTimers() {
+      timers.forEach(t => clearTimeout(t));
+      timers = [];
+    }
+
+    function hideAll() {
+      labels.forEach(l  => l.classList.remove('is-visible'));
+      contexts.forEach(c => c.classList.remove('is-visible'));
+    }
+
+    function runCycle() {
+      if (paused || reduced) return;
+      hideAll();
+      LABEL_TIMES.forEach((t, i) => {
+        const tid = setTimeout(() => {
+          if (!paused && labels[i]) labels[i].classList.add('is-visible');
+        }, t);
+        timers.push(tid);
+      });
+      CONTEXT_TIMES.forEach((t, i) => {
+        const tid = setTimeout(() => {
+          if (!paused && contexts[i]) contexts[i].classList.add('is-visible');
+        }, t);
+        timers.push(tid);
+      });
+      // fade out before reset
+      const fadeOut = setTimeout(() => {
+        if (!paused) hideAll();
+      }, CYCLE - 700);
+      timers.push(fadeOut);
+    }
+
+    let cycleInterval = null;
+
+    function startAnimation() {
+      if (reduced) {
+        labels.forEach(l  => l.classList.add('is-visible'));
+        contexts.forEach(c => c.classList.add('is-visible'));
+        if (ring) ring.classList.add('is-animating');
+        return;
+      }
+      if (ring) ring.classList.add('is-animating');
+      runCycle();
+      cycleInterval = setInterval(runCycle, CYCLE);
+    }
+
+    function stopAnimation() {
+      if (ring) ring.classList.remove('is-animating');
+      clearTimers();
+      clearInterval(cycleInterval);
+      hideAll();
+    }
+
+    function togglePause() {
+      paused = !paused;
+      if (paused) {
+        stopAnimation();
+        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation fortsetzen');
+        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>');
+        pauseBtn && pauseBtn.setAttribute('data-paused', 'true');
+      } else {
+        startAnimation();
+        pauseBtn && pauseBtn.setAttribute('aria-label', 'Animation pausieren');
+        pauseBtn && (pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor"/></svg>');
+        pauseBtn && pauseBtn.removeAttribute('data-paused');
+      }
+    }
+
+    if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !paused) {
+          startAnimation();
+        } else if (!e.isIntersecting && !paused) {
+          stopAnimation();
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(card);
+  })();
+
+})();
