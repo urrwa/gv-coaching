@@ -470,9 +470,9 @@
   pointer-events: none;
 }
 
-/* Training large card — cinematic blur, full body visible */
+/* Training large card — B&W + cinematic blur */
 .services-bento__card--large .services-bento__card-img {
-  filter: blur(1px);
+  filter: grayscale(100%) brightness(0.72) contrast(1.1) blur(0.5px);
   transform: scale(1.04);
   object-position: center 42%;
 }
@@ -710,7 +710,7 @@
 
 /* B&W filter on training image */
 .bento-bw {
-  filter: grayscale(100%) brightness(0.7) contrast(1.1);
+  filter: grayscale(100%) brightness(0.72) contrast(1.1);
 }
 
 /* Bubble container — sits above photo */
