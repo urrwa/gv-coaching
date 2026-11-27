@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127g">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127h">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261126k">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
@@ -470,92 +470,43 @@
 
 
 <!-- ============ 03 PROBLEM ============ -->
-<section class="problem section" data-theme="dark" id="problem">
+<section class="problem-cards section" data-theme="dark" id="problem">
+  <div class="container">
 
-  <!-- Heading -->
-  <div class="problem__head-wrap" data-problem-head>
-    <div class="container">
-      <p class="eyebrow problem__eyebrow" data-reveal="up">Wenn der Alltag dazwischenkommt</p>
-    </div>
-    <div class="problem__heading-track" aria-hidden="true">
-      <div class="problem__heading-line" data-problem-line="1">
-        <span class="problem__word" data-word>ALLTAG</span>
-        <span class="problem__gap" data-problem-gap>
-          <svg class="problem__star" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <path d="M24 0 L26 20 L48 24 L26 28 L24 48 L22 28 L0 24 L22 20 Z" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="problem__word" data-word>PLAN.</span>
-      </div>
-      <div class="problem__heading-line" data-problem-line="2">
-        <span class="problem__word" data-word>VERANDERT.</span>
-      </div>
-    </div>
-  </div>
+    <h2 class="problem-cards__heading">Wenn der Alltag dazwischenkommt</h2>
 
-  <!-- 5-column grid layout (inspired by fit-and-you reference) -->
-  <div class="problem__grid">
+    <div class="problem-cards__grid">
 
-    <!-- GROUP A: top row — col1 square photo + col2 circle + empty col3 + col4-5 wide photo -->
-    <div class="problem__g-photo problem__g-photo--a" data-problem-row="1">
-      <img
-        class="problem__photo-img"
-        src="/assets/img/problem-circle1-900.webp"
-        alt="Gabriel Vogt beim Training mit einem Klienten"
-        width="900" height="900"
-        loading="lazy" decoding="async"
-      >
-    </div>
+      <article class="problem-card">
+        <h3 class="problem-card__title">Wenig Zeit oder Training verpasst?</h3>
+        <ul class="problem-card__list">
+          <li>Die wichtigsten Übungen zuerst.</li>
+          <li>Den Umfang an deine verfügbare Zeit anpassen.</li>
+          <li>Die restliche Trainingswoche sinnvoll planen.</li>
+        </ul>
+      </article>
 
-    <div class="problem__g-circle problem__g-circle--a" data-problem-circle="1">
-      <div class="problem__circle-inner">
-        <span class="problem__circle-num">01</span>
-        <span class="problem__circle-label" data-scramble="WENIG ZEIT. EINHEIT VERPASST.">WENIG ZEIT. EINHEIT VERPASST.</span>
-      </div>
-    </div>
+      <article class="problem-card">
+        <h3 class="problem-card__title">Andere Geräte oder unterwegs?</h3>
+        <ul class="problem-card__list">
+          <li>Passende Übungen für deine Ausstattung auswählen.</li>
+          <li>Training und Ernährung auf Reisen vereinfachen.</li>
+          <li>Nach deiner Rückkehr den Plan wieder anpassen.</li>
+        </ul>
+      </article>
 
-    <!-- col3: intentionally empty -->
-    <div class="problem__g-empty" aria-hidden="true"></div>
+      <article class="problem-card">
+        <h3 class="problem-card__title">Gerade kein Fortschritt?</h3>
+        <ul class="problem-card__list">
+          <li>Trainingsleistung und Umsetzung prüfen.</li>
+          <li>Deinen bisherigen Verlauf gemeinsam besprechen.</li>
+          <li>Den Plan bei Bedarf gezielt anpassen.</li>
+        </ul>
+      </article>
 
-    <div class="problem__g-photo problem__g-photo--wide" data-problem-row="2">
-      <img
-        class="problem__photo-img"
-        src="/assets/img/problem-circle2-1200.webp"
-        alt="Gabriel Vogt beim Dumbbell Training"
-        width="1200" height="900"
-        loading="lazy" decoding="async"
-      >
-    </div>
-
-    <!-- GROUP B: second circle — col4, below wide photo -->
-    <div class="problem__g-circle problem__g-circle--b" data-problem-circle="2">
-      <div class="problem__circle-inner">
-        <span class="problem__circle-num">02</span>
-        <span class="problem__circle-label" data-scramble="ANDERE GERÄTE. UNTERWEGS.">ANDERE GERÄTE. UNTERWEGS.</span>
-      </div>
-    </div>
-
-    <!-- GROUP C: third circle — col1, further down -->
-    <div class="problem__g-circle problem__g-circle--c" data-problem-circle="3">
-      <div class="problem__circle-inner">
-        <span class="problem__circle-num">03</span>
-        <span class="problem__circle-label" data-scramble="FORTSCHRITT BLEIBT AUS.">FORTSCHRITT BLEIBT AUS.</span>
-      </div>
-    </div>
-
-    <!-- GROUP D: final video — col2-5, 2:1 ratio -->
-    <div class="problem__g-video">
-      <video
-        class="problem__video"
-        src="/assets/video/gv-training-loop.mp4"
-        autoplay muted loop playsinline
-        aria-label="Gabriel Vogt Training Loop"
-      ></video>
     </div>
 
   </div>
-
-
 </section>
 
 <!-- ============ 04 WHO IT'S FOR ============ -->
