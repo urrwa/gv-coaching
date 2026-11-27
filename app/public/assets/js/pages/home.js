@@ -1014,6 +1014,7 @@
 
     /* ═══════════ Stage 1 – KEEP SCROLLING letter exit ═══════════ */
     const totalWords = ksWords.length;
+    let videoRevealed = false;
 
     function updateKs() {
       if (!ksStage) return;
@@ -1068,7 +1069,12 @@
       updateCards();
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Lenis intercepts native scroll events — hook into Lenis when available
+    if (window.PM && window.PM.lenis) {
+      window.PM.lenis.on('scroll', onScroll);
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
     onScroll(); // run once on load
 
     /* ═══════════ Video play/pause button ═══════════ */
