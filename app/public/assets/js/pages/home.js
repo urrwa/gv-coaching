@@ -999,7 +999,8 @@
       if (coverLeft)  coverLeft.style.transform  = 'translateY(-100%)';
       if (coverRight) coverRight.style.transform = 'translateY(100%)';
       if (playBtn)  { playBtn.classList.add('is-visible'); }
-      steps.forEach(s => s.classList.add('is-revealed'));
+      // Reveal all 3 steps immediately
+      section.querySelectorAll('.alltag__step').forEach(s => s.classList.add('is-revealed'));
       if (video) {
         video.play().catch(() => {});
       }
@@ -1064,6 +1065,7 @@
     function onScroll() {
       updateKs();
       updateReveal();
+      updateCards();
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -1071,51 +1073,56 @@
 
     /* ═══════════ Video play/pause button ═══════════ */
     if (playBtn && video) {
+      function setPlayState(playing) {
+        if (pauseIcon) pauseIcon.style.display = playing ? '' : 'none';
+        if (playIcon)  playIcon.style.display  = playing ? 'none' : '';
+        playBtn.setAttribute('aria-label', playing ? 'Video pausieren' : 'Video abspielen');
+      }
+
+      // Sync icon to actual video state
+      video.addEventListener('play',  () => setPlayState(true));
+      video.addEventListener('pause', () => setPlayState(false));
+
       playBtn.addEventListener('click', () => {
         if (video.paused) {
           video.play().catch(() => {});
-          if (pauseIcon) pauseIcon.style.display = '';
-          if (playIcon)  playIcon.style.display  = 'none';
-          playBtn.setAttribute('aria-label', 'Video pausieren');
         } else {
           video.pause();
-          if (pauseIcon) pauseIcon.style.display = 'none';
-          if (playIcon)  playIcon.style.display  = '';
-          playBtn.setAttribute('aria-label', 'Video abspielen');
         }
       });
 
-      // Pause when scrolled out of view
+      // Pause when scrolled fully out of view
       const videoObs = new IntersectionObserver((entries) => {
         entries.forEach(e => {
-          if (!e.isIntersecting && !video.paused) {
-            video.pause();
-            if (pauseIcon) pauseIcon.style.display = 'none';
-            if (playIcon)  playIcon.style.display  = '';
-            playBtn.setAttribute('aria-label', 'Video abspielen');
-          }
+          if (!e.isIntersecting && !video.paused) video.pause();
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0 });
       videoObs.observe(revealStage || section);
     }
 
-    /* ═══════════ Stage 3 – Staircase step reveals ═══════════ */
-    if (steps.length) {
-      const stepObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-revealed');
-          } else {
-            // Reversible: remove class when scrolled back above
-            const rect = e.target.getBoundingClientRect();
-            if (rect.top > window.innerHeight * 0.5) {
-              e.target.classList.remove('is-revealed');
-            }
-          }
-        });
-      }, { threshold: 0.25, rootMargin: '0px 0px -80px 0px' });
+    /* ═══════════ Stage 3 – Scroll-sequential card reveals ═══════════ */
+    const cardsStage = section.querySelector('.alltag__cards-stage');
+    const allSteps   = section.querySelectorAll('.alltag__step');  // all 3
 
-      steps.forEach(step => stepObs.observe(step));
+    function updateCards() {
+      if (!cardsStage || !allSteps.length) return;
+      const rect   = cardsStage.getBoundingClientRect();
+      const stageH = cardsStage.offsetHeight;
+      const scrolled = -rect.top;
+
+      // 350vh stage: each card gets ~100vh of scroll, first card at 0–1/3, etc.
+      // thresholds: card 1 at 0%, card 2 at 25%, card 3 at 50% of stage
+      const thresholds = [0.0, 0.25, 0.50];
+
+      allSteps.forEach((step, i) => {
+        const start = stageH * thresholds[i];
+        const p = Math.min(1, Math.max(0, (scrolled - start) / (stageH * 0.08)));
+        if (p > 0) {
+          step.classList.add('is-revealed');
+        } else {
+          step.classList.remove('is-revealed');
+        }
+      });
     }
 
   })();
