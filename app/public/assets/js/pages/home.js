@@ -1062,6 +1062,31 @@
       // This stage just provides scroll real-estate so the video holds on screen.
     }
 
+    /* ═══════════ Stage 3 – Scroll-sequential card reveals ═══════════ */
+    const cardsStage = section.querySelector('.alltag__cards-stage');
+    const allSteps   = section.querySelectorAll('.alltag__step');  // all 3
+
+    function updateCards() {
+      if (!cardsStage || !allSteps.length) return;
+      const rect   = cardsStage.getBoundingClientRect();
+      const stageH = cardsStage.offsetHeight;
+      const scrolled = -rect.top;
+
+      // 350vh stage: each card gets ~100vh of scroll, first card at 0–1/3, etc.
+      // thresholds: card 1 at 0%, card 2 at 25%, card 3 at 50% of stage
+      const thresholds = [0.0, 0.25, 0.50];
+
+      allSteps.forEach((step, i) => {
+        const start = stageH * thresholds[i];
+        const p = Math.min(1, Math.max(0, (scrolled - start) / (stageH * 0.08)));
+        if (p > 0) {
+          step.classList.add('is-revealed');
+        } else {
+          step.classList.remove('is-revealed');
+        }
+      });
+    }
+
     /* ═══════════ Scroll handler ═══════════ */
     function onScroll() {
       updateKs();
@@ -1104,31 +1129,6 @@
         });
       }, { threshold: 0 });
       videoObs.observe(revealStage || section);
-    }
-
-    /* ═══════════ Stage 3 – Scroll-sequential card reveals ═══════════ */
-    const cardsStage = section.querySelector('.alltag__cards-stage');
-    const allSteps   = section.querySelectorAll('.alltag__step');  // all 3
-
-    function updateCards() {
-      if (!cardsStage || !allSteps.length) return;
-      const rect   = cardsStage.getBoundingClientRect();
-      const stageH = cardsStage.offsetHeight;
-      const scrolled = -rect.top;
-
-      // 350vh stage: each card gets ~100vh of scroll, first card at 0–1/3, etc.
-      // thresholds: card 1 at 0%, card 2 at 25%, card 3 at 50% of stage
-      const thresholds = [0.0, 0.25, 0.50];
-
-      allSteps.forEach((step, i) => {
-        const start = stageH * thresholds[i];
-        const p = Math.min(1, Math.max(0, (scrolled - start) / (stageH * 0.08)));
-        if (p > 0) {
-          step.classList.add('is-revealed');
-        } else {
-          step.classList.remove('is-revealed');
-        }
-      });
     }
 
   })();
