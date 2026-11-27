@@ -1287,16 +1287,13 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden; /* clips the cover panels during animation */
 }
 
 .alltag__video-wrap {
   position: relative;
   width: 100%;
-  /* Cinematic: ~56% height of viewport, full width */
-  height: clamp(320px, 56vh, 680px);
+  height: 100%; /* fills entire sticky = full viewport */
   overflow: hidden;
 }
 
@@ -1310,33 +1307,30 @@
   display: block;
 }
 
-/* Cover panels — both are navy, same colour as page background */
+/* Cover panels — both navy, split top/bottom to reveal like a curtain */
 .alltag__cover {
   position: absolute;
-  width: 50%;
+  width: 100%;
+  height: 50%;
   background: var(--site-bg);
   transition: none; /* driven by JS scroll, not CSS */
   will-change: transform;
   z-index: 2;
 }
 
-/* Left cover: anchored top, retreats upward → translateY(-100%) when done */
+/* Top cover: anchored to top, retreats upward → translateY(-100%) */
 .alltag__cover--left {
   left: 0;
   top: 0;
-  height: 100%;
-  transform-origin: top left;
-  /* Start fully covering left half */
+  transform-origin: top center;
   transform: translateY(0%);
 }
 
-/* Right cover: anchored bottom, retreats downward → translateY(100%) when done */
+/* Bottom cover: anchored to bottom, retreats downward → translateY(100%) */
 .alltag__cover--right {
-  right: 0;
+  left: 0;
   bottom: 0;
-  height: 100%;
-  transform-origin: bottom right;
-  /* Start fully covering right half */
+  transform-origin: bottom center;
   transform: translateY(0%);
 }
 
@@ -1544,6 +1538,7 @@
     height: auto;
     padding-block: 4rem;
   }
+  .alltag__reveal-sticky { min-height: 56vw; }
   .alltag__cover { display: none; }
   .alltag__play-btn { opacity: 1; pointer-events: auto; }
   .alltag__cards-stage { height: auto; }
@@ -1559,8 +1554,6 @@
   .alltag__ks-stage  { height: 160vh; }
   .alltag__reveal-stage { height: 200vh; }
   .alltag__ks-text { font-size: clamp(2rem, 10vw, 3.5rem); letter-spacing: 0.05em; }
-
-  .alltag__video-wrap { height: 56vw; min-height: 220px; }
 
   .alltag__cards-stage { height: auto; }
   .alltag__cards-sticky { position: static; height: auto; padding-block: clamp(3rem, 6vw, 5rem); }
