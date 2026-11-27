@@ -969,4 +969,159 @@
     obs.observe(card);
   })();
 
+  /* ═══════════════════════════════════════════════════════════════
+     04  ALLTAG SCROLL SEQUENCE
+     ─────────────────────────────────────────────────────────────
+     Stage 1 – KEEP SCROLLING letter exit (scroll-linked)
+     Stage 2 – Opposing mask video reveal (scroll-linked)
+     Stage 3 – Staircase cards (IntersectionObserver)
+     ═══════════════════════════════════════════════════════════════ */
+  (function alltagSequence() {
+    const section   = document.querySelector('.alltag');
+    if (!section) return;
+
+    const reduced   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── DOM refs ── */
+    const ksStage       = section.querySelector('.alltag__ks-stage');
+    const ksWords       = section.querySelectorAll('.ks-word');
+    const revealStage   = section.querySelector('.alltag__reveal-stage');
+    const coverLeft     = section.querySelector('.alltag__cover--left');
+    const coverRight    = section.querySelector('.alltag__cover--right');
+    const video         = section.querySelector('#alltagVideo');
+    const playBtn       = section.querySelector('#alltagPlayBtn');
+    const playIcon      = section.querySelector('.icon-play');
+    const pauseIcon     = section.querySelector('.icon-pause');
+    const steps         = section.querySelectorAll('.alltag__step--2, .alltag__step--3');
+
+    /* ── Reduced motion: show everything immediately ── */
+    if (reduced) {
+      if (coverLeft)  coverLeft.style.transform  = 'translateY(-100%)';
+      if (coverRight) coverRight.style.transform = 'translateY(100%)';
+      if (playBtn)  { playBtn.classList.add('is-visible'); }
+      steps.forEach(s => s.classList.add('is-revealed'));
+      if (video) {
+        video.play().catch(() => {});
+      }
+      return;
+    }
+
+    /* ── Utility: clamp a value 0…1 ── */
+    function progress(value, start, end) {
+      return Math.min(1, Math.max(0, (value - start) / (end - start)));
+    }
+
+    /* ═══════════ Stage 1 – KEEP SCROLLING letter exit ═══════════ */
+    const totalWords = ksWords.length;
+
+    function updateKs() {
+      if (!ksStage) return;
+      const rect  = ksStage.getBoundingClientRect();
+      const stageH = ksStage.offsetHeight;
+      // scrolled = how far we are INTO this stage (0 at top of viewport, stageH at bottom)
+      const scrolled = -rect.top;
+      // We start exiting at 60% through the stage, finish at 90%
+      const exitStart = stageH * 0.60;
+      const exitEnd   = stageH * 0.90;
+      const p = progress(scrolled, exitStart, exitEnd); // 0→1
+
+      ksWords.forEach((word, i) => {
+        // Each letter exits from right to left: last letter exits first
+        const wordP = progress(p, i / totalWords, (i + 1) / totalWords);
+        // Slide up and fade
+        const translateY = wordP * -60;  // px upward
+        const opacity    = 1 - wordP;
+        word.style.transform = `translateY(${translateY}px)`;
+        word.style.opacity   = opacity;
+      });
+    }
+
+    /* ═══════════ Stage 2 – Opposing mask reveal ═══════════ */
+    let videoRevealed = false;
+
+    function updateReveal() {
+      if (!revealStage) return;
+      const rect  = revealStage.getBoundingClientRect();
+      const stageH = revealStage.offsetHeight;
+      const scrolled = -rect.top;
+
+      // Covers start retreating at 20% through reveal stage, fully open at 70%
+      const revStart = stageH * 0.15;
+      const revEnd   = stageH * 0.65;
+      const p = progress(scrolled, revStart, revEnd);
+
+      if (coverLeft)  coverLeft.style.transform  = `translateY(${-p * 100}%)`;
+      if (coverRight) coverRight.style.transform = `translateY(${p * 100}%)`;
+
+      // Show play button once fully revealed
+      if (p >= 1 && !videoRevealed) {
+        videoRevealed = true;
+        if (playBtn) playBtn.classList.add('is-visible');
+        if (video) video.play().catch(() => {});
+      } else if (p < 1 && videoRevealed) {
+        videoRevealed = false;
+        if (playBtn) playBtn.classList.remove('is-visible');
+      }
+    }
+
+    /* ═══════════ Scroll handler ═══════════ */
+    function onScroll() {
+      updateKs();
+      updateReveal();
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load
+
+    /* ═══════════ Video play/pause button ═══════════ */
+    if (playBtn && video) {
+      playBtn.addEventListener('click', () => {
+        if (video.paused) {
+          video.play().catch(() => {});
+          if (pauseIcon) pauseIcon.style.display = '';
+          if (playIcon)  playIcon.style.display  = 'none';
+          playBtn.setAttribute('aria-label', 'Video pausieren');
+        } else {
+          video.pause();
+          if (pauseIcon) pauseIcon.style.display = 'none';
+          if (playIcon)  playIcon.style.display  = '';
+          playBtn.setAttribute('aria-label', 'Video abspielen');
+        }
+      });
+
+      // Pause when scrolled out of view
+      const videoObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting && !video.paused) {
+            video.pause();
+            if (pauseIcon) pauseIcon.style.display = 'none';
+            if (playIcon)  playIcon.style.display  = '';
+            playBtn.setAttribute('aria-label', 'Video abspielen');
+          }
+        });
+      }, { threshold: 0.1 });
+      videoObs.observe(revealStage || section);
+    }
+
+    /* ═══════════ Stage 3 – Staircase step reveals ═══════════ */
+    if (steps.length) {
+      const stepObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-revealed');
+          } else {
+            // Reversible: remove class when scrolled back above
+            const rect = e.target.getBoundingClientRect();
+            if (rect.top > window.innerHeight * 0.5) {
+              e.target.classList.remove('is-revealed');
+            }
+          }
+        });
+      }, { threshold: 0.25, rootMargin: '0px 0px -80px 0px' });
+
+      steps.forEach(step => stepObs.observe(step));
+    }
+
+  })();
+
 })();

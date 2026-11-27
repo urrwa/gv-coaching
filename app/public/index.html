@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="/assets/css/main.css?v=20261123-logo03">
   <link rel="stylesheet" href="/assets/css/pages/ergebnisse.css">
   <link rel="stylesheet" href="/assets/css/pages/kontakt.css">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127h">
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20261127i">
   <link rel="stylesheet" href="/assets/css/footer.css?v=20261126k">
   <style>
     [data-single-page-section], section[id], article[id] { scroll-margin-top: 90px; }
@@ -54,7 +54,7 @@
   <script src="/assets/js/config.js?v=20261124-net"></script>
   <script src="/assets/js/main.js?v=20261121-g5" defer></script>
   <script defer src="/assets/js/check.js?v=fitness-check-20261126"></script>
-  <script defer src="/assets/js/pages/home.js?v=20261127c"></script>
+  <script defer src="/assets/js/pages/home.js?v=20261127d"></script>
   <script defer src="/assets/js/pages/ergebnisse.js"></script>
   <script defer src="/assets/js/pages/kontakt.js?v=copy-20261126"></script>
 
@@ -469,44 +469,115 @@
 <!-- ============ 02 TRUST ============ -->
 
 
-<!-- ============ 03 PROBLEM ============ -->
-<section class="problem-cards section" data-theme="dark" id="problem">
-  <div class="container">
+<!-- ============ 03 ALLTAG SCROLL SEQUENCE ============ -->
+<section class="alltag" id="problem" data-theme="dark" aria-label="Wenn der Alltag dazwischenkommt">
 
-    <h2 class="problem-cards__heading">Wenn der Alltag dazwischenkommt</h2>
+  <!-- ── Stage 1: KEEP SCROLLING text ── -->
+  <div class="alltag__ks-stage" data-alltag-stage="ks">
+    <div class="alltag__ks-sticky">
+      <p class="alltag__ks-text" aria-label="Keep scrolling" data-ks>
+        <span class="ks-word" data-ks-word="K">K</span><span class="ks-word" data-ks-word="E">E</span><span class="ks-word" data-ks-word="E">E</span><span class="ks-word" data-ks-word="P">P</span><span class="ks-gap">&nbsp;</span><span class="ks-word" data-ks-word="S">S</span><span class="ks-word" data-ks-word="C">C</span><span class="ks-word" data-ks-word="R">R</span><span class="ks-word" data-ks-word="O">O</span><span class="ks-word" data-ks-word="L">L</span><span class="ks-word" data-ks-word="L">L</span><span class="ks-word" data-ks-word="I">I</span><span class="ks-word" data-ks-word="N">N</span><span class="ks-word" data-ks-word="G">G</span>
+      </p>
+    </div>
+  </div>
 
-    <div class="problem-cards__grid">
+  <!-- ── Stage 2: Opposing mask video reveal ── -->
+  <div class="alltag__reveal-stage" data-alltag-stage="reveal">
+    <div class="alltag__reveal-sticky">
 
-      <article class="problem-card">
-        <h3 class="problem-card__title">Wenig Zeit oder Training verpasst?</h3>
-        <ul class="problem-card__list">
-          <li>Die wichtigsten Übungen zuerst.</li>
-          <li>Den Umfang an deine verfügbare Zeit anpassen.</li>
-          <li>Die restliche Trainingswoche sinnvoll planen.</li>
-        </ul>
-      </article>
+      <!-- Single continuous video element -->
+      <div class="alltag__video-wrap">
+        <video
+          class="alltag__video"
+          id="alltagVideo"
+          src="/assets/video/gv-alltag-reveal.mp4"
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          aria-label="GV Coaching Training"
+        ></video>
 
-      <article class="problem-card">
-        <h3 class="problem-card__title">Andere Geräte oder unterwegs?</h3>
-        <ul class="problem-card__list">
-          <li>Passende Übungen für deine Ausstattung auswählen.</li>
-          <li>Training und Ernährung auf Reisen vereinfachen.</li>
-          <li>Nach deiner Rückkehr den Plan wieder anpassen.</li>
-        </ul>
-      </article>
+        <!-- Left cover: anchored top, retreats upward -->
+        <div class="alltag__cover alltag__cover--left" aria-hidden="true"></div>
+        <!-- Right cover: anchored bottom, retreats downward -->
+        <div class="alltag__cover alltag__cover--right" aria-hidden="true"></div>
 
-      <article class="problem-card">
-        <h3 class="problem-card__title">Gerade kein Fortschritt?</h3>
-        <ul class="problem-card__list">
-          <li>Trainingsleistung und Umsetzung prüfen.</li>
-          <li>Deinen bisherigen Verlauf gemeinsam besprechen.</li>
-          <li>Den Plan bei Bedarf gezielt anpassen.</li>
-        </ul>
-      </article>
+        <!-- Play/pause control -->
+        <button class="alltag__play-btn" id="alltagPlayBtn" aria-label="Video pausieren">
+          <span class="alltag__play-icon" aria-hidden="true">
+            <svg class="icon-pause" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="4" height="12" rx="1" fill="currentColor"/><rect x="9" y="2" width="4" height="12" rx="1" fill="currentColor"/></svg>
+            <svg class="icon-play" width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:none"><polygon points="4,2 14,8 4,14" fill="currentColor"/></svg>
+          </span>
+          <svg class="alltag__play-ring" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path id="alltagRingPath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none"/>
+            <text class="alltag__ring-text" font-size="11.5" fill="rgba(255,255,255,0.7)" letter-spacing="4">
+              <textPath href="#alltagRingPath">PLAY · PAUSE · GV COACHING · </textPath>
+            </text>
+          </svg>
+        </button>
+      </div>
 
     </div>
-
   </div>
+
+  <!-- ── Stage 3: Heading + staircase cards ── -->
+  <div class="alltag__cards-stage" data-alltag-stage="cards">
+    <div class="container">
+
+      <h2 class="alltag__cards-heading">
+        Wenn der <span class="alltag__accent">Alltag</span> dazwischenkommt
+      </h2>
+
+      <div class="alltag__stair" data-alltag-stair>
+
+        <!-- Step 01 -->
+        <div class="alltag__step alltag__step--1" data-alltag-step="1">
+          <div class="alltag__step-label">Schritt <span>01</span></div>
+          <div class="alltag__step-line" aria-hidden="true"></div>
+          <article class="alltag__card">
+            <h3 class="alltag__card-title">Wenig Zeit oder Training verpasst?</h3>
+            <ul class="alltag__card-list">
+              <li>Die wichtigsten Übungen zuerst.</li>
+              <li>Den Umfang an deine verfügbare Zeit anpassen.</li>
+              <li>Die restliche Trainingswoche sinnvoll planen.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="alltag__step alltag__step--2" data-alltag-step="2">
+          <div class="alltag__step-label">Schritt <span>02</span></div>
+          <div class="alltag__step-line" aria-hidden="true"></div>
+          <article class="alltag__card">
+            <h3 class="alltag__card-title">Andere Geräte oder unterwegs?</h3>
+            <ul class="alltag__card-list">
+              <li>Passende Übungen für deine Ausstattung auswählen.</li>
+              <li>Training und Ernährung auf Reisen vereinfachen.</li>
+              <li>Nach deiner Rückkehr den Plan wieder anpassen.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="alltag__step alltag__step--3" data-alltag-step="3">
+          <div class="alltag__step-label">Schritt <span>03</span></div>
+          <div class="alltag__step-line" aria-hidden="true"></div>
+          <article class="alltag__card">
+            <h3 class="alltag__card-title">Gerade kein Fortschritt?</h3>
+            <ul class="alltag__card-list">
+              <li>Trainingsleistung und Umsetzung prüfen.</li>
+              <li>Deinen bisherigen Verlauf gemeinsam besprechen.</li>
+              <li>Den Plan bei Bedarf gezielt anpassen.</li>
+            </ul>
+          </article>
+        </div>
+
+      </div><!-- /.alltag__stair -->
+
+    </div>
+  </div><!-- /.alltag__cards-stage -->
+
 </section>
 
 <!-- ============ 04 WHO IT'S FOR ============ -->
