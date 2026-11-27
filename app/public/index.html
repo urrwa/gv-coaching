@@ -94,6 +94,11 @@
       .er-measure.is-flip .er-cards::after { display: none; }
       .er-measure.is-flip .er-card { position: relative; min-height: 340px; opacity: 1 !important; transform: none !important; will-change: auto; }
     }
+
+    /* The source clip includes letterboxing: overscan it inside the navy frame. */
+    .page-home .alltag__video-wrap,
+    .page-home .alltag__reveal-sticky { overflow: hidden; background: var(--site-bg, #07111f); }
+    .page-home #alltagVideo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform: scale(1.14); transform-origin: 50% 50%; }
   </style>
   <script>
     // Old bookmarked legal anchors now open the dedicated pages.
