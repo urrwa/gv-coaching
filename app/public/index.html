@@ -61,38 +61,47 @@
       .page-home .kt-hero__title { font-size: clamp(2.5rem, 12vw, 4rem); }
     }
 
-    /* Progress cards: thumbnails, large numbers and reversible scroll flips. */
-    .page-home .er-measure { background: var(--site-bg, #07111f); padding-bottom: 0; }
-    .page-home .er-measure .section-head { display: block; width: 100%; max-width: none; text-align: center; margin-bottom: clamp(2rem, 5vw, 4rem); }
-    .er-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; padding: 0 0 clamp(4rem, 7vw, 6rem); list-style: none; margin: 0; }
-    .er-card { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; min-height: 340px; gap: 3rem; padding: 1.5rem; border: 1px solid rgba(169, 193, 247, .12); border-radius: 8px; background: #101f32; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-origin: 50% 100%; }
-    .er-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-    .er-card__photo { width: 112px; height: 112px; flex: 0 0 112px; object-fit: cover; object-position: center; border-radius: 3px; }
-    .er-card__number { color: rgba(255, 255, 255, .22); font-family: var(--font-display); font-size: clamp(3.5rem, 5vw, 5rem); font-weight: 600; line-height: 1; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
-    .er-card__body { display: grid; gap: .65rem; }
-    .er-card__title { color: #8cb7ff; font-family: var(--font-display); font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.2; letter-spacing: -.025em; }
-    .er-card__description { max-width: 42ch; color: #b1bdcc; font-size: 1rem; line-height: 1.55; }
-    .er-measure.is-flip .er-cards__scroll { height: calc(100svh + 288svh); }
-    .er-measure.is-flip .er-cards__sticky { position: sticky; top: 0; display: grid; place-items: center; height: 100svh; min-height: 500px; padding: calc(var(--nav-h, 84px) + 1.5rem) 0 3rem; }
-    .er-measure.is-flip .er-cards { position: relative; display: block; width: min(100%, 560px); height: 360px; padding: 0; perspective: 1400px; }
-    .er-measure.is-flip .er-cards::after { content: ""; position: absolute; inset: auto 0 -1px; z-index: 8; border-bottom: 1px dashed rgba(140, 183, 255, .6); pointer-events: none; }
-    .er-measure.is-flip .er-card { position: absolute; inset: 0; min-height: 0; gap: 2rem; will-change: transform, opacity; box-shadow: 0 20px 60px rgba(0, 0, 0, .12); }
-    .er-measure.is-flip .er-card:not(:first-child) { transform: perspective(1400px) rotateX(-92deg); opacity: 0; }
-    @media (max-width: 1099px) { .er-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 639px) {
-      .er-cards { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-      .er-card { padding: 1.25rem; min-height: 330px; }
-      .er-card__photo { width: 96px; height: 96px; flex-basis: 96px; }
-      .er-card__number { font-size: 4rem; }
-      .er-card__title { font-size: 1.5rem; }
-      .er-measure.is-flip .er-cards { height: 360px; }
+    /* Progress: a sticky wordmark and floating cards inspired by the testimonial reference. */
+    .page-home .er-measure.progress-cinema { position: relative; isolation: isolate; overflow: visible; background: var(--site-bg, #07111f); padding-block: clamp(4rem, 7vw, 7rem) clamp(3rem, 6vw, 6rem); }
+    .progress-cinema__stage { position: relative; }
+    .progress-cinema__heading { position: relative; z-index: 0; display: grid; place-items: center; min-height: 160px; width: 100%; text-align: center; pointer-events: none; }
+    .progress-cinema__heading::before { content: ""; position: absolute; z-index: -1; top: 50%; left: 50%; width: min(1100px, 100vw); height: 540px; transform: translate(-50%, -50%); background: radial-gradient(ellipse at center, rgba(45, 110, 255, .25) 0%, rgba(31, 89, 216, .12) 32%, rgba(7, 17, 31, 0) 70%); pointer-events: none; }
+    .progress-cinema__title { margin: 0; color: #8bb5ff; font-family: var(--font-display); font-size: clamp(3rem, 11.4vw, 9.5rem); font-weight: 600; line-height: .98; letter-spacing: -.045em; text-transform: uppercase; text-wrap: balance; }
+    .progress-cinema.is-cinematic .progress-cinema__heading { position: sticky; top: calc(var(--nav-h, 84px) + 2rem); }
+    .progress-cinema__grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7rem 1.5rem; max-width: 1120px; margin: clamp(4rem, 8vw, 7rem) auto 0; padding: 0 0 8rem; list-style: none; }
+    .progress-cinema__slot { min-width: 0; --stagger: 0px; }
+    .progress-cinema.is-cinematic .progress-cinema__slot:nth-child(3n + 2) { --stagger: 64px; }
+    .progress-cinema.is-cinematic .progress-cinema__slot:nth-child(3n) { --stagger: 28px; }
+    .progress-cinema__card { position: relative; display: flex; flex-direction: column; min-height: 370px; height: 100%; padding: 1.5rem; border: 1px solid rgba(151, 185, 242, .16); border-radius: 12px; background: #101d2e; box-shadow: 0 24px 60px rgba(0, 5, 14, .16); }
+    .progress-cinema.is-cinematic .progress-cinema__card { transform: translate3d(0, calc(var(--stagger) + var(--drift, 0px)), 0); }
+    .progress-cinema__card-head { display: flex; align-items: center; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(151, 185, 242, .14); }
+    .progress-cinema__photo { flex: 0 0 88px; width: 88px; height: 88px; object-fit: cover; object-position: center; border-radius: 8px; }
+    .progress-cinema__card-title { margin: 0; color: #f2f6fc; font-family: var(--font-display); font-size: clamp(1.2rem, 1.8vw, 1.5rem); font-weight: 600; line-height: 1.2; letter-spacing: -.025em; overflow-wrap: anywhere; }
+    .progress-cinema__description { margin: 1.5rem 0; color: #b6c2d3; font-size: 1.0625rem; line-height: 1.65; }
+    .progress-cinema__card-foot { display: flex; align-items: center; gap: 1rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(151, 185, 242, .14); color: #85b0ff; font-size: .75rem; line-height: 1.4; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
+    .progress-cinema__card-foot::after { content: ""; width: 2.5rem; height: 2px; margin-left: auto; background: #427eee; opacity: .65; }
+    .progress-cinema__note { position: relative; z-index: 1; margin: 0; text-align: center; color: #8b9bb0; font-size: .75rem; line-height: 1.6; }
+    @media (max-width: 959px) {
+      .progress-cinema__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5rem 1.25rem; }
+      .progress-cinema.is-cinematic .progress-cinema__slot:nth-child(n) { --stagger: 0px; }
+      .progress-cinema.is-cinematic .progress-cinema__slot:nth-child(even) { --stagger: 48px; }
+      .progress-cinema__card-title { font-size: 1.35rem; }
     }
-    @media (prefers-reduced-motion: reduce), (max-height: 639px) {
-      .er-measure.is-flip .er-cards__scroll { height: auto; }
-      .er-measure.is-flip .er-cards__sticky { position: static; display: block; height: auto; min-height: 0; padding: 0; }
-      .er-measure.is-flip .er-cards { display: grid; width: 100%; height: auto; padding-bottom: 4rem; }
-      .er-measure.is-flip .er-cards::after { display: none; }
-      .er-measure.is-flip .er-card { position: relative; min-height: 340px; opacity: 1 !important; transform: none !important; will-change: auto; }
+    @media (max-width: 599px) {
+      .progress-cinema__heading { min-height: 90px; }
+      .progress-cinema.is-cinematic .progress-cinema__heading { top: calc(var(--nav-h, 72px) + 1.5rem); }
+      .progress-cinema__title { font-size: clamp(2.5rem, 11vw, 4rem); letter-spacing: -.04em; }
+      .progress-cinema__heading::before { height: 370px; }
+      .progress-cinema__grid { grid-template-columns: minmax(0, 1fr); gap: 3rem; margin-top: 5rem; padding-bottom: 4rem; }
+      .progress-cinema.is-cinematic .progress-cinema__slot:nth-child(n) { --stagger: 0px; }
+      .progress-cinema__card { min-height: 320px; padding: 1.25rem; }
+      .progress-cinema__photo { flex-basis: 88px; }
+      .progress-cinema__description { font-size: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce), (max-height: 499px) {
+      .progress-cinema.is-cinematic .progress-cinema__heading { position: relative; top: auto; }
+      .progress-cinema.is-cinematic .progress-cinema__card { transform: none; }
+      .progress-cinema__grid { gap: 1.5rem; padding-bottom: 3rem; }
     }
 
     /* The source clip includes letterboxing: overscan it inside the navy frame. */
@@ -796,77 +805,76 @@
 
 <!-- ============ 02 SO MESSEN WIR FORTSCHRITT ============ -->
 
-<section class="er-measure section" data-theme="dark" id="ergebnisse-messung" aria-labelledby="progress-cards-title" data-progress-cards>
+<section class="er-measure section progress-cinema" data-theme="dark" id="ergebnisse-messung" aria-labelledby="progress-cinema-title" data-progress-cinema>
   <div class="container">
-    <div class="section-head">
-      <h2 class="h2" id="progress-cards-title" data-reveal="words">Dein Fortschritt</h2>
-    </div>
-    <div class="er-cards__scroll">
-      <div class="er-cards__sticky">
-        <ol class="er-cards" role="list">
-          <li class="er-card" data-progress-card>
-            <div class="er-card__top">
-              <img class="er-card__photo" src="/assets/img/gv-client-training-900.webp" alt="Gabriel beim Krafttraining" width="112" height="112" loading="lazy" decoding="async">
-              <span class="er-card__number" aria-hidden="true">001</span>
-            </div>
-            <div class="er-card__body">
-              <h3 class="er-card__title">Kraftwerte im Training</h3>
-              <p class="er-card__description">Gewichte, Wiederholungen und Technik zeigen, wie sich deine Leistung entwickelt.</p>
-            </div>
-          </li>
-          <li class="er-card" data-progress-card>
-            <div class="er-card__top">
-              <img class="er-card__photo" src="/assets/img/gv-client-assessment-900.webp" alt="Gabriel bei der persönlichen Bestandsaufnahme" width="112" height="112" loading="lazy" decoding="async">
-              <span class="er-card__number" aria-hidden="true">002</span>
-            </div>
-            <div class="er-card__body">
-              <h3 class="er-card__title">Körpermaße &amp; Gewichtstrend</h3>
-              <p class="er-card__description">Wir betrachten Gewicht und Umfänge im Verlauf – statt einzelne Tagesschwankungen.</p>
-            </div>
-          </li>
-          <li class="er-card" data-progress-card>
-            <div class="er-card__top">
-              <img class="er-card__photo" src="/assets/img/gv-client-progress-900.webp" alt="Gabriel beim Prüfen des Trainingsverlaufs" width="112" height="112" loading="lazy" decoding="async">
-              <span class="er-card__number" aria-hidden="true">003</span>
-            </div>
-            <div class="er-card__body">
-              <h3 class="er-card__title">Vergleichsfotos</h3>
-              <p class="er-card__description">Auf Wunsch vergleichen wir Fotos unter ähnlichen Bedingungen.</p>
-            </div>
-          </li>
-          <li class="er-card" data-progress-card>
-            <div class="er-card__top">
-              <img class="er-card__photo" src="/assets/img/gv-client-training-wide-900.webp" alt="Gabriel beim Training mit Kurzhanteln" width="112" height="112" loading="lazy" decoding="async">
-              <span class="er-card__number" aria-hidden="true">004</span>
-            </div>
-            <div class="er-card__body">
-              <h3 class="er-card__title">Trainingsroutine</h3>
-              <p class="er-card__description">Wir schauen, welche Einheiten du umsetzt und welcher Rhythmus zu dir passt.</p>
-            </div>
-          </li>
-          <li class="er-card" data-progress-card>
-            <div class="er-card__top">
-              <img class="er-card__photo" src="/assets/img/gv-client-lifestyle-900.webp" alt="Gabriel nach dem Training" width="112" height="112" loading="lazy" decoding="async">
-              <span class="er-card__number" aria-hidden="true">005</span>
-            </div>
-            <div class="er-card__body">
-              <h3 class="er-card__title">Energie &amp; Schlaf</h3>
-              <p class="er-card__description">Deine Erholung und Belastung fließen in die weitere Planung ein.</p>
-            </div>
-          </li>
-          <li class="er-card" data-progress-card>
-            <div class="er-card__top">
-              <img class="er-card__photo" src="/assets/img/gv-client-consultation-900.webp" alt="Gabriel im persönlichen Coaching-Gespräch" width="112" height="112" loading="lazy" decoding="async">
-              <span class="er-card__number" aria-hidden="true">006</span>
-            </div>
-            <div class="er-card__body">
-              <h3 class="er-card__title">Veränderungen im Alltag</h3>
-              <p class="er-card__description">Kleidung, Wohlbefinden und Bewegung ergänzen deine Messwerte.</p>
-            </div>
-          </li>
-        </ol>
+    <div class="progress-cinema__stage">
+      <div class="progress-cinema__heading">
+        <h2 class="progress-cinema__title" id="progress-cinema-title">Dein Fortschritt</h2>
       </div>
+      <ol class="progress-cinema__grid" role="list">
+        <li class="progress-cinema__slot" data-progress-slot>
+          <article class="progress-cinema__card" aria-labelledby="progress-topic-1">
+            <div class="progress-cinema__card-head">
+              <img class="progress-cinema__photo" src="/assets/img/progress-strength.webp" alt="Hände beim Auflegen einer Hantelscheibe im Fitnessstudio" width="88" height="88" loading="lazy" decoding="async">
+              <h3 class="progress-cinema__card-title" id="progress-topic-1">Kraftwerte im Training</h3>
+            </div>
+            <p class="progress-cinema__description">Gewichte, Wiederholungen und Technik zeigen, wie sich deine Leistung entwickelt.</p>
+            <div class="progress-cinema__card-foot" aria-hidden="true"><span>01 / 06</span></div>
+          </article>
+        </li>
+        <li class="progress-cinema__slot" data-progress-slot>
+          <article class="progress-cinema__card" aria-labelledby="progress-topic-2">
+            <div class="progress-cinema__card-head">
+              <img class="progress-cinema__photo" src="/assets/img/progress-measurements.webp" alt="Maßband zur Erfassung des Oberarmumfangs" width="88" height="88" loading="lazy" decoding="async">
+              <h3 class="progress-cinema__card-title" id="progress-topic-2">Körpermaße &amp; Gewichtstrend</h3>
+            </div>
+            <p class="progress-cinema__description">Wir betrachten Gewicht und Umfänge im Verlauf – statt einzelne Tagesschwankungen.</p>
+            <div class="progress-cinema__card-foot" aria-hidden="true"><span>02 / 06</span></div>
+          </article>
+        </li>
+        <li class="progress-cinema__slot" data-progress-slot>
+          <article class="progress-cinema__card" aria-labelledby="progress-topic-3">
+            <div class="progress-cinema__card-head">
+              <img class="progress-cinema__photo" src="/assets/img/progress-photos.webp" alt="Smartphone auf einem Stativ für vergleichbare Fortschrittsfotos" width="88" height="88" loading="lazy" decoding="async">
+              <h3 class="progress-cinema__card-title" id="progress-topic-3">Vergleichsfotos</h3>
+            </div>
+            <p class="progress-cinema__description">Auf Wunsch vergleichen wir Fotos unter ähnlichen Bedingungen.</p>
+            <div class="progress-cinema__card-foot" aria-hidden="true"><span>03 / 06</span></div>
+          </article>
+        </li>
+        <li class="progress-cinema__slot" data-progress-slot>
+          <article class="progress-cinema__card" aria-labelledby="progress-topic-4">
+            <div class="progress-cinema__card-head">
+              <img class="progress-cinema__photo" src="/assets/img/progress-routine.webp" alt="Sportler beim Binden seiner Trainingsschuhe im Fitnessstudio" width="88" height="88" loading="lazy" decoding="async">
+              <h3 class="progress-cinema__card-title" id="progress-topic-4">Trainingsroutine</h3>
+            </div>
+            <p class="progress-cinema__description">Wir schauen, welche Einheiten du umsetzt und welcher Rhythmus zu dir passt.</p>
+            <div class="progress-cinema__card-foot" aria-hidden="true"><span>04 / 06</span></div>
+          </article>
+        </li>
+        <li class="progress-cinema__slot" data-progress-slot>
+          <article class="progress-cinema__card" aria-labelledby="progress-topic-5">
+            <div class="progress-cinema__card-head">
+              <img class="progress-cinema__photo" src="/assets/img/progress-recovery.webp" alt="Ruhiges Schlafzimmer mit Wasser und Wecker im Morgenlicht" width="88" height="88" loading="lazy" decoding="async">
+              <h3 class="progress-cinema__card-title" id="progress-topic-5">Energie &amp; Schlaf</h3>
+            </div>
+            <p class="progress-cinema__description">Deine Erholung und Belastung fließen in die weitere Planung ein.</p>
+            <div class="progress-cinema__card-foot" aria-hidden="true"><span>05 / 06</span></div>
+          </article>
+        </li>
+        <li class="progress-cinema__slot" data-progress-slot>
+          <article class="progress-cinema__card" aria-labelledby="progress-topic-6">
+            <div class="progress-cinema__card-head">
+              <img class="progress-cinema__photo" src="/assets/img/progress-everyday.webp" alt="Alltagsbewegung beim Treppensteigen mit einer Sporttasche" width="88" height="88" loading="lazy" decoding="async">
+              <h3 class="progress-cinema__card-title" id="progress-topic-6">Veränderungen im Alltag</h3>
+            </div>
+            <p class="progress-cinema__description">Kleidung, Wohlbefinden und Bewegung ergänzen deine Messwerte.</p>
+            <div class="progress-cinema__card-foot" aria-hidden="true"><span>06 / 06</span></div>
+          </article>
+        </li>
+      </ol>
     </div>
+    <p class="progress-cinema__note">KI-generierte Themenbilder. Keine Kundenergebnisse.</p>
   </div>
 </section>
 
@@ -1153,60 +1161,42 @@
     </div>
   </footer>
 
-  <script id="progress-cards-script">
+  <script id="progress-cinema-script">
 (function () {
   "use strict";
-  function setupProgressCards() {
-    const section = document.querySelector("[data-progress-cards]");
+  function setupProgressCinema() {
+    const section = document.querySelector("[data-progress-cinema]");
     if (!section) return;
-    const scroll = section.querySelector(".er-cards__scroll");
-    const cards = Array.from(section.querySelectorAll("[data-progress-card]"));
-    if (!scroll || cards.length < 2) return;
+    const slots = Array.from(section.querySelectorAll("[data-progress-slot]"));
+    const cards = slots.map((slot) => slot.querySelector(".progress-cinema__card"));
+    if (cards.some((card) => !card)) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const shortScreen = window.matchMedia("(max-height: 639px)");
+    const shortScreen = window.matchMedia("(max-height: 499px)");
     let enabled = false;
     let frame = 0;
-    let lastProgress = -1;
-    const clamp = (value) => Math.max(0, Math.min(1, value));
     function render() {
       frame = 0;
       if (!enabled) return;
-      const distance = Math.max(1, scroll.offsetHeight - window.innerHeight);
-      const progress = clamp(-scroll.getBoundingClientRect().top / distance);
-      if (progress === lastProgress) return;
-      lastProgress = progress;
-      const phase = progress * (cards.length - 0.5);
-      cards.forEach((card, index) => {
-        const turn = index === 0 ? 1 : clamp((phase - index + 1) / 0.72);
-        card.style.transform = "perspective(1400px) rotateX(" + (-92 * (1 - turn)).toFixed(3) + "deg)";
-        card.style.opacity = String(Math.min(1, turn * 4));
+      const viewport = window.innerHeight;
+      const bounds = section.getBoundingClientRect();
+      if (bounds.bottom < -200 || bounds.top > viewport + 200) return;
+      const travel = window.innerWidth < 600 ? 72 : 144;
+      const offsets = slots.map((slot) => {
+        const rect = slot.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
+        return ((0.5 - progress) * travel).toFixed(2) + "px";
       });
+      cards.forEach((card, index) => card.style.setProperty("--drift", offsets[index]));
     }
     function requestRender() {
       if (enabled && !frame) frame = window.requestAnimationFrame(render);
     }
     function sync() {
-      const next = Boolean(window.gsap && window.ScrollTrigger) && !reduced.matches && !shortScreen.matches;
-      const changed = next !== enabled;
+      const next = Boolean(window.ScrollTrigger) && !reduced.matches && !shortScreen.matches;
       enabled = next;
-      section.classList.toggle("is-flip", enabled);
-      lastProgress = -1;
-      cards.forEach((card, index) => {
-        if (enabled) {
-          card.style.zIndex = String(index + 1);
-        } else {
-          card.style.removeProperty("transform");
-          card.style.removeProperty("opacity");
-          card.style.removeProperty("z-index");
-        }
-      });
+      section.classList.toggle("is-cinematic", enabled);
+      if (!enabled) cards.forEach((card) => card.style.removeProperty("--drift"));
       requestRender();
-      if (changed && window.ScrollTrigger) {
-        window.requestAnimationFrame(() => {
-          window.ScrollTrigger.refresh();
-          requestRender();
-        });
-      }
     }
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", sync, { passive: true });
@@ -1216,9 +1206,9 @@
     sync();
   }
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupProgressCards, { once: true });
+    document.addEventListener("DOMContentLoaded", setupProgressCinema, { once: true });
   } else {
-    setupProgressCards();
+    setupProgressCinema();
   }
 })();
   </script>
