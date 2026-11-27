@@ -1268,7 +1268,7 @@
   display: inline-block;
   /* clip-path removes each letter downward; JS sets scaleY via translateY + clip */
   transform-origin: top center;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   transition: none; /* driven by scroll, not CSS transition */
 }
 

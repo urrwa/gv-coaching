@@ -1016,52 +1016,48 @@
 
     function updateKs() {
       if (!ksStage) return;
-      const rect  = ksStage.getBoundingClientRect();
+      const rect   = ksStage.getBoundingClientRect();
       const stageH = ksStage.offsetHeight;
-      // scrolled = how far we are INTO this stage (0 at top of viewport, stageH at bottom)
       const scrolled = -rect.top;
-      // We start exiting at 60% through the stage, finish at 90%
-      const exitStart = stageH * 0.60;
-      const exitEnd   = stageH * 0.90;
+
+      // Letters start exiting at 55% through the KS stage, fully gone at 88%
+      const exitStart = stageH * 0.55;
+      const exitEnd   = stageH * 0.88;
       const p = progress(scrolled, exitStart, exitEnd); // 0→1
 
       ksWords.forEach((word, i) => {
-        // Each letter exits from right to left: last letter exits first
+        // Each letter exits left-to-right: K first, G last
         const wordP = progress(p, i / totalWords, (i + 1) / totalWords);
-        // Slide up and fade
-        const translateY = wordP * -60;  // px upward
+        // Slide DOWN and blur out — positive = downward
+        const translateY = wordP * 60;
+        const blur       = wordP * 10;
         const opacity    = 1 - wordP;
         word.style.transform = `translateY(${translateY}px)`;
+        word.style.filter    = `blur(${blur}px)`;
         word.style.opacity   = opacity;
       });
-    }
 
-    /* ═══════════ Stage 2 – Opposing mask reveal ═══════════ */
-    let videoRevealed = false;
+      // ── Video reveal overlaps with KS exit ──
+      // Covers start opening when KS is 60% through its exit (as "LLING" begins),
+      // and are fully open by the time KS is completely gone (p=1 → revP=1 shortly after).
+      const revP = progress(p, 0.60, 1.0);
+      if (coverLeft)  coverLeft.style.transform  = `translateY(${-revP * 100}%)`;
+      if (coverRight) coverRight.style.transform = `translateY(${revP * 100}%)`;
 
-    function updateReveal() {
-      if (!revealStage) return;
-      const rect  = revealStage.getBoundingClientRect();
-      const stageH = revealStage.offsetHeight;
-      const scrolled = -rect.top;
-
-      // Covers start retreating at 20% through reveal stage, fully open at 70%
-      const revStart = stageH * 0.15;
-      const revEnd   = stageH * 0.65;
-      const p = progress(scrolled, revStart, revEnd);
-
-      if (coverLeft)  coverLeft.style.transform  = `translateY(${-p * 100}%)`;
-      if (coverRight) coverRight.style.transform = `translateY(${p * 100}%)`;
-
-      // Show play button once fully revealed
-      if (p >= 1 && !videoRevealed) {
+      if (revP >= 1 && !videoRevealed) {
         videoRevealed = true;
         if (playBtn) playBtn.classList.add('is-visible');
         if (video) video.play().catch(() => {});
-      } else if (p < 1 && videoRevealed) {
+      } else if (revP < 1 && videoRevealed) {
         videoRevealed = false;
         if (playBtn) playBtn.classList.remove('is-visible');
       }
+    }
+
+    /* ═══════════ Stage 2 – hold period (video stays pinned, no extra animation) ═══════════ */
+    function updateReveal() {
+      // Nothing to drive here — reveal is handled inside updateKs() for overlap timing.
+      // This stage just provides scroll real-estate so the video holds on screen.
     }
 
     /* ═══════════ Scroll handler ═══════════ */
