@@ -680,15 +680,16 @@
   padding: 0;
 }
 
-/* Infographic visual area — fills upper 60% */
+/* Infographic visual area — fills upper portion of card */
 .infographic {
   position: relative;
-  flex: 1 1 0;
+  flex: 1 1 auto;
+  min-height: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding: clamp(.75rem,1.5vw,1.1rem) clamp(.75rem,1.5vw,1.1rem) .4rem;
+  padding: .9rem .9rem .4rem;
   overflow: hidden;
 }
 
@@ -865,13 +866,19 @@
   /* Show play icon when paused — handled via JS innerHTML swap */
 }
 
-/* Card body in infographic cards */
+/* Card body in infographic cards — fixed bottom strip, does NOT grow */
 .services-bento__card--infographic .services-bento__card-body {
   position: relative;
   z-index: 1;
-  padding: clamp(1rem, 2vw, 1.4rem) clamp(1rem, 2vw, 1.4rem) clamp(1.1rem, 2.5vw, 1.6rem);
+  flex: 0 0 auto;
+  padding: .9rem 1.1rem 1.1rem;
   border-top: 1px solid rgba(110,168,255,0.08);
   background: linear-gradient(to top, rgba(7,17,31,0.9) 0%, transparent 100%);
+}
+
+/* Infographic cards need enough room to show the visual */
+.services-bento__card--infographic {
+  min-height: 320px;
 }
 
 /* ---- old stats-bar kept for safety (now unused) ---- */
